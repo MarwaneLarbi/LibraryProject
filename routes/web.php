@@ -26,4 +26,8 @@ Route::post('livewire',[\App\Http\Livewire\AddAuteurForm::class,'store'])->name(
 Route::post('checkAuteur', [\App\Http\Livewire\AddAuteurForm::class,'Check'])->name('AddAuteurForm.check');
 Route::get('/getAuteur', [\App\Http\Livewire\ListeAuteurs::class,'getAuteurs'])->name('AddAuteurForm.Getauteurs');
 Route::get('auteurs/list', [\App\Http\Livewire\ListeAuteurs::class, 'getAuteurs'])->name('auteurs.list');
+Route::get('/auteurs/edit/{id}',[\App\Http\Livewire\EditerAuteur::class,'editer'])->name('AddAuteurForm.editer');
+Route::post('checkEditAuteur', [\App\Http\Livewire\EditerAuteur::class,'Check'])->name('EditerAuteur.check');
+Route::post('storeEditAuteur', [\App\Http\Livewire\EditerAuteur::class,'store'])->name('EditerAuteur.store');
+Route::get('/auteurs/delete/{id}', [\App\Http\Livewire\DeleteAuteurForm::class,'deleteAuteur'])->name('Auteur.delete');
 

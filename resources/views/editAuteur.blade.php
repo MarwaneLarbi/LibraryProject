@@ -39,10 +39,10 @@
                     <label class="required fs-6 fw-bold mb-2">Nom & Prenom</label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                        <input id="wah" type="text" class="form-control form-control-solid" placeholder="" name="name"  />
-                    <input type="text"   wire:modal="test02" class="form-control" id="recipient-name">
 
-                <!--end::Input-->
+                    <input type="text" class="form-control form-control-solid" placeholder="" name="name" value="MAM" />
+
+                    <!--end::Input-->
                 </div>
                 <!--end::Input group-->
                 <div id="kt_modal_delete_customer_billing_info" class="collapse show">
@@ -57,22 +57,21 @@
 
                         <select class="form-select" data-control="select2" data-placeholder="Select an option">
                             <option></option>
-                            @foreach($countries as $country)
-                                @if ($mycountry==$country->name)
-                                    <option value="{{ $country->name }}" selected>{{ $country->name }}</option>
-                                @else
-                                    <option value="{{ $country->name }}">{{ $country->name }}</option>
-                                @endif
-                            @endforeach
+                            {{--                            @foreach($countries as $country)
+                                                            @if ($mycountry==$country->name)
+                                                                <option value="{{ $country->name }}" selected>{{ $country->name }}</option>
+                                                            @else
+                                                                <option value="{{ $country->name }}">{{ $country->name }}</option>
+                                                            @endif
+                                                        @endforeach--}}
                         </select>
                     </div>
                     <!--end::Input group-->
                 </div>
                 <!--begin::Input group-->
-                <div wire:ignore class="fv-row mb-15">
+                <div  class="fv-row mb-15">
                     <label class="fs-6 fw-bold mb-2">Description</label>
-                    <textarea id="content22" name="content">
-                    </textarea>
+                    <textarea id="content22" name="content"></textarea>
                 </div>
                 <!--end::Billing form-->
             </div>
@@ -99,23 +98,24 @@
 </div>
 @push('custom-scripts')
     <script>
-
-
-
+        window.addEventListener('ntawtiw', event => {
+            alert("done");
+            tinymce.get('content22').setContent("yawiw");
+        })
 
         $("#kt_modal_delete_auteur_close").click(function(t){
 
-                t.preventDefault(),Swal.fire( {
-                        text:"Are you sure you would like to cancel?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, cancel it!",cancelButtonText:"No, return",customClass:{
-                            confirmButton:"btn btn-primary",cancelButton:"btn btn-active-light"}
-                    }
-                ).then((function(t){
-                        t.value?($("#closdeletemodal").trigger("click")):"cancel"===t.dismiss&&Swal.fire({
-                                text:"Your form has not been cancelled!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
-                                    confirmButton:"btn btn-primary"}
-                            }
-                        )}
-                ))}
+            t.preventDefault(),Swal.fire( {
+                    text:"Are you sure you would like to cancel?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, cancel it!",cancelButtonText:"No, return",customClass:{
+                        confirmButton:"btn btn-primary",cancelButton:"btn btn-active-light"}
+                }
+            ).then((function(t){
+                    t.value?($("#closdeletemodal").trigger("click")):"cancel"===t.dismiss&&Swal.fire({
+                            text:"Your form has not been cancelled!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                confirmButton:"btn btn-primary"}
+                        }
+                    )}
+            ))}
         );
         $("#kt_modal_delete_auteur_cancel").click(function(t){
                 t.preventDefault(),Swal.fire({
@@ -130,7 +130,7 @@
                         )}
                 ))
 
-        }
+            }
         );
 
         tinymce.init({
@@ -273,10 +273,15 @@
         ));
 
     </script>
+    <script src="assets/plugins/custom/tinymce/tinymce.bundle.js"></script>
+    <script src="assets/plugins/global/plugins.bundle.js"></script>
+    <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
 @endpush
 @section('script')
     <script>
 
     </script>
-
+    <script src="assets/plugins/custom/tinymce/tinymce.bundle.js"></script>
+    <script src="assets/plugins/global/plugins.bundle.js"></script>
+    <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
 @endsection

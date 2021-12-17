@@ -21,7 +21,7 @@
                 <!--begin::Modal - Customers - Add-->
                 <div class="modal fade" id="kt_modal_add_customer" data-toggle="modal" tabindex="-1" aria-hidden="true">
                     <!--begin::Modal dialog-->
-                    <div class="modal-dialog modal-lg  ">
+                    <div class="modal-dialog modal-xl  ">
                         <!--begin::Modal content-->
                         <div  class="modal-content">
 

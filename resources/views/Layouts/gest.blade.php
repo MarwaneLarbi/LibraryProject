@@ -5082,6 +5082,22 @@
 <script src="assets/js/custom/apps/customers/add.js"></script>
 --}}
 <!--end::Page Custom Javascript-->
+<script>
+    tinymce.init({
+        selector: "#editcontent",
+        setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+            });
+        },
+        menubar: false,
+        toolbar: ["styleselect fontselect fontsizeselect",
+            "undo redo |  alignleft aligncenter alignright alignjustify | bold italic forecolor backcolor   | cut copy paste",
+            "bullist numlist | outdent indent | blockquote subscript superscript | advlist | autolink | lists charmap | print preview |  link image code"],
+        plugins : "advlist autolink link image lists charmap print preview code"
+    });
+
+</script>
 @yield('script')
 <!--end::Javascript-->
 @livewireScripts

@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class auteur extends Model
 {
     use HasFactory;
-  public function auteur(){
+    use SoftDeletes;
+
+    public function auteur(){
 
         return $this->belongsTo(User::class);
     }
