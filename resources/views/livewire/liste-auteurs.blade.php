@@ -231,14 +231,14 @@ function selectcountry(k){
     $('#selectCountry').val(value);
     $('#selectCountry').select2().trigger('change');
 
-}
+    }
     $(document).on('click', '.editbtn', function (e) {
             e.preventDefault();
-            var stud_id = $(this).val();
+            var auteur_id = $(this).val();
             $('#EditAuteurModal').modal('show');
             $.ajax({
                 type: "GET",
-                url: "/auteurs/edit/"+stud_id,
+                url: "/auteurs/edit/"+auteur_id,
                 success: function (response) {
                     if (response.status == 404) {
                         console.log(response);

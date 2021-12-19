@@ -154,7 +154,6 @@
 
         // Define form element
         const form = document.getElementById('EditAuteurForm');
-
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
         var validator = FormValidation.formValidation(
             form,
@@ -274,58 +273,7 @@
                                             }
                                         });
                                     }
-                                        /*                                    if (data.success!=true) {
-                                                                                "Valid"==e?(t.setAttribute("data-kt-indicator","on"),setTimeout((function(){
-                                                                                        t.removeAttribute("data-kt-indicator"),Swal.fire({
-                                                                                                text:"Form has been successfully submitted!",icon:"success",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
-                                                                                                    confirmButton:"btn btn-primary"}
-                                                                                            }
-                                                                                        ).then((function(e){
-                                                                                                var data = $('#kt_modal_add_customer_form').serialize();
 
-                                                                                                $.ajax({
-                                                                                                    type:'post',
-                                                                                                    url:"{{ route('AddAuteurForm.store') }}",
-                                                            data:data,
-                                                            beforeSend:function(data){
-                                                                $(document).find('.reset').text('');
-                                                                Livewire.emit('refreshTable')
-
-                                                            },
-                                                            success:function (data){
-                                                                $("#select14").val('').trigger('change');
-                                                            },
-                                                            error:function (reject){
-                                                                if (reject.status == 422) {
-                                                                    $.each(reject.responseJSON.errors, function (i, error) {
-                                                                        $('#'+i).text(error[0]);
-                                                                        $('#'+i+'Event').css("border-color", "red");
-
-                                                                    });
-
-                                                                }
-                                                            }
-                                                        });
-                                                        $("#closaddmodal").trigger("click")
-                                                        $("#select14").val('').trigger('change');
-
-                                                    }
-                                                ))}
-                                        ))):Swal.fire( {
-                                                text:"Sorry, looks like there are some errors detected, please try again.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
-                                                    confirmButton:"btn btn-primary"}
-                                            }
-                                        )
-                                    }
-                                    else Swal.fire({
-                                        text: "Auteur Déja Existe",
-                                        icon: "error",
-                                        buttonsStyling: !1,
-                                        confirmButtonText: "Ok, got it!",
-                                        customClass: {
-                                            confirmButton: "btn btn-primary"
-                                        }
-                                    })*/
                                 }
                             });
                             //

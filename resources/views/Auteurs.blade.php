@@ -148,18 +148,5 @@
 
         <!--end::Post-->
     @endsection
-
 </div>
-@section('script')
-    <script src="assets/plugins/custom/tinymce/tinymce.bundle.js"></script>
-    <script>
-        tinymce.init({
-            selector: "#kt_docs_tinymce_hidden",
-            menubar: false,
-            toolbar: ["styleselect fontselect fontsizeselect",
-                "undo redo | cut copy paste | bold italic | link image | alignleft aligncenter alignright alignjustify",
-                "bullist numlist | outdent indent | blockquote subscript superscript | advlist | autolink | lists charmap | print preview |  code"],
-            plugins : "advlist autolink link image lists charmap print preview code"
-        });
-    </script>
-@endsection
+
