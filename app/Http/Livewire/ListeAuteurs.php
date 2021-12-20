@@ -31,13 +31,13 @@ class ListeAuteurs extends Component
     }
 
 
-    public function ntestiw(){
-        $this->ntastiw="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
-        $this->dispatchBrowserEvent('ntawtiw2');
 
-    }
     public function getDescription($id){
-        $this->description=auteurs::where('id',$id)->first();
+        $dataauteur=auteurs::find($id);
+        return response()->json([
+            'status'=>200,
+            'description'=>$dataauteur->description,
+        ]);
     }
 
     public function marwane($idd){

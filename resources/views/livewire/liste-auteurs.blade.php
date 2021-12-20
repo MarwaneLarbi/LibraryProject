@@ -43,7 +43,7 @@
                     <!--end::Svg Icon-->Export</button>
                 <!--end::Export-->
                 <!--begin::Add customer-->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer">Add Customer</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer">Ajouter Auteur</button>
                 <!--end::Add customer-->
             </div>
             <!--end::Toolbar-->
@@ -62,6 +62,7 @@
     </div>
     <div class="card-body pt-0">
         <!--begin::Table-->
+        <div class="table-responsive">
         <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
             <!--begin::Table head-->
             <thead>
@@ -112,7 +113,7 @@
                 <!--end::Payment method=-->
                 <!--begin::Date=-->
                 <td>
-                    <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="descriptionModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -130,9 +131,9 @@
                             </div>
                         </div>
                     </div>
-                    <a href="" data-bs-toggle="modal" data-bs-target="#descriptionModal" data-bs-whatever="{{$auteur->description}}">
+                    <button class="btn btn-active-primary" id="afficherDesc"  value="{{$auteur->id}}"  >
                         Afficher la Description
-                    </a>
+                    </button>
                 </td>
                 <!--end::Date=-->
                 <!--begin::Action=-->
@@ -142,17 +143,17 @@
                     <!--end::Menu-->
                 </td>
                 <!-- Modal-deleteAuteur  -->
-
                 <!--end::Action=-->
             </tr>
             @endforeach
             </tbody>
             <!--end::Table body-->
         </table>
+
     @if(count($auteurs))
         {{$auteurs->links()}}
     @endif
-
+        </div>
     <!--end::Table-->
     </div>
 
@@ -162,6 +163,26 @@
 @push('custom-scripts')
     <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <script>
+    $(document).on('click', '#afficherDesc', function (e) {
+            e.preventDefault();
+            var category_id = $(this).val();
+            console.log(category_id);
+
+            $('#descriptionModal').modal('show');
+            $.ajax({
+                type: "GET",
+                url: "/auteurs/description/"+category_id,
+                success: function (response) {
+                    console.log(response);
+
+                    document.getElementById("55").innerHTML = response.description;
+
+
+                }
+            });
+        }
+    );
+
         // Toggle selected action toolbar
         // Select all checkboxes
         const container = document.querySelector('#kt_customers_table');
@@ -203,22 +224,6 @@
         toolbarSelected.classList.add('d-none');
     }}
 
-    var exampledescriptionModal = document.getElementById('descriptionModal')
-    exampledescriptionModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget
-        // Extract info from data-bs-* attributes
-        var recipient = button.getAttribute('data-bs-whatever')
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        // Update the modal's content.
-        var modalTitle = exampledescriptionModal.querySelector('.modal-title')
-        var modalBodyInput = exampledescriptionModal.querySelector('.modal-body input')
-
-
-        document.getElementById("55").innerHTML = recipient;
-
-    })
 
 
     $("#selectCountry").select2({

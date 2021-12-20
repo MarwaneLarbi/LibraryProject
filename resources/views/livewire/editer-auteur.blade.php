@@ -265,7 +265,7 @@
                                         console.log(data.message)
                                         Swal.fire({
                                             text: data.message,
-                                            icon: "danger",
+                                            icon: "error",
                                             buttonsStyling: false,
                                             confirmButtonText: "Ok, got it!",
                                             customClass: {

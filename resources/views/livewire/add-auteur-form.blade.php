@@ -158,11 +158,15 @@
                                                                 data:data,
                                                                 beforeSend:function(data){
                                                                     $(document).find('.reset').text('');
-                                                                    Livewire.emit('refreshTable')
 
                                                                 },
                                                                 success:function (data){
-                                                                    $("#select14").val('').trigger('change');
+                                                                    $( '#kt_modal_add_customer_form' ).each(function(){
+                                                                        this.reset();
+                                                                    });
+                                                                    $("#closaddmodal").trigger("click")
+                                                                    Livewire.emit('refreshTable')
+
                                                                 },
                                                                 error:function (reject){
                                                                     if (reject.status == 422) {
@@ -175,8 +179,6 @@
                                                                     }
                                                                 }
                                                             });
-                                                            $("#closaddmodal").trigger("click")
-                                                                $("#select14").val('').trigger('change');
 
                                                         }
                                                     ))}

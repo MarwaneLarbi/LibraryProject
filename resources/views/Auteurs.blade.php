@@ -19,7 +19,7 @@
                 <!--end::Card-->
                 <!--begin::Modals-->
                 <!--begin::Modal - Customers - Add-->
-                <div class="modal fade" id="kt_modal_add_customer" data-toggle="modal" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="kt_modal_add_customer" data-toggle="modal"  aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-xl  ">
                         <!--begin::Modal content-->
@@ -33,7 +33,7 @@
                 </div>
                 <!--end::Modal - Customers - Add-->
                 <!--begin::Modal - Adjust Balance-->
-                <div class="modal fade" id="kt_customers_export_modal" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="kt_customers_export_modal"  aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-650px">
                         <!--begin::Modal content-->
@@ -145,8 +145,7 @@
             </div>
             <!--end::Container-->
         </div>
-
-        <!--end::Post-->
+    <!--end::Post-->
     @endsection
 </div>
 

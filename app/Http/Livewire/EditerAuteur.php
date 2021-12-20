@@ -40,32 +40,26 @@ class EditerAuteur extends Component
     }
     public function Check(Request $req){
         $fullname = auteurs::where('fullname', $req ->fullname_edit)->count();
-        if ($fullname!=0){
-            return response()->json([
-                'status'=>505,
-                'message'=>'Auteur deja  Exist'
-
-            ]);
+        $auteurcheck=auteurs::find($req->id_auteur);
+        $checkfullname=$auteurcheck->fullname==$req->fullname_edit;
+        $checkCountry=$auteurcheck->country==$req->country_edit;
+        if ($req->description_edit==NULL){
+            $checkDesc=true;
         }
         else{
-            $auteurcheck=auteurs::find($req->id_auteur);
-            $checkfullname=$auteurcheck->fullname==$req->fullname_edit;
-            $checkCountry=$auteurcheck->country==$req->country_edit;
-
-            if ($req->description_edit==NULL){
+            if ($req->description_edit==$auteurcheck->description)
+            {
                 $checkDesc=true;
             }
             else{
-                if ($req->description_edit==$auteurcheck->description)
-                {
-                    $checkDesc=true;
-                }
-                else{
-                    $checkDesc=false;
+                $checkDesc=false;
 
-                }
             }
-            if ($checkfullname&&$checkCountry&&$checkDesc){
+        }
+        if ($auteurcheck->fullname==$req->fullname_edit)
+        {
+
+            if ($checkCountry&&$checkDesc){
                 return response()->json([
                     'status'=>404,
                     'message'=>'Aucune Mofification detected'
@@ -78,7 +72,33 @@ class EditerAuteur extends Component
                     'message'=>'we can edit'
                 ]);
             }
+
         }
+        else{
+
+            if ($fullname!=0){
+                return response()->json([
+                    'status'=>505,
+                    'message'=>'Auteur deja  Exist'
+
+                ]);
+            }
+            else{
+                return response()->json([
+                    'status'=>200,
+                    'message'=>'we can edit'
+                ]);
+            }
+
+        }
+
+
+
+
+
+
+
+
 
 
 
