@@ -27,7 +27,7 @@
 													</svg>
 												</span>
                 <!--end::Svg Icon-->
-                <input type="text"  wire:model="searchTerm" class="form-control form-control-solid w-150px ps-15" placeholder="Search " />
+                <input type="text"  wire:model="searchCategory" class="form-control form-control-solid w-150px ps-15" placeholder="Search " />
             </div>
             <!--end::Search-->
         </div>
@@ -87,10 +87,10 @@
                         <input class="form-check-input"  type="checkbox" data-kt-check="true" data-kt-check-target="#kt_Category_table .form-check-input" value="1" />
                     </div>
                 </th>
-                <th class="min-w-125px">ID</th>
-                <th class="min-w-125px">Category</th>
-                <th class="min-w-125px">Nombre des Livres</th>
-                <th class="text-end min-w-70px">Actions</th>
+                <th class="min-w-125px text-center">ID</th>
+                <th class="min-w-125px text-center">Category</th>
+                <th class="min-w-75px text-center">Nombre des Livres</th>
+                <th class="text-end min-w-70px text-center">Actions</th>
             </tr>
             <!--end::Table row-->
             </thead>
@@ -117,8 +117,8 @@
                 <td data-filter="mastercard">
                     <img src="assets/media/svg/card-logos/mastercard.svg" class="w-35px me-3" alt="" />**** 7357</td>
                 <td class="text-end">
-                    <button type="button" value="{{$category->id}}"  class="btn btn-light-success editbtn btn-sm">Editer</button>
-                    <button type="button" value="{{$category->id}}" class="btn btn-light-danger deletebtn btn-sm">Supprimer</button>
+                    <button type="button" value="{{$category->id}}"  class="btn btn-light-success editCatbtn btn-sm">Editer</button>
+                    <button type="button" value="{{$category->id}}" class="btn btn-light-danger deleteCatbtn btn-sm">Supprimer</button>
                     <!--end::Menu-->
                 </td>
                 <!-- Modal-deleteAuteur  -->
@@ -129,11 +129,16 @@
             <!--end::Table body-->
         </table>
         <!--end::Table-->
+        <!--Start::Pagination=-->
+        @if(count($categories))
+            {{$categories->links()}}
+        @endif
+         <!--end::Pagination=-->
     </div>
 </div>
 @push('custom-scripts')
     <script>
-        $(document).on('click', '.editbtn', function (e) {
+        $(document).on('click', '.editCatbtn', function (e) {
                 e.preventDefault();
                 var category_id = $(this).val();
                 console.log(category_id);
@@ -152,5 +157,38 @@
                 $('.btn-close').find('input').val('');
             }
         );
+
+        $(document).on('click', '.deleteCatbtn', function (e) {
+                var category_id = $(this).val();
+                e.preventDefault(),Swal.fire({
+                        text:"Are you sure you would like to Delete?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, Delete it!",cancelButtonText:"No, return",customClass:{
+                            confirmButton:"btn btn-danger",cancelButton:"btn btn-active-light"}
+                    }
+                ).then((function(t){
+                        t.value?(
+                            $.ajax({
+                                type: "GET",
+                                url: "/category/delete/"+category_id,
+                                success: function (response) {
+                                    Swal.fire({
+                                            text:" Category has not been Deleted!.",icon:"success",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                                confirmButton:"btn btn-primary"}
+                                        }
+                                    )
+                                    Livewire.emit('refreshTableCategory')
+
+                                }
+                            })
+                        ):"cancel"===Swal.fire({
+                                text:"Your Category has not been cancelled!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                    confirmButton:"btn btn-primary"}
+                            }
+                        )}
+                ))
+
+            }
+        );
+
+
     </script>
 @endpush

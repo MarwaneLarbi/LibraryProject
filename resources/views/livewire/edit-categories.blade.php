@@ -146,6 +146,7 @@
                                 url:"{{ route('category.upadate') }}",
                                 data: checkdata,
                                 success: function(data) {
+                                    console.log(data)
                                     if(data.success){
                                         Swal.fire({
                                             text: "Category has been Updeted",
@@ -157,9 +158,9 @@
                                             }
                                         })
                                         $("#closeeditmodal").trigger("click")
-
+                                        Livewire.emit('refreshTableCategory')
                                     }
-                                    else if(data.status=404){
+                                    else if(data.status==404){
                                         Swal.fire({
                                             text: "Aucune Modification detected",
                                             icon: "warning",
@@ -170,7 +171,7 @@
                                             }
                                         })
                                     }
-                                    else if(data.success){
+                                    else if(data.status==505){
                                         Swal.fire({
                                             text: "Category Déja Existe",
                                             icon: "error",

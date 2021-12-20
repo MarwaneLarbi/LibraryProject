@@ -9,14 +9,14 @@ use Livewire\WithPagination;
 class Categories extends Component
 {
     use WithPagination;
-    protected $listeners = ['refreshTable' => '$refresh'];
+    protected $listeners = ['refreshTableCategory' => '$refresh'];
     protected $paginationTheme = 'bootstrap';
-    public $searchTerm;
+    public $searchCategory;
     public function render()
     {
         return view('livewire.categories',[
             'categories'=>	category::orderBy('created_at','desc')->where(function($sub_query){
-                $sub_query->where('name', 'like', '%'.$this->searchTerm.'%');
+                $sub_query->where('name', 'like', '%'.$this->searchCategory.'%');
             })->paginate(10)
         ]);
     }

@@ -31,7 +31,7 @@
             <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
                 <!--begin::Input group-->
                 <div class="fv-row mb-7">
-                    <button type="button" class="btn-close"  id="closaddmodal"  data-bs-dismiss="modal" aria-label="Close" hidden></button>
+                    <button type="button" class="btn-close"  id="closeajoutercategoryModalForm"  data-bs-dismiss="modal" aria-label="Close" hidden></button>
                     <label class="required fs-6 fw-bold mb-2">Titre </label>
                     <input type="text" class="form-control form-control-solid" placeholder="" name="nameCategory" value="" />
                 </div>
@@ -132,8 +132,9 @@
                                                 confirmButton: "btn btn-primary"
                                             }
                                         })
-                                        $("#closaddmodal").trigger("click")
-                                        Livewire.emit('refreshTable')
+                                        $("#closeajoutercategoryModalForm").trigger("click")
+                                        $('#ajoutercategoryModalForm')[0].reset();
+                                        Livewire.emit('refreshTableCategory')
 
                                     }
                                     else Swal.fire({
@@ -162,6 +163,35 @@
         });
 
 
+        $("#ajoutercategoryModalForm_close").click(function(t){
+
+            t.preventDefault(),Swal.fire( {
+                    text:"Are you sure you would like to cancel?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, cancel it!",cancelButtonText:"No, return",customClass:{
+                        confirmButton:"btn btn-primary",cancelButton:"btn btn-active-light"}
+                }
+            ).then((function(t){
+                    t.value?($("#closeajoutercategoryModalForm").trigger("click")):"cancel"===t.dismiss&&Swal.fire({
+                            text:"Your form has not been cancelled!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                confirmButton:"btn btn-primary"}
+                        }
+                    )}
+            ))}
+        );
+        $("#ajoutercategoryModalForm_cancel").click(function(t){
+                t.preventDefault(),Swal.fire({
+                        text:"Are you sure you would like to cancel?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, cancel it!",cancelButtonText:"No, return",customClass:{
+                            confirmButton:"btn btn-primary",cancelButton:"btn btn-active-light"}
+                    }
+                ).then((function(t){
+                        t.value?($("#closeajoutercategoryModalForm").trigger("click")):"cancel"===Swal.fire({
+                                text:"Your form has not been cancelled!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                    confirmButton:"btn btn-primary"}
+                            }
+                        )}
+                ))
+
+            }
+        );
 
     </script>
 
