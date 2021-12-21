@@ -4375,7 +4375,9 @@
 <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <script src="assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js"></script>
 <script src="assets/plugins/custom/moxiemanager.min.js"></script>
+<script src="assets/js/custom/jquery.PrintArea.js"></script>
 
+jquery.PrintArea.js
 {{--
 <script src="assets/js/custom/apps/customers/add.js"></script>
 --}}

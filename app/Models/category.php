@@ -10,9 +10,17 @@ class category extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
+    protected $table = "categories";
+    protected $fillable=['name','created_at','updated_at'];
+    protected $hidden =['created_at','updated_at','pivot','deleted_at'];
+    public $timestamps = true;
     public function category(){
 
         return $this->belongsTo(User::class);
+    }
+    public function livres()
+    {
+        return $this->belongsToMany(livre::class, 'livre_category','category_id');
+
     }
 }

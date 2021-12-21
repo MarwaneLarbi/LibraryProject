@@ -33,6 +33,9 @@
                     <!--end::Svg Icon-->Export</button>
                 <!--end::Export-->
                 <!--begin::Add customer-->
+
+
+
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajouterLivre">Ajouter un Livre</button>
                 <div class="modal fade" id="ajouterLivre"  aria-hidden="true">
                     <!--begin::Modal dialog-->
@@ -89,42 +92,47 @@
             <!--begin::Table body-->
             <tbody class="fw-bold text-gray-600">
             @foreach($Books as $book)
-            <tr>
-                <!--begin::Checkbox-->
-                <td>
-                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value="1" />
-                    </div>
-                </td>
-                <td class=" text-center">
-                    {{$book->id}}
-                </td>
-                <td class=" text-center">
-                    {{$book->auteur}}
-                </td>
-                <td class=" text-center">
-                    {{$book->editeur}}
-                </td>
-                <td class=" text-center">
-                    {{$book->isbn}}
-                </td>
-                <td class=" text-center">
-                    {{$book->langue}}
-                </td>
-                <td class=" text-center">
-                    {{$book->titre}}
-                </td>
-                <td class=" text-center">
-                    {{$book->titre}}
-                </td>
+                <tr>
+                    <!--begin::Checkbox-->
+                    <td>
+                        <div class="form-check form-check-sm form-check-custom form-check-solid">
+                            <input class="form-check-input" type="checkbox" value="1" />
+                        </div>
+                    </td>
+                    <td class=" text-center">
 
-                <td class="text-end">
-                    <button type="button" value="" id="EditAuteurButton" class="btn btn-light-success editbtn btn-sm">Editer</button>
-                    <button type="button" value="" class="btn btn-light-danger deletebtn btn-sm">Supprimer</button>
-                    <!--end::Menu-->
-                </td>
-            </tr>
+                        {{$book->id}}
+                    </td>
+                    <td class=" text-center">
+                        {{$book->titre}}
+                    </td>
+                    <td class=" text-center">
+                        {{ \App\Models\auteur::find($book->auteur)->fullname}}
+                    </td>
+                    <td class=" text-center">
+                        {{$book->editeur}}
+                    </td>
+                    <td class=" text-center">
+                        {{$book->isbn}}
+                    </td>
+                    <td class=" text-center">
+                        {{$book->langue}}
+                    </td>
+                    <td class=" text-center">
+
+                    </td>
+                    <div id='print_{{$book->id}}' style="width: 10%" hidden>
+                        {!! DNS1D::getBarcodeSVG($book->id, "CODABAR", 1, 65, '#2A3239') !!}
+                    </div>
+                    <td class="text-end">
+                        <button type="button" value="{{$book->id}}" id="EditAuteurButton" class="btn btn-light-success editbookbtn btn-sm">Editer</button>
+                        <button type="button" value="" class="btn btn-light-danger deletebtn btn-sm">Supprimer</button>
+                        <button id="print" value="{{$book->id}}" class="btn btn-icon btn-success printbookbtn btn-sm"><i class="fas fa-print"></i></button>
+                        <!--end::Menu-->
+                    </td>
+                </tr>
             @endforeach
+
             </tbody>
             <!--end::Table body-->
         </table>
@@ -132,4 +140,88 @@
     </div>
     </div>
 
+    <div class="modal fade" id="EditBookModal"  aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-fullscreen">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                @livewire('edit-livre')
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
 </div>
+@push('custom-scripts')
+    <script>
+
+
+        $(".printbookbtn").on("click" ,function(){
+            console.log("print")
+            console.log("print")
+            var book_id = $(this).val();
+            console.log(book_id);
+
+            var mydiv ='print_'+book_id;
+            console.log(mydiv);
+            var mode = 'iframe'; // simple open the popup
+            var close = mode == "popup"; //defult mode
+            var options = { mode : mode, popClose : close};
+            $("#"+mydiv).printArea( options );//create printThisTable id
+        });
+
+
+        function selectbook_category(k){
+            var value = k;
+            $('#edit_book_category').val(value);
+            $('#edit_book_category').select2().trigger('change');
+        }
+
+        $(".editbookbtn").on("click" ,function(){
+            var book_id = $(this).val();
+            console.log(book_id)
+            $('#EditBookModal').modal('show');
+            $('#_currentcode').val(book_id);
+
+            $.ajax({
+                type: "GET",
+                url: "/livre/editer/"+book_id,
+                success: function (response) {
+                    var categoryCount= [];
+                    var tagCount= [];
+
+                    console.log(response.book.Photo);
+                    $('#edit_book_name').val(response.book.titre);
+                    $('#edit_book_code').val(response.book.id);
+                    $('#edit_book_annee').val(response.book.annee);
+                    $('#edit_book_isbn').val(response.book.isbn);
+                    $('#edit_book_editeur').val(response.book.editeur);
+                    $('#edit_book_langue').val(response.book.langue);
+                    $('#edit_book_langue').select2().trigger('change');
+
+                    $('#edit_book_nbrexmp').val(response.book.nombre_exmp);
+                    var cat =response.category
+                    for (i = 0; i < cat.length; i++) {
+                        console.log(cat[i].id);
+                        categoryCount.push(cat[i].id);
+                    }
+                    var ta =response.tags
+                    for (i = 0; i < ta.length; i++) {
+                        console.log(ta[i].id);
+                        tagCount.push(cat[i].name);
+                    }
+                    console.log(categoryCount)
+                    selectbook_category(categoryCount);
+                    $('#edit_book_auteur').val(response.book.auteur);
+                    $('#edit_book_auteur').select2().trigger('change');
+                    tagify.addTags(tagCount)
+                    tinymce.get('edit_book_description').setContent(response.book.description);
+                    $("#output22").attr("src", response.book.Photo);
+                }
+            });
+
+        });
+
+
+    </script>
+@endpush

@@ -14,4 +14,9 @@ class mot_cle extends Model
 
         return $this->belongsTo(User::class);
     }
+    public function livre()
+    {
+        return $this->belongsToMany(livre::class, 'livre_tag','livre_id','tag_id','id','id');
+
+    }
 }

@@ -4,8 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Models\auteur;
 use App\Models\category;
+use App\Models\tag;
 use Livewire\Component;
-use App\Models\Livre ;
+use App\Models\livre ;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Livewire\WithFileUploads;
@@ -16,7 +17,7 @@ class AddLivre extends Component
     use WithFileUploads;
     public function generateBook(){
         $code=$this->gencodebar();
-        $checkExisteCodebar=Livre::where('livre_code',$code)->count();
+        $checkExisteCodebar=livre::where('id',$code)->count();
         if($checkExisteCodebar==0){
             return response()->json([
                 'status'=>200,
@@ -32,7 +33,7 @@ class AddLivre extends Component
         return $gen=random_int(1000000,10000000000);
     }
     public function check(Request $req){
-        $checkExisteCategory = Livre::where('livre_code', $req ->check)->count();
+        $checkExisteCategory = livre::where('id', $req ->check)->count();
         if ($checkExisteCategory!=0){
             return response()->json([
                 'status'=>500,
@@ -48,25 +49,43 @@ class AddLivre extends Component
 
     }
     public function store(Request $req){
-        $path = 'files/bookCover/';
-        $file = $req->file('book_photo');
-        $file_name = time().'_'.$file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
-        $filetest='app/public/files/bookCover/'.$file_name;
-        $upload = $file->storeAs($path, $file_name, 'public');
-        dd($req->all());
-        $newBook= new Livre();
-        $newBook->titre=$req->book_name;
-        $newBook->livre_code=$req->book_code;
-        $newBook->auteur=$req->book_auteur;
-        $newBook->editeur=$req->book_editeur;
-        $newBook->isbn=$req->book_isbn;
-        $newBook->nombre_exmp=$req->book_nbrexmp;
-        $newBook->annee=$req->book_annee;
-        $newBook->description=$req->book_description;
-        $newBook->langue=$req->book_langue;
-        $newBook->titre=$req->book_name;
+        $alltags = array();
+        $tags = explode(',' ,$req->book_tags);
+        foreach ($tags as $tag){
+            if (tag::where('name',$tag)->count()==0){
+                $newtag=  new tag();
+                $newtag->name=$tag;
+                $newtag->save();
+            }
+        }
+        foreach ($tags as $tag){
+            $test=tag::where('name',$tag)->first();
+            array_push($alltags, $test->id);
+        }
 
+        $image = $req->file('book_photo');
+        $image_name = $image -> getClientOriginalName();
+        $image -> move(public_path('/images'), $image_name);
+        $image_path = "/images/".$image_name;
+                $newBook= new livre();
+                $newBook->titre=$req->book_name;
+                $newBook->id=$req->book_code;
+                $newBook->auteur=$req->book_auteur;
+                $newBook->editeur=$req->book_editeur;
+                $newBook->isbn=$req->book_isbn;
+                $newBook->nombre_exmp=$req->book_nbrexmp;
+                $newBook->annee=$req->book_annee;
+                $newBook->description=$req->book_description;
+                $newBook->langue=$req->book_langue;
+                $newBook->photo=$image_path;
+                $newBook->save();
+                $livre=livre::find($req->book_code);
+                $livre->categories()->syncWithoutDetaching($req->book_category);
+                $livre->tags()->syncWithoutDetaching($alltags);
+                return response()->json([
+                    'status'=>200,
+
+                ]);
 
     }
     public function render()

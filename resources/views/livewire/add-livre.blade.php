@@ -16,6 +16,8 @@
 							</span>
             <!--end::Svg Icon-->
         </div>
+        <button type="button" class="btn-close"  id="closeAddBookModalForm"  data-bs-dismiss="modal" aria-label="Close" hidden></button>
+
         <!--end::Close-->
     </div>
     <!--end::Modal header-->
@@ -514,16 +516,16 @@
             .formValidation(
                 step2,
                 {
-                    /*fields: {
+                    fields: {
                         'book_auteur': {
                             validators: {
                                 notEmpty: {
                                     message: 'champ requis'
                                 },
-                                /!*                                regexp: {
+                                /*                                regexp: {
                                                                     regexp: /^[a-z\s\d]+$/i,
                                                                     message: 'The full name can consist of alphabetical characters and spaces only',
-                                                                },*!/
+                                                                },*/
                             }
                         },
                         'book_editeur': {
@@ -576,7 +578,33 @@
                                 },
                             }
                         },
-                    },*/
+                    },
+                    plugins: {
+                        declarative: new FormValidation.plugins.Declarative({
+                            html5Input: true,
+                        }),
+                        trigger: new FormValidation.plugins.Trigger(),
+                        bootstrap: new FormValidation.plugins.Bootstrap5({
+                            rowSelector: '.fv-row',
+                            eleInvalidClass: '',
+                            eleValidClass: ''
+                        })
+                    },
+                }
+            );
+        var fv3 = FormValidation
+            .formValidation(
+                step3,
+                {
+                    fields: {
+                        'book_description': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'champ requis'
+                                },
+                            }
+                        },
+                    },
                     plugins: {
                         declarative: new FormValidation.plugins.Declarative({
                             html5Input: true,
@@ -597,9 +625,6 @@
         var stepper = new KTStepper(element, options);
         // Handle next step
         stepper.on("kt.stepper.next", function (stepper) {
-            if (stepper.getCurrentStepIndex()==3){
-                $('#submitBookButton').show('fast');
-            }
             switch (current){
                 case 1:{
                     if(fv1){
@@ -619,7 +644,7 @@
                                         }
                                         else {
                                             Swal.fire({
-                                                text: "Category Déja Existe",
+                                                text: "livre Déja Existe",
                                                 icon: "error",
                                                 buttonsStyling: !1,
                                                 confirmButtonText: "Ok, got it!",
@@ -666,7 +691,22 @@
                 }
                     break;
                 case 3:{
-                    stepper.goTo(++current);
+                    if(fv3){
+                        fv3.validate().then(function (status) {
+                            if (status == 'Valid') {
+                                console.log('validated! 3');
+                                stepper.goTo(++current);
+
+                            }
+                            else {
+                                Swal.fire({
+                                        text:"Désolé, il semble qu'il y ait des erreurs détectées, veuillez réessayer",icon:"warning",buttonsStyling:!1,confirmButtonText:"ok !",customClass:{
+                                            confirmButton:"btn btn-primary"}
+                                    }
+                                )
+                            }
+                        });
+                    }
                 }
                     break;
                 case 4:{
@@ -743,6 +783,8 @@
                     contentType:false,
                     success:function(data){
                         console.log("data send")
+                        Livewire.emit('refreshBookTable')
+                        $("#closeAddBookModalForm").trigger("click")
 
                     }
 

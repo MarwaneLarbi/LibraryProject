@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\livre;
 use App\Models\mot_cle;
+use App\Models\tag;
 use Livewire\Component;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,18 +18,18 @@ class MotsCles extends Component
     public $searchTags;
     protected $paginationTheme = 'bootstrap';
     public function store(Request $req){
-        $checkExisteTags = mot_cle::where('name', $req ->name_category)->count();
+        $checkExisteTags = tag::where('name', $req ->name_category)->count();
         $all=$req->tags_name;
         $tags = explode(',' ,$req->tags);
         $existCount=0;
         $notExistCount=0;
         foreach ($tags as $tag){
-            if (mot_cle::where('name',$tag)->count()!=0){
+            if (tag::where('name',$tag)->count()!=0){
                 $existCount++;
             }
             else{
                 $notExistCount++;
-                $newtag=  new mot_cle();
+                $newtag=  new tag();
                 $newtag->name=$tag;
                 $newtag->save();
             }
@@ -50,7 +52,7 @@ class MotsCles extends Component
 
     }
     public function delete($id){
-        mot_cle::find($id)->delete();
+        tag::find($id)->delete();
         return response()->json([
             'status'=>200,
             'message'=>'tags has been deleted'
@@ -61,9 +63,15 @@ class MotsCles extends Component
     public function render()
     {
         return view('livewire.mots-cles',[
-            'tags'=>	mot_cle::orderBy('created_at','desc')->where(function($sub_query){
+            'tags'=>	tag::orderBy('created_at','desc')->where(function($sub_query){
                 $sub_query->where('name', 'like', '%'.$this->searchTags.'%');
             })->paginate(10)
         ]);
+    }
+
+    public function testdata(){
+        $livre=livre::find(2000);
+        $tag=tag::find(2);
+        return $livre->tags;
     }
 }

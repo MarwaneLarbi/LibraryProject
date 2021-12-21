@@ -45,3 +45,9 @@ Route::get('/livre/add/check', [\App\Http\Livewire\AddLivre::class,'check'])->na
 Route::post('/livre/add/', [\App\Http\Livewire\AddLivre::class,'store'])->name('livre.store');
 Route::post('/storeTags', [\App\Http\Livewire\MotsCles::class,'store'])->name('Tags.store');
 Route::get('/tags/delete/{id}', [\App\Http\Livewire\MotsCles::class,'delete'])->name('tags.delete');
+
+
+Route::get('/test', [\App\Http\Livewire\MotsCles::class,'testdata']);
+Route::get('/livre/editer/{id}', [\App\Http\Livewire\ListeLivres::class,'getEditer']);
+Route::post('/livre/editer/', [\App\Http\Livewire\EditLivre::class,'update'])->name('livre.edit');
+Route::get('/livre/checkbarcode/', [\App\Http\Livewire\EditLivre::class,'check_step1'])->name('livre.edit.step1');

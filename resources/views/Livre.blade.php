@@ -8,7 +8,7 @@
         <div class="card lg-2">
             <div class="card-body">
                 <div class="position-relative start-50 translate-middle-x">
-                    <h1 class="text-center"> Mots Clés</h1>
+                    <h1 class="text-center"> Liste Des Livres</h1>
                 </div>
                 @livewire('liste-livres')
             </div>

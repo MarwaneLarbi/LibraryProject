@@ -14,7 +14,7 @@ class CreateMotClesTable extends Migration
     public function up()
     {
         Schema::create('mot_cles', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_tag');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
