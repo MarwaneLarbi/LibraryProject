@@ -11,15 +11,7 @@ class ListeLivres extends Component
     protected $listeners = ['refreshBookTable' => '$refresh'];
     public $searchBookTerm;
     use WithPagination;
-    public function getEditer($id){
-        $book = livre::find($id);
-        return response()->json([
-            'status'=>200,
-            'book'=> $book,
-            'category'=>$book->categories,
-            'tags'=>$book->tags,
-        ]);
-    }
+
     public function render()
     {
         return view('livewire.liste-livres',[

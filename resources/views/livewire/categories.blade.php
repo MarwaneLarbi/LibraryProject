@@ -171,7 +171,7 @@
                                 url: "/category/delete/"+category_id,
                                 success: function (response) {
                                     Swal.fire({
-                                            text:" Category has not been Deleted!.",icon:"success",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                            text:" Category has  been Deleted!.",icon:"success",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
                                                 confirmButton:"btn btn-primary"}
                                         }
                                     )

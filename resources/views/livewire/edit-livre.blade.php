@@ -381,7 +381,7 @@
 												</svg>
 											</span>
                             <!--end::Svg Icon--></button>
-                        <a href="#" class="btn btn-danger">Annuler</a>
+                        <a id="annuleredit" class="btn btn-danger">Annuler</a>
 
 
                     </div>
@@ -423,8 +423,17 @@
             delimiter: ',',
             whitelist:[],
         }).on('add', function(e, tagName){
+            console.log("add")
             livreedittags.push(e['detail'].data.value);
             console.log(livreedittags)
+        }).on('remove', function(e, tagName){
+            console.log("remove")
+            a =e['detail'].data.value
+             index = livreedittags.indexOf(a);
+            livreedittags.splice(index, 1);
+            console.log(index)
+            console.log(livreedittags)
+
         });
 
 
@@ -764,21 +773,26 @@
             --currentstep// go previous step
         });
 
-
+        annuleredit
         $('#close_edit_modal_top').on('click',function (e){
             e.preventDefault();
             currentstep=1;
             marwane.goFirst();
             $("#closeEditBookModalForm").trigger("click")
         })
-
+        $('#annuleredit').on('click',function (e){
+            e.preventDefault();
+            currentstep=1;
+            marwane.goFirst();
+            $("#closeEditBookModalForm").trigger("click")
+        })
         $(function (){
             $('#kt_modal_update_book_form').on('submit',function (e){
                 e.preventDefault();
                 console.log("submit")
                 var form = this;
                 data_book2=new FormData(form)
-                data_book2.append("book_tags", livreedittags);
+                data_book2.append("edit_book_tags", livreedittags);
 
                 $.ajax({
                     url:$(form).attr('action'),
@@ -788,10 +802,11 @@
                     dataType:'json',
                     contentType:false,
                     success:function(data){
-                        if(data.status==2000){
+                        if(data.status==200){
                             $("#closeEditBookModalForm").trigger("click")
-
                             Livewire.emit('refreshBookTable')
+                            currentstep=1;
+                            marwane.goFirst();
                         }
 
                     }

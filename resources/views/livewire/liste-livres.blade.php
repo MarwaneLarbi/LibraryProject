@@ -126,7 +126,7 @@
                     </div>
                     <td class="text-end">
                         <button type="button" value="{{$book->id}}" id="EditAuteurButton" class="btn btn-light-success editbookbtn btn-sm">Editer</button>
-                        <button type="button" value="" class="btn btn-light-danger deletebtn btn-sm">Supprimer</button>
+                        <button type="button" value="{{$book->id}}" class="btn btn-light-danger deletebookbtn btn-sm">Supprimer</button>
                         <button id="print" value="{{$book->id}}" class="btn btn-icon btn-success printbookbtn btn-sm"><i class="fas fa-print"></i></button>
                         <!--end::Menu-->
                     </td>
@@ -198,7 +198,6 @@
                     $('#edit_book_editeur').val(response.book.editeur);
                     $('#edit_book_langue').val(response.book.langue);
                     $('#edit_book_langue').select2().trigger('change');
-
                     $('#edit_book_nbrexmp').val(response.book.nombre_exmp);
                     var cat =response.category
                     for (i = 0; i < cat.length; i++) {
@@ -208,7 +207,7 @@
                     var ta =response.tags
                     for (i = 0; i < ta.length; i++) {
                         console.log(ta[i].id);
-                        tagCount.push(cat[i].name);
+                        tagCount.push(ta[i].name);
                     }
                     console.log(categoryCount)
                     selectbook_category(categoryCount);
@@ -222,6 +221,36 @@
 
         });
 
+        $(document).on('click', '.deletebookbtn', function (e) {
+            var book_id = $(this).val();
+            console.log(book_id);
+                e.preventDefault(),Swal.fire({
+                        text:"Are you sure you would like to Delete?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, Delete it!",cancelButtonText:"No, return",customClass:{
+                            confirmButton:"btn btn-danger",cancelButton:"btn btn-active-light"}
+                    }
+                ).then((function(t){
+                        t.value?(
+                            $.ajax({
+                                type: "GET",
+                                url: "/livre/delete/"+book_id,
+                                success: function (response) {
+                                    Swal.fire({
+                                            text:" Category has not been Deleted!.",icon:"success",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                                confirmButton:"btn btn-primary"}
+                                        }
+                                    )
+                                    Livewire.emit('refreshBookTable')
 
+                                }
+                            })
+                        ):"cancel"===Swal.fire({
+                                text:"Your Category has not been cancelled!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                    confirmButton:"btn btn-primary"}
+                            }
+                        )}
+                ))
+
+            }
+        );
     </script>
 @endpush

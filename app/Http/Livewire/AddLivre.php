@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\File;
 class AddLivre extends Component
 {
     use WithFileUploads;
+    public $image_path;
     public function generateBook(){
         $code=$this->gencodebar();
         $checkExisteCodebar=livre::where('id',$code)->count();
@@ -64,7 +65,7 @@ class AddLivre extends Component
         }
 
         $image = $req->file('book_photo');
-        $image_name = $image -> getClientOriginalName();
+        $image_name =date('YmdHis') . "." .  $image -> getClientOriginalName();
         $image -> move(public_path('/images'), $image_name);
         $image_path = "/images/".$image_name;
                 $newBook= new livre();

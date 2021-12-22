@@ -270,9 +270,9 @@
                                         <span class="required">Langue </span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Country of origination"></i>
                                     </label>
-                                    <select name="book_langue" class="form-select form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                    <select name="book_langue" class="form-select form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" >
                                         <option></option>
-                                        <option value="Arabe" >Arabe</option>
+                                        <option value="Arabe"  seleted>Arabe</option>
                                         <option value="Anglais">Anglais </option>
                                         <option value="Français">Français</option>
                                         <option value="Espagnol">Espagnol</option>
@@ -378,7 +378,7 @@
 												</svg>
 											</span>
                             <!--end::Svg Icon--></button>
-                        <a href="#" class="btn btn-danger">Annuler</a>
+                        <a id="annuleradd" class="btn btn-danger">Annuler</a>
 
 
                     </div>
@@ -405,8 +405,12 @@
             whitelist:[],
         }).on('add', function(e, tagName){
             livretags.push(e['detail'].data.value);
-            console.log(livretags)
-        });
+        }).on('remove', function(e, tagName){
+            a =e['detail'].data.value
+            index = livretags.indexOf(a);
+            livretags.splice(index, 1);
+       });
+
 
 
         tinymce.init({
@@ -578,6 +582,7 @@
                                 },
                             }
                         },
+
                     },
                     plugins: {
                         declarative: new FormValidation.plugins.Declarative({
@@ -791,6 +796,11 @@
                 });
             })
         })
-
+        $('#annuleradd').on('click',function (e){
+            e.preventDefault();
+            current=1;
+            stepper.goFirst();
+            $("#closeAddBookModalForm").trigger("click")
+        })
     </script>
 @endpush

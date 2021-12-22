@@ -14,9 +14,19 @@ use Illuminate\Support\Facades\File;
 class EditLivre extends Component
 {
     public $image_path,$hasimage=false;
+    public function getEditer($id){
+        $book = livre::find($id);
+        return response()->json([
+            'status'=>200,
+            'book'=> $book,
+            'category'=>$book->categories,
+            'tags'=>$book->tags,
+        ]);
+    }
     public function update(Request $req){
+
         $alltags = array();
-        $tags = explode(',' ,$req->book_tags);
+        $tags = explode(',' ,$req->edit_book_tags);
         foreach ($tags as $tag){
             if (tag::where('name',$tag)->count()==0){
                 $newtag=  new tag();
@@ -30,15 +40,23 @@ class EditLivre extends Component
         }
 
     if($req->hasFile('edit_book_photo')){
-        $image = $req->file('book_photo');
+        $image = $req->file('edit_book_photo');
         $image_name = $image -> getClientOriginalName();
         $image -> move(public_path('/images'), $image_name);
         $this->image_path= "/images/".$image_name;
         $this->hasimage=true;
     }
+    if ($req->_currentcode!=$req->edit_book_code)
+    {
+        $book=livre::find($req->_currentcode);
+        $book->categories()->detach();
+        $book->tags()->detach();
+        $book->id=$req->edit_book_code;
+        $book->save();
+
+    }
         $updateBook= livre::find($req->edit_book_code);
         $updateBook->titre=$req->edit_book_name;
-        $updateBook->id=$req->edit_book_code;
         $updateBook->auteur=$req->edit_book_auteur;
         $updateBook->editeur=$req->edit_book_editeur;
         $updateBook->isbn=$req->edit_book_isbn;
@@ -50,9 +68,9 @@ class EditLivre extends Component
             $updateBook->photo= $this->image_path;
         }
         $updateBook->save();
-
-        $updateBook->categories()->sync($req->book_category);
-        $updateBook->tags()->sync($alltags);
+        $saveBook=livre::find($req->edit_book_code);
+        $saveBook->categories()->sync($req->edit_book_category);
+        $saveBook->tags()->sync($alltags);
         return response()->json([
             'status'=>200,
 
