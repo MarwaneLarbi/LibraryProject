@@ -17,11 +17,19 @@ class livre extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(tag::class, 'livre_tag','livre_id');
+        return $this->belongsToMany(tag::class, 'livre_tag','livre_id')->withTimestamps();
     }
     public function categories()
     {
-        return $this->belongsToMany(category::class, 'livre_category','livre_id');
+        return $this->belongsToMany(category::class, 'livre_category','livre_id')->whereNull('livre_category.deleted_at')->withTimestamps();
+    }
+    public function abonnes()
+    {
+        return $this->belongsToMany(abonne::class, 'livre_abonne','livre_id')->withPivot('status')->whereNull('livre_abonne.deleted_at')->withTimestamps();
+    }
+    public function activites()
+    {
+        return $this->belongsToMany(abonne::class, '_activities_abonne','livre_id')->withPivot('status')->whereNull('livre_abonne.deleted_at')->withTimestamps();
     }
 }
 

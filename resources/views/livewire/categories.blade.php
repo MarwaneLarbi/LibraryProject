@@ -37,18 +37,7 @@
             <!--begin::Toolbar-->
             <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                 <!--begin::Export-->
-                    {{--                <button type="button" class="btn btn-light-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_customers_export_modal">
-                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
-                    <span class="svg-icon svg-icon-2">
-													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-														<rect opacity="0.3" x="12.75" y="4.25" width="12" height="2" rx="1" transform="rotate(90 12.75 4.25)" fill="black" />
-														<path d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z" fill="black" />
-														<path d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z" fill="#C4C4C4" />
-													</svg>
-												</span>
-                    <!--end::Svg Icon-->Export</button>--}}
-                <!--end::Export-->
-                <!--begin::Add category-->
+
                 <button type="button" class="btn btn-primary btn-sm" id="ajoutercategoryButton"data-bs-toggle="modal" data-bs-target="#ajoutercategoryModal">Ajouter category</button>
                 <div class="modal fade" id="ajoutercategoryModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div    class="modal-dialog modal-xl">
@@ -67,8 +56,8 @@
                 <div class="fw-bolder me-5">
                     <span class="me-2" data-kt-docs-table-select="selected_count"></span> Selected
                 </div>
-                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Coming Soon">
-                    Selection Action
+                <button type="button" class="btn btn-danger btn-sm" id="delete_all_category" data-bs-toggle="tooltip" title="Coming Soon">
+                    Supprimer
                 </button>
             </div>
             <!--end::Group actions-->
@@ -102,7 +91,7 @@
                 <!--begin::Checkbox-->
                 <td>
                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value="1" />
+                        <input class="form-check-input" type="checkbox" value="{{$category->id}}" />
                     </div>
                 </td>
                 <td>
@@ -135,6 +124,79 @@
         @endif
          <!--end::Pagination=-->
     </div>
+    <script>
+
+        const container = document.querySelector('#kt_Category_table');
+        const checkboxes = container.querySelectorAll('[type="checkbox"]');
+        checkboxes.forEach(c => {
+            // Checkbox on click event
+            c.addEventListener('click', function () {
+                setTimeout(function () {
+                    toggleToolbars();
+                }, 50);
+            });
+        });
+        function toggleToolbars(){
+            const container = document.querySelector('#kt_Category_table');
+            const toolbarBase = document.querySelector('[data-kt-docs-table-toolbar="base"]');
+            const toolbarSelected = document.querySelector('[data-kt-docs-table-toolbar="selected"]');
+            const selectedCount = document.querySelector('[data-kt-docs-table-select="selected_count"]');
+            const allCheckboxes = container.querySelectorAll('tbody [type="checkbox"]');
+            let checkedState = false;
+            let count = 0;
+            allCheckboxes.forEach(c => {
+                if (c.checked) {
+                    checkedState = true;
+                    count++;
+                }
+            });
+            // Toggle toolbars
+            if (checkedState) {
+                selectedCount.innerHTML = count;
+                toolbarBase.classList.add('d-none');
+                toolbarSelected.classList.remove('d-none');
+            } else {
+                toolbarBase.classList.remove('d-none');
+                toolbarSelected.classList.add('d-none');
+            }}
+        const submitButton5 = document.getElementById('delete_all_category');
+        submitButton5.addEventListener('click', function (e) {
+            const allCheckboxes = container.querySelectorAll('tbody [type="checkbox"]');
+            e.preventDefault(),Swal.fire({
+                    text:"Are you sure you would like to Delete?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, Delete it!",cancelButtonText:"No, return",customClass:{
+                        confirmButton:"btn btn-danger",cancelButton:"btn btn-active-light"}
+                }
+            ).then((function(t){
+                    t.value?(
+
+                        allCheckboxes.forEach(c => {
+                            if (c.checked) {
+                                console.log(c.value)
+                                $.ajax({
+                                    type: "post",
+                                    url:"{{ route('category.deleteselected') }}",
+                                    data:{
+                                        '_token':"{{csrf_token()}}",
+                                        'id':c.value,
+                                    },
+                                    success: function (response) {
+                                        Livewire.emit('refreshTableCategory')
+                                        $("#closeupdateabonneModal").trigger("click")
+                                    }
+                                });
+                            }
+                        })
+                    ):"cancel"===Swal.fire({
+                            text:"this user has not been Deleted!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                confirmButton:"btn btn-primary"}
+                        }
+                    )}
+            ))
+
+
+        });
+
+    </script>
 </div>
 @push('custom-scripts')
     <script>

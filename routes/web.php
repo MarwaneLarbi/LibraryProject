@@ -28,6 +28,18 @@ Route::get('/Category&MotsCles', function () {
 Route::get('/livre', function () {
     return view('Livre');
 });
+Route::get('/abonne', function () {
+    return view('Abonne');
+});
+Route::get('/emprunter', function () {
+    return view('Emprunter');
+});
+Route::get('qr-code-g', function () {
+
+    return view('qrCode');
+});
+
+
 Route::post('livewire',[\App\Http\Livewire\AddAuteurForm::class,'store'])->name('AddAuteurForm.store');
 Route::post('checkAuteur', [\App\Http\Livewire\AddAuteurForm::class,'Check'])->name('AddAuteurForm.check');
 Route::get('/getAuteur', [\App\Http\Livewire\ListeAuteurs::class,'getAuteurs'])->name('AddAuteurForm.Getauteurs');
@@ -47,8 +59,30 @@ Route::post('/storeTags', [\App\Http\Livewire\MotsCles::class,'store'])->name('T
 Route::get('/tags/delete/{id}', [\App\Http\Livewire\MotsCles::class,'delete'])->name('tags.delete');
 
 
-Route::get('/test', [\App\Http\Livewire\MotsCles::class,'testdata']);
+Route::get('/test', [\App\Http\Livewire\AddAbonnes::class,'testdata']);
 Route::get('/livre/editer/{id}', [\App\Http\Livewire\EditLivre::class,'getEditer']);
 Route::post('/livre/editer/', [\App\Http\Livewire\EditLivre::class,'update'])->name('livre.edit');
 Route::get('/livre/checkbarcode/', [\App\Http\Livewire\EditLivre::class,'check_step1'])->name('livre.edit.step1');
 Route::get('/livre/delete/{id}', [\App\Http\Livewire\DeleteLivre::class,'delete'])->name('livre.delete');
+
+Route::post('/abonne/add/', [\App\Http\Livewire\AddAbonnes::class,'store'])->name('abonne.store');
+Route::get('/abonne/check/', [\App\Http\Livewire\AddAbonnes::class,'check'])->name('abonne.check');
+Route::get('/abonne/editer/{id}', [\App\Http\Livewire\EditAbonnes::class,'getData'])->name('abonne.data');
+Route::post('/abonne/edit/', [\App\Http\Livewire\EditAbonnes::class,'update'])->name('abonne.update');
+Route::get('/abonne/delete/{id}', [\App\Http\Livewire\DeleteAbonnes::class,'delete'])->name('abonne.delete');
+Route::post('/abonne/update/', [\App\Http\Livewire\EditAbonnes::class,'update_package'])->name('abonne.update_package');
+Route::post('/abonne/deleteselected/', [\App\Http\Livewire\DeleteAbonnes::class,'deleteselected'])->name('abonne.deleteselected');
+Route::post('/auteur/deleteselected/', [\App\Http\Livewire\DeleteAuteurForm::class,'deleteselected'])->name('auteur.deleteselected');
+Route::post('/category/deleteselected/', [\App\Http\Livewire\DeleteCategories::class,'deleteselected'])->name('category.deleteselected');
+Route::post('/MotsCles/deleteselected/', [\App\Http\Livewire\MotsCles::class,'deleteselected'])->name('tags.deleteselected');
+
+Route::post('/livre/deleteselected/', [\App\Http\Livewire\DeleteLivre::class,'deleteselected'])->name('livre.deleteselected');
+Route::post('/checkqrcode', [\App\Http\Livewire\QrCodeReaderAbonne::class,'checkqrcode'])->name('qrCode.check');
+
+Route::post('/emprunts/addToTable', [\App\Http\Livewire\AddEmprunts::class,'addToTable'])->name('emprunts.addToTable');
+Route::get('/emprunts/delete_current/{id}', [\App\Http\Livewire\ListNouveauEmprunts::class,'delete']);
+Route::post('/emprunts/retour', [\App\Http\Livewire\RetourEmprunt::class,'retour'])->name('emprunts.retour');
+Route::post('/emprunts/valider', [\App\Http\Livewire\AddEmprunts::class,'store'])->name('emprunts.store');
+Route::post('/emprunts/logout', [\App\Http\Livewire\Emprunter::class,'logout'])->name('emprunts.logout');
+Route::post('/emprunts/annulerRetour', [\App\Http\Livewire\ListRetoursEmprunts::class,'annulerRetour'])->name('emprunts.annulerRetour');
+Route::post('/emprunts/login', [\App\Http\Livewire\Emprunter::class,'login'])->name('emprunts.login');

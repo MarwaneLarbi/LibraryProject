@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\auteur as auteurs;
 use App\Models\country;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,6 +25,15 @@ class DeleteAuteurForm extends Component
         $this->selectedAuteur=$selectedAuteur;
         $this->mycountry=$selectedAuteur['country'];
         $this->mydescription=$selectedAuteur['description'];
+
+    }
+    public function deleteselected(Request $req){
+        auteurs::find($req->id)->delete();
+
+        return response()->json([
+            'status'=>200,
+            'message'=>'category has been deleted'
+        ]);
 
     }
     public function deleteAuteur($id){

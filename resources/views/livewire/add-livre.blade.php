@@ -767,8 +767,7 @@
                 success: function (response) {
                     $('#book_code').val(response.code);
                 }
-
-        });
+              });
 
         })
         $(function (){

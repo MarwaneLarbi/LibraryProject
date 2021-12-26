@@ -10,6 +10,9 @@ use App\Models\auteur as auteurs;
 class AddAuteurForm extends Component
 {
 
+
+
+
     public function render()
     {
         return view('livewire.add-auteur-form',[

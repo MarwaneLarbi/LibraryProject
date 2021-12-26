@@ -16,11 +16,11 @@ class category extends Model
     public $timestamps = true;
     public function category(){
 
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTimestamps();
     }
     public function livres()
     {
-        return $this->belongsToMany(livre::class, 'livre_category','category_id');
+        return $this->belongsToMany(livre::class, 'livre_category','category_id')->whereNull('livre_category.deleted_at')->withTimestamps();
 
     }
 }

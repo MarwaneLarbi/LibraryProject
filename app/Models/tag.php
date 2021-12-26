@@ -16,6 +16,6 @@ class tag extends Model
     public $timestamps = true;
     public function livres()
     {
-        return $this->belongsToMany(livre::class, 'livre_tag','tag_id');
+        return $this->belongsToMany(livre::class, 'livre_tag','tag_id')->whereNull('livre_tag.deleted_at');
     }
 }

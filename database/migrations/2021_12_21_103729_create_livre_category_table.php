@@ -15,8 +15,8 @@ class CreateLivreCategoryTable extends Migration
     {
         Schema::create('livre_category', function (Blueprint $table) {
             $table->id();
-            $table->integer('livre_id');
-            $table->integer('category_id');
+            $table->bigInteger('livre_id');
+            $table->bigInteger('category_id');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -773,7 +773,6 @@
             --currentstep// go previous step
         });
 
-        annuleredit
         $('#close_edit_modal_top').on('click',function (e){
             e.preventDefault();
             currentstep=1;

@@ -74,4 +74,12 @@ class MotsCles extends Component
         $tag=tag::find(2);
         return $livre->tags;
     }
+    public function deleteselected(Request $req){
+        tag::find($req->id)->delete();
+        return response()->json([
+            'status'=>200,
+            'message'=>'category has been deleted'
+        ]);
+
+    }
 }

@@ -15,8 +15,8 @@ class CreateLivreTagTable extends Migration
     {
         Schema::create('livre_tag', function (Blueprint $table) {
             $table->id();
-            $table->integer('livre_id');
-            $table->integer('tag_id');
+            $table->bigInteger('livre_id');
+            $table->bigInteger('tag_id');
             $table->timestamps();
         });
     }

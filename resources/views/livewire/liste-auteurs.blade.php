@@ -52,8 +52,8 @@
                 <div class="fw-bolder me-5">
                     <span class="me-2" data-kt-docs-table-select="selected_count"></span> Selected
                 </div>
-                <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" title="Coming Soon">
-                    Selection Action
+                <button type="button"  id="delete_all_auteurs" class="btn btn-danger" data-bs-toggle="tooltip" title="Coming Soon">
+                    Supprimer
                 </button>
             </div>
             <!--end::Group actions-->
@@ -90,7 +90,7 @@
                 <!--begin::Checkbox-->
                 <td>
                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value="1" />
+                        <input class="form-check-input" type="checkbox" value="{{$auteur->id}}" />
                     </div>
                 </td>
                 <!--end::Checkbox-->
@@ -157,8 +157,44 @@
     <!--end::Table-->
     </div>
 
+<script>
+    const submitButton4 = document.getElementById('delete_all_auteurs');
+    submitButton4.addEventListener('click', function (e) {
+        const allCheckboxes = container.querySelectorAll('tbody [type="checkbox"]');
+        e.preventDefault(),Swal.fire({
+                text:"Are you sure you would like to Delete?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, Delete it!",cancelButtonText:"No, return",customClass:{
+                    confirmButton:"btn btn-danger",cancelButton:"btn btn-active-light"}
+            }
+        ).then((function(t){
+                t.value?(
+                    allCheckboxes.forEach(c => {
+                        if (c.checked) {
+                            console.log(c.value)
+                            $.ajax({
+                                type: "post",
+                                url:"{{ route('auteur.deleteselected') }}",
+                                data:{
+                                    '_token':"{{csrf_token()}}",
+                                    'id':c.value,
+                                },
+                                success: function (response) {
+                                    Livewire.emit('refreshTable')
+                                }
+                            });
+                        }
+                    })
+                ):"cancel"===Swal.fire({
+                        text:"this user has not been Deleted!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                            confirmButton:"btn btn-primary"}
+                    }
+                )}
+        ))
 
-    </body>
+
+    });
+
+
+</script>
 </div>
 @push('custom-scripts')
     <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
