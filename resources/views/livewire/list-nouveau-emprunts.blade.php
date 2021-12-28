@@ -110,6 +110,9 @@
                         Livewire.emit('refreshAnciensEmprunts')
                         Livewire.emit('refreshListNouveauEmprunts')
                         Livewire.emit('refreshAretoursEmprunts')
+                        Livewire.emit('refreshActivitiesAbonneTable')
+
+
 
                     }
                 });

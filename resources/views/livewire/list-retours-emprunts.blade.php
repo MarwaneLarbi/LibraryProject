@@ -70,6 +70,7 @@
                     success: function (response) {
                         Livewire.emit('refreshAnciensEmprunts')
                         Livewire.emit('refreshAretoursEmprunts')
+                        Livewire.emit('refreshActivitiesAbonneTable')
 
                     }
                 });

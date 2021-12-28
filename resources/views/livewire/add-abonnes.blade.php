@@ -145,7 +145,7 @@
             </div>
 
             <div class="text-center">
-                <button type="reset" id="kt_modal_new_target_cancel" class="btn btn-light me-3">Cancel</button>
+                <button  id="kt_modal_new_target_cancel" class="btn btn-light me-3">Cancel</button>
                 <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
                     <span class="indicator-label">Submit</span>
                     <span class="indicator-progress">Please wait...
@@ -261,8 +261,22 @@
                                 url:"{{ route('abonne.store') }}",
                                 data:data,
                                 success: function (response) {
+                                    if(response.success==true){
                                     Livewire.emit('refreshAbonneTable')
                                     $("#closeaddabonneModal").trigger("click")
+                                        $('#kt_modal_new_abonne_form').trigger("reset");
+
+                                    }
+                                    else {
+                                        Swal.fire({
+                                                text:"Désolé,utilisateur déja existe",
+                                            icon:"warning",
+                                            buttonsStyling:!1,
+                                            confirmButtonText:"ok !",customClass:{
+                                                    confirmButton:"btn btn-primary"}
+                                            }
+                                        )
+                                    }
 
                                 }
                             });

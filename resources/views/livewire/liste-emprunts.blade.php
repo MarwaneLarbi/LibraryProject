@@ -152,16 +152,15 @@
 
         </div>
         <div class="col-xl-4">
+            <!--begin::List Widget 5-->
             <button id="validerEmprunts" type="button" class="btn btn-primary  fs-5x col-md-12">
                 <i class="bi bi-chevron-double-right fs-4x"></i>
                 Valider
             </button>
-
-            <!--end::Statistics Widget 5-->
-            <!--begin::List Widget 5-->
             @livewire('activites-abonne')
             <!--end: List Widget 5-->
         </div>
+
 
     </div>
 </div>

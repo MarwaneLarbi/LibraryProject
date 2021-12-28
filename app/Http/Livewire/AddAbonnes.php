@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\abonne;
+use App\Models\category;
 use App\Models\livre;
 use App\Models\package;
 use App\Traits\sendSMS;
@@ -14,12 +15,19 @@ use Livewire\Component;
 use Milon\Barcode\DNS1D;
 use Milon\Barcode\DNS2D;
 use Nette\Utils\Image;
+use phpDocumentor\Reflection\Types\Integer;
 use Twilio\Rest\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 class AddAbonnes extends Component
 {
     use sendSMS;
+
+    /**
+     * @var mixed
+     */
+    public $Options='active';
+
     public function check(Request $req){
 
     }
@@ -64,7 +72,9 @@ class AddAbonnes extends Component
                 $newAbonne->dateNaissence=$req->date_naissence;
                 $newAbonne->package_id=$req->abonnemnt;
                 $newAbonne->status='active';
-                if ($req->abonne_notification){}
+                $newAbonne->role='abonne';
+
+        if ($req->abonne_notification){}
                 $newAbonne->notification=$req->abonne_notification;
                 $newAbonne->endDate=$expiry_date->format('Y-m-d');
                 $message='bienvenu '.$req->abonne_nom.' '.$req->abonne_prenom.
@@ -89,16 +99,51 @@ class AddAbonnes extends Component
         {
             echo $product->pivot;
         }*/
- $mar=DB::table('_activities_abonne')
+/* $mar=DB::table('_activities_abonne')
     ->where('abonne_id', Session::get('abonne')->id)
     ->orderBy('date',)
-    ->get();
-        $notification = $test->livres();
+    ->get();*/
+/*        $notification = $test->livres();
         return  DB::table('_activities_abonne')
             ->where('abonne_id', Session::get('abonne')->id)
             ->orderBy('date',)
-           ->get();
+           ->get();*/
+        $books=livre::all();
+        $category=category::all();
+/*        foreach ($category as $product)
+            {
+                echo $product->name. ' '.$product->livres->count() ;
+            }*/
+/*        $ab=abonne::all();
+        foreach ($ab as $product)
+        {
+            echo  $product->livres; ;
+        }*/
+        $ab=abonne::all();
+/*        foreach ($ab as $abonne)
+        {
+            foreach ($abonne->livres as $product)
+            {
+                echo $product->pivot .'\n';
+            }
+        }*/
+      //  $posts = Blog::where( DB::raw('YEAR(created_at)'), '=', '2015' )->get();
+   /*     for ($i=1;$i<=31;$i++){
+           echo  DB::table('_activities_abonne')
+                   ->
+                   where(DB::raw('DAY(created_at)'), '=', $i)
+                   ->
+                   where(DB::raw('MONTH(created_at)'), '=', now()->format('m'))
+                   ->
+                   where('status', '=', 'active')
+                   ->
+                   count().',';
+        }*/
+      //  livre::where(DB::raw('YEAR(created_at)'), '=', '2021')->count();
 
+        return  DB::table('abonnes')
+            ->where(DB::raw('role'), '=', 'Gestionnaire')
+            ->get();
    }
 
 

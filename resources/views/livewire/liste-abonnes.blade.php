@@ -252,6 +252,9 @@
 
                 <!--end::Table body-->
             </table>
+        @if(count($abonnes))
+            {{$abonnes->links()}}
+        @endif
             <!--end::Table-->
         </div>
     </div>

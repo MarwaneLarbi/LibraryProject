@@ -38,7 +38,18 @@ Route::get('qr-code-g', function () {
 
     return view('qrCode');
 });
+Route::get('Statistque', function () {
 
+    return view('Statistique');
+});
+Route::get('login', function () {
+
+    return view('Login');
+});
+Route::get('gestionnair', function () {
+
+    return view('Administration');
+});
 
 Route::post('livewire',[\App\Http\Livewire\AddAuteurForm::class,'store'])->name('AddAuteurForm.store');
 Route::post('checkAuteur', [\App\Http\Livewire\AddAuteurForm::class,'Check'])->name('AddAuteurForm.check');
@@ -86,3 +97,11 @@ Route::post('/emprunts/valider', [\App\Http\Livewire\AddEmprunts::class,'store']
 Route::post('/emprunts/logout', [\App\Http\Livewire\Emprunter::class,'logout'])->name('emprunts.logout');
 Route::post('/emprunts/annulerRetour', [\App\Http\Livewire\ListRetoursEmprunts::class,'annulerRetour'])->name('emprunts.annulerRetour');
 Route::post('/emprunts/login', [\App\Http\Livewire\Emprunter::class,'login'])->name('emprunts.login');
+Route::post('/Statistique/getData', [\App\Http\Livewire\StatistiqueGestionnaire::class,'getData'])->name('Statistique.Data');
+
+
+Route::post('/gestionnaire/add/', [\App\Http\Livewire\AddGestionnaire::class,'store'])->name('gestionnaire.store');
+Route::get('/gestionnaire/editer/{id}', [\App\Http\Livewire\EditGestionnaire::class,'getData'])->name('gestionnaire.data');
+Route::post('/gestionnaire/edit/', [\App\Http\Livewire\EditGestionnaire::class,'update'])->name('gestionnaire.update');
+Route::get('/gestionnaire/delete/{id}', [\App\Http\Livewire\DeleteGestionnaire::class,'delete'])->name('gestionnaire.delete');
+Route::post('/gestionnaire/deleteselected/', [\App\Http\Livewire\DeleteGestionnaire::class,'deleteselected'])->name('gestionnaire.deleteselected');
