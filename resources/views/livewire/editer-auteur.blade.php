@@ -4,7 +4,7 @@
     </div>
     <!--begin::Form-->
 
-    <form class="form"  id="EditAuteurForm"  enctype="multipart/form-data">
+    <form class="form"  id="EditAuteurForm"  method="post" action="{{ route('EditerAuteur.store') }}" enctype="multipart/form-data">
         @csrf
         <input name="_token" value="{{csrf_token()}}" hidden>
         <!--begin::Modal header-->
@@ -32,7 +32,7 @@
             <div class="scroll-y me-n7 pe-7" id="kt_modal_delete_auteur_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_delete_customer_header" data-kt-scroll-wrappers="#kt_modal_delete_customer_scroll" data-kt-scroll-offset="300px">
                 <!--begin::Input group-->
                 <div class="fv-row mb-7">
-                    <button type="button" class="btn-close"  id="closdeletemodal"  data-bs-dismiss="modal" aria-label="Close" hidden ></button>
+                    <button type="button" class="btn-close"  id="closeeditauteurmodal"  data-bs-dismiss="modal" aria-label="Close" hidden ></button>
                     <label class="required fs-6 fw-bold mb-2">ID Auteur</label>
                     <input id="id_auteur" type="text" class="form-control form-control-solid" placeholder="" name="id_auteur"  readonly />
                 </div>
@@ -60,8 +60,7 @@
                         </label>
 
                         <select id="selectCountry" class="form-select"  name="country_edit"  data-placeholder="Select an option">
-                            <option value="test">label</option>
-                            <option value="test2">label2</option>
+
                             @foreach($countries as $country)
                                 @if ($country->name=='Algeria')
                                     <option value="{{ $country->name }}" selected>{{ $country->name }}</option>
@@ -74,6 +73,15 @@
                     </div>
                     <!--end::Input group-->
                 </div>
+
+                <div class="fv-row mb-15">
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Photo d'auteur</label>
+                        <input class="form-control" type="file" id="formFile" name="edit_auteur_photo">
+                        <a target="_blank" id="lastpic" href="{{ URL::to('/') }}/images/stackoverflow.png"> ancien photo</a>
+                    </div>
+                </div>
+
                 <!--begin::Input group-->
                 <div class="fv-row mb-15">
                     <label class="fs-6 fw-bold mb-2">Description</label>
@@ -153,10 +161,10 @@
         });
 
         // Define form element
-        const form = document.getElementById('EditAuteurForm');
+        const EditAuteurForm = document.getElementById('EditAuteurForm');
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
-        var validator = FormValidation.formValidation(
-            form,
+        var validator_EditAuteurForm = FormValidation.formValidation(
+            EditAuteurForm,
             {
                 fields: {
                     'fullname_edit': {
@@ -166,7 +174,7 @@
                             }
                         }
                     },
-                    country:{
+                    'country_edit':{
                         validators:{
                             notEmpty:{
                                 message:"champ requis"}}},
@@ -182,7 +190,68 @@
                 }
             }
         );
-        // Submit button handler
+
+        $(function (){
+            $('#EditAuteurForm').on('submit',function (e){
+                e.preventDefault();
+                var form = this;
+                data_auteur=new FormData(form)
+                // Validate form before submit
+                if (validator_EditAuteurForm) {
+                    validator_EditAuteurForm.validate().then(function (status) {
+                        if (status == 'Valid') {
+                            // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                            setTimeout(function () {
+                                console.log('validated!');
+
+                                $.ajax({
+                                    url:$(form).attr('action'),
+                                    method:$(form).attr('method'),
+                                    data:data_auteur,
+                                    processData:false,
+                                    dataType:'json',
+                                    contentType:false,
+                                    success:function(response){
+
+                                        if(response.success==true)
+                                        {
+                                            Livewire.emit('refreshAuteurTable')
+                                            $("#closeeditauteurmodal").trigger("click")
+
+                                        }
+                                        else {
+                                            Swal.fire({
+                                                text: "Auteur Déja Existe",
+                                                icon: "error",
+                                                buttonsStyling: !1,
+                                                confirmButtonText: "Ok, got it!",
+                                                customClass: {
+                                                    confirmButton: "btn btn-primary"
+                                                }
+                                            })
+                                        }
+
+                                    }
+
+                                });
+                            }, 2000);
+                        }
+                        else {
+                            Swal.fire({
+                                    text:"Désolé, il semble qu'il y ait des erreurs détectées, veuillez réessayer",icon:"warning",buttonsStyling:!1,confirmButtonText:"ok !",customClass:{
+                                        confirmButton:"btn btn-primary"}
+                                }
+                            )
+                        }
+                    });
+                }
+
+
+            })
+        })
+
+
+      /*  // Submit button handler
         const submitButton = document.getElementById('EditAuteurButtonSubmit');
         submitButton.addEventListener('click', function (e) {
             // Prevent default button action
@@ -212,7 +281,6 @@
                             var checkdata = $('#EditAuteurForm').serialize();
                             $.ajax({
                                 type: 'POST',
-                                url:"{{ route('EditerAuteur.check') }}",
                                 data: checkdata,
                                 success: function(data) {
                                     if(data.status==200){
@@ -289,7 +357,7 @@
                 });
             }
         });
-
+*/
     </script>
 @endpush
 @section('script')

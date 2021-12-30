@@ -16,7 +16,7 @@
         <!--end::Close-->
     </div>
     <!--begin::Modal header-->
-    <button type="button" id="closeaddgestModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close" hidden></button>
+    <button type="button" id="closeaddtgestModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close" hidden></button>
 
     <!--begin::Modal body-->
     <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
@@ -127,6 +127,53 @@
                 </div>
                 <!--end::Col-->
             </div>
+            <div class="fv-row" data-kt-password-meter="true">
+                <!--begin::Wrapper-->
+                <div class="mb-1">
+                    <!--begin::Label-->
+                    <div class="d-flex flex-stack mb-2">
+                        <!--begin::Label-->
+                        <label class="form-label fw-bolder text-dark fs-6 mb-0 required">Mot Pass</label>
+                        <!--end::Label-->
+                        <!--begin::Link-->
+                        <!--end::Link-->
+                    </div>
+                    <!--end::Label-->
+
+                    <!--begin::Input wrapper-->
+                    <div class="position-relative mb-3">
+                        <input class="form-control form-control-lg form-control-solid" data-fv-string-length___message="mot pass court"
+                               minlength="8"
+                               type="password" name="password" autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" />
+
+
+                        <!--begin::Visibility toggle-->
+                        <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                              data-kt-password-meter-control="visibility">
+                                            <i class="bi bi-eye-slash fs-2"></i>
+                                            <i class="bi bi-eye fs-2 d-none"></i>
+                                           </span>
+                        <!--end::Visibility toggle-->
+                    </div>
+                    <!--end::Input wrapper-->
+
+                    <!--begin::Highlight meter-->
+                    <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+                        <div class="flex-grow-1 bg-secondary bg-active-danger rounded h-5px me-2"></div>
+                        <div class="flex-grow-1 bg-secondary bg-active-warning rounded h-5px me-2"></div>
+                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                    </div>
+                    <!--end::Highlight meter-->
+                </div>
+                <!--end::Wrapper-->
+
+                <!--begin::Hint-->
+                <div class="text-muted">
+                    Use 8 or more characters with a mix of letters, numbers & symbols.
+                </div>
+                <!--end::Hint-->
+            </div>
 
 
             <div class="text-center">
@@ -159,7 +206,7 @@
             kt_modal_new_gestionnaire_form,
             {
                 fields: {
-                    'abonne_id': {
+                    'gest_id': {
                         validators: {
                             notEmpty: {
                                 message: 'champ requis'
@@ -170,21 +217,21 @@
                             },
                         }
                     },
-                    'abonne_nom': {
+                    'gest_nom': {
                         validators: {
                             notEmpty: {
                                 message: 'champ requis'
                             }
                         }
                     },
-                    'abonne_prenom': {
+                    'gest_prenom': {
                         validators: {
                             notEmpty: {
                                 message: 'champ requis'
                             }
                         }
                     },
-                    'abonne_tel': {
+                    'gest_tel': {
                         validators: {
                             regexp: {
                                 regexp: /^(0)(5|6|7)[0-9]{8}$/,
@@ -195,7 +242,7 @@
                             }
                         }
                     },
-                    'abonne_email': {
+                    'gest_email': {
                         validators: {
                             emailAddress: {
                                 message: 'Address Email incorrect  ',
@@ -205,6 +252,12 @@
                             }
                         }
                     },
+                password:{
+                    validators:{
+                        notEmpty:{
+                            message:"The password is required"}
+                    }
+                }
                 },
 
 
@@ -254,7 +307,7 @@
                                 success: function (response) {
                                     if(response.success==true){
                                         Livewire.emit('refreshGestionnaireTable')
-                                        $("#closeaddgestModal").trigger("click")
+                                        $("#closeaddtgestModal").trigger("click")
                                         $('#kt_modal_new_gestionnaire_form').trigger("reset");
 
                                     }

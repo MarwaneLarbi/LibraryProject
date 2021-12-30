@@ -18,6 +18,8 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/paginate.css" rel="stylesheet" type="text/css" />
+
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
     @livewireStyles
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -654,6 +656,9 @@
                                     </div>
                                     <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
                                             <div class="menu-content d-flex align-items-center px-3">
@@ -680,7 +685,8 @@
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-5">
-                                            <a href="../../demo1/dist/authentication/flows/basic/sign-in.html" class="menu-link px-5">Sign Out</a>
+                                            <a  class="menu-link px-5" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign Out</a>
+
                                         </div>
                                         <!--end::Menu item-->
                                     </div>
@@ -3334,6 +3340,8 @@
 <script src="assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js"></script>
 <script src="assets/plugins/custom/moxiemanager.min.js"></script>
 <script src="assets/js/custom/jquery.PrintArea.js"></script>
+<script src="assets/plugins/custom/moxiemanager.min.js"></script>
+<script src="assets/js/custom/paginate.min.js"></script>
 
 {{--
 <script src="assets/js/custom/apps/customers/add.js"></script>

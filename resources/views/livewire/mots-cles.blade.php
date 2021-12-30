@@ -16,7 +16,7 @@
 													</svg>
 												</span>
                 <!--end::Svg Icon-->
-                <input type="text" data-kt-customer-table-filter="search"  wire:model="searchTags" class="form-control form-control-solid w-150px ps-15" placeholder="Search " />
+                <input type="text" data-kt-customer-table-filter="search"  wire:model="searchTags" class="form-control form-control-solid w-250px ps-15" placeholder="Search " />
             </div>
             <!--end::Search-->
         </div>
@@ -26,14 +26,14 @@
             <!--begin::Toolbar-->
             <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="basetags">
                 <!--begin::Add customer-->
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ajouterTagsModal">Ajouter</button>
+                <button type="button" class="btn btn-primary btn-xl" data-bs-toggle="modal" data-bs-target="#ajouterTagsModal">Ajouter</button>
                 <!--end::Add customer-->
             </div>
             <!--end::Toolbar-->
             <!--begin::Group actions-->
-            <div class="d-flex justify-content-end align-items-center d-none" data-kt-docs-table-toolbar="selectedtags">
+            <div class="d-flex justify-content-end align-items-center d-none" data-kt-docs-table-toolbar="selected_tags">
                 <div class="fw-bolder me-5">
-                    <span class="me-2" data-kt-docs-table-select="selected_counttags"></span> selectedtags
+                    <span class="me-2" data-kt-docs-table-select="selected_count_tags"></span> selectedtags
                 </div>
                 <button type="button" class="btn btn-danger btn-sm" id="delete_all_tags" data-bs-toggle="tooltip" >
                     supprimer
@@ -58,7 +58,7 @@
                 <th class="min-w-125px text-center">ID</th>
                 <th class="min-w-125px text-center">Mot Clé</th>
                 <th class="min-w-75px text-center">Nombre des Livres</th>
-                <th class="text-end min-w-70px text-center">Actions</th>
+                <th class="text-end min-w-70px ">Actions</th>
             </tr>
             <!--end::Table row-->
             </thead>
@@ -72,10 +72,17 @@
                         <input class="form-check-input" type="checkbox" value="{{$tag->id}}" />
                     </div>
                 </td>
-                <td>{{$tag->id}}</td>
-                <td>{{$tag->name}}</td>
+                <td class="min-w-125px text-center">{{$tag->id}}</td>
+                <td class="min-w-125px text-center">{{$tag->name}}</td>
 
-                <td >
+                <td class="min-w-75px text-center">
+                    {{
+    DB::table('livre_tag')
+                   ->
+                   where('tag_id', '=', $tag->id)
+                   ->
+                   count()
+}}
                 </td>
                 <td class="text-end">
                     <button type="button" value="{{$tag->id}}" class="btn btn-light-danger deletetagsbtn btn-sm">Supprimer</button>
@@ -223,6 +230,78 @@
             </div>
         </div>
     </div>
+    <script>
+
+        const container_tags = document.querySelector('#mot_cles_table');
+        const checkboxes_tags = container_tags.querySelectorAll('[type="checkbox"]');
+        checkboxes_tags.forEach(c => {
+            // Checkbox on click event
+            c.addEventListener('click', function () {
+                setTimeout(function () {
+                    toggleToolbars();
+                }, 50);
+            });
+        });
+        function toggleToolbars(){
+            const container = document.querySelector('#mot_cles_table');
+            const toolbarBase = document.querySelector('[data-kt-docs-table-toolbar="basetags"]');
+            const toolbarSelected = document.querySelector('[data-kt-docs-table-toolbar="selected_tags"]');
+            const selectedCount = document.querySelector('[data-kt-docs-table-select="selected_count_tags"]');
+            const allCheckboxes = container.querySelectorAll('tbody [type="checkbox"]');
+            let checkedState = false;
+            let count = 0;
+            allCheckboxes.forEach(c => {
+                if (c.checked) {
+                    checkedState = true;
+                    count++;
+                }
+            });
+            // Toggle toolbars
+            if (checkedState) {
+                selectedCount.innerHTML = count;
+                toolbarBase.classList.add('d-none');
+                toolbarSelected.classList.remove('d-none');
+            } else {
+                toolbarBase.classList.remove('d-none');
+                toolbarSelected.classList.add('d-none');
+            }}
+        const delete_all_tags = document.getElementById('delete_all_tags');
+        delete_all_tags.addEventListener('click', function (e) {
+            const allCheckboxes = container_tags.querySelectorAll('tbody [type="checkbox"]');
+            e.preventDefault(),Swal.fire({
+                    text:"Are you sure you would like to Delete?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, Delete it!",cancelButtonText:"No, return",customClass:{
+                        confirmButton:"btn btn-danger",cancelButton:"btn btn-active-light"}
+                }
+            ).then((function(t){
+                    t.value?(
+
+                        allCheckboxes.forEach(c => {
+                            if (c.checked) {
+                                console.log(c.value)
+                                $.ajax({
+                                    type: "post",
+                                    url:"{{ route('tags.deleteselected') }}",
+                                    data:{
+                                        '_token':"{{csrf_token()}}",
+                                        'id':c.value,
+                                    },
+                                    success: function (response) {
+                                        Livewire.emit('refreshTableTags')
+                                    }
+                                });
+                            }
+                        })
+                    ):"cancel"===Swal.fire({
+                            text:"this user has not been Deleted!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                confirmButton:"btn btn-primary"}
+                        }
+                    )}
+            ))
+
+
+        });
+
+    </script>
     <!---end:Modify Modal--->
 </div>
 @push('custom-scripts')
@@ -308,11 +387,8 @@
                         console.log('validated!');
                         if (status == 'Valid') {
                             // Show loading indication
-                            submitButton2.setAttribute('data-kt-indicator', 'on');
-                            submitButton2.disabled = true;
+
                             setTimeout(function () {
-                                submitButton2.removeAttribute('data-kt-indicator');
-                                submitButton2.disabled = false;
                                 $.ajax({
                                     url:$(form).attr('action'),
                                     method:$(form).attr('method'),

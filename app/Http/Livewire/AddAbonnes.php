@@ -88,63 +88,70 @@ class AddAbonnes extends Component
         ]);
     }
 
-    public function testdata(){
-        $test=abonne::find('230589143');
-        $test2=livre::find('370212');
-        $user_id='15487826154';
-        $allTopics = livre::whereHas('abonnes', function ($query)  {
+    public function testdata()
+    {
+        $test = abonne::find('230589143');
+        $test2 = livre::find('370212');
+        $user_id = '15487826154';
+        $allTopics = livre::whereHas('abonnes', function ($query) {
             $query->where('livre_abonne.status', '=', 'done');
         })->get();
-/*        foreach ($test->livres as $product)
-        {
-            echo $product->pivot;
-        }*/
-/* $mar=DB::table('_activities_abonne')
-    ->where('abonne_id', Session::get('abonne')->id)
-    ->orderBy('date',)
-    ->get();*/
-/*        $notification = $test->livres();
-        return  DB::table('_activities_abonne')
+        /*        foreach ($test->livres as $product)
+                {
+                    echo $product->pivot;
+                }*/
+        /* $mar=DB::table('_activities_abonne')
             ->where('abonne_id', Session::get('abonne')->id)
             ->orderBy('date',)
-           ->get();*/
-        $books=livre::all();
-        $category=category::all();
-/*        foreach ($category as $product)
-            {
-                echo $product->name. ' '.$product->livres->count() ;
-            }*/
-/*        $ab=abonne::all();
-        foreach ($ab as $product)
-        {
-            echo  $product->livres; ;
-        }*/
-        $ab=abonne::all();
-/*        foreach ($ab as $abonne)
-        {
-            foreach ($abonne->livres as $product)
-            {
-                echo $product->pivot .'\n';
-            }
-        }*/
-      //  $posts = Blog::where( DB::raw('YEAR(created_at)'), '=', '2015' )->get();
-   /*     for ($i=1;$i<=31;$i++){
-           echo  DB::table('_activities_abonne')
-                   ->
-                   where(DB::raw('DAY(created_at)'), '=', $i)
-                   ->
-                   where(DB::raw('MONTH(created_at)'), '=', now()->format('m'))
-                   ->
-                   where('status', '=', 'active')
-                   ->
-                   count().',';
-        }*/
-      //  livre::where(DB::raw('YEAR(created_at)'), '=', '2021')->count();
+            ->get();*/
+        /*        $notification = $test->livres();
+                return  DB::table('_activities_abonne')
+                    ->where('abonne_id', Session::get('abonne')->id)
+                    ->orderBy('date',)
+                   ->get();*/
+        $books = livre::all();
+        $category = category::all();
+        /*        foreach ($category as $product)
+                    {
+                        echo $product->name. ' '.$product->livres->count() ;
+                    }*/
+        /*        $ab=abonne::all();
+                foreach ($ab as $product)
+                {
+                    echo  $product->livres; ;
+                }*/
+        /*        foreach ($ab as $abonne)
+                {
+                    foreach ($abonne->livres as $product)
+                    {
+                        echo $product->pivot .'\n';
+                    }
+                }*/
+        //  $posts = Blog::where( DB::raw('YEAR(created_at)'), '=', '2015' )->get();
+        /*     for ($i=1;$i<=31;$i++){
+                echo  DB::table('_activities_abonne')
+                        ->
+                        where(DB::raw('DAY(created_at)'), '=', $i)
+                        ->
+                        where(DB::raw('MONTH(created_at)'), '=', now()->format('m'))
+                        ->
+                        where('status', '=', 'active')
+                        ->
+                        count().',';
+             }*/
+        //  livre::where(DB::raw('YEAR(created_at)'), '=', '2021')->count();
+        $ab = abonne::all();
+        /*
+                        foreach ($ab as $abonne)
+                        {
+                            echo $abonne->livres;
+                            foreach ($abonne->livres as $product)
+                            {
+                                echo $product .'\n';
+                            }
 
-        return  DB::table('abonnes')
-            ->where(DB::raw('role'), '=', 'Gestionnaire')
-            ->get();
-   }
+           }               }*/
+        return $test2->pivot;
 
-
+    }
 }

@@ -18,6 +18,8 @@ class EditerAuteur extends Component
     public $editing;
     public $data_auteur;
     public $id_auteur;
+    public $image_path,$hasimage=false;
+
     use LivewireAlert;
     protected $listeners = ['data_edit_auteur'];
     public function editer($id){
@@ -38,83 +40,53 @@ class EditerAuteur extends Component
             ]);
         }
     }
-    public function Check(Request $req){
-        $fullname = auteurs::where('fullname', $req ->fullname_edit)->count();
-        $auteurcheck=auteurs::find($req->id_auteur);
-        $checkfullname=$auteurcheck->fullname==$req->fullname_edit;
-        $checkCountry=$auteurcheck->country==$req->country_edit;
-        if ($req->description_edit==NULL){
-            $checkDesc=true;
-        }
-        else{
-            if ($req->description_edit==$auteurcheck->description)
-            {
-                $checkDesc=true;
-            }
-            else{
-                $checkDesc=false;
-
-            }
-        }
-        if ($auteurcheck->fullname==$req->fullname_edit)
-        {
-
-            if ($checkCountry&&$checkDesc){
-                return response()->json([
-                    'status'=>404,
-                    'message'=>'Aucune Mofification detected'
-                ]);
-
-            }
-            else{
-                return response()->json([
-                    'status'=>200,
-                    'message'=>'we can edit'
-                ]);
-            }
-
-        }
-        else{
-
-            if ($fullname!=0){
-                return response()->json([
-                    'status'=>505,
-                    'message'=>'Auteur deja  Exist'
-
-                ]);
-            }
-            else{
-                return response()->json([
-                    'status'=>200,
-                    'message'=>'we can edit'
-                ]);
-            }
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
     public function store(Request $req){
         $auteurmodify=auteurs::find($req->id_auteur);
-        $auteurmodify->fullname=$req->fullname_edit;
-        $auteurmodify->country=$req->country_edit;
-        if ($req->description_edit!=NULL){
-            $auteurmodify->description=$req->description_edit;
+        if($req->hasFile('edit_auteur_photo')) {
+            $image = $req->file('edit_auteur_photo');
+            $image_name = $image->getClientOriginalName();
+            $image -> move(public_path('/images/auteurs'), $image_name);
+            $this->image_path = "/images/auteurs/".$image_name;
+            $this->hasimage = true;
         }
+        $auteur=auteurs::find($req->id_auteur);
+        if ($auteur->fullname==$req->fullname_edit)
+        {
+            $auteurmodify->fullname=$req->fullname_edit;
+
+        }
+        else{
+
+            $chek=auteurs::where('fullname',$req->fullname_edit)->first();
+            if ($chek){
+                return response()->json([
+                    'success' => false,
+                ]);
+            }
+            else{
+
+
+
+                $auteurmodify->fullname=$req->fullname_edit;
+
+            }
+        }
+        if ($req->description_edit!=null){
+
+            if ($auteur->description!=$req->description_edit)
+            {
+                $auteurmodify->description=$req->description_edit;
+
+            }
+        }
+        $auteurmodify->country=$req->country_edit;
+        if ( $this->hasimage){
+            $auteurmodify->photo= $this->image_path;
+        }
+
         $auteurmodify->save();
         return response()->json([
+            'success' => true,
             'status'=>200,
             'message'=>'Auteur Edited'
         ]);

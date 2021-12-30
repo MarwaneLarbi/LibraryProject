@@ -15,7 +15,7 @@ class ListeAuteurs extends Component
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['refreshTable' => '$refresh'];
+    protected $listeners = ['refreshAuteurTable' => '$refresh'];
 
     public $description;
     public $ntastiw="hhhhhhhhhhhhhhhhhhhhhhhhhhh";

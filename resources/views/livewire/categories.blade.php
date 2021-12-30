@@ -9,11 +9,6 @@
         </div>
     </div>
 
-
-
-    <div class="position-relative start-50 translate-middle-x">
-        <h1> Categories</h1>
-    </div>
     <div class="card-header border-0 pt-6">
         <!--begin::Card title-->
         <div class="card-title">
@@ -27,7 +22,7 @@
 													</svg>
 												</span>
                 <!--end::Svg Icon-->
-                <input type="text"  wire:model="searchCategory" class="form-control form-control-solid w-150px ps-15" placeholder="Search " />
+                <input type="text"  wire:model="searchCategory" class="form-control form-control-solid w-250px ps-15" placeholder="Search " />
             </div>
             <!--end::Search-->
         </div>
@@ -38,7 +33,7 @@
             <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                 <!--begin::Export-->
 
-                <button type="button" class="btn btn-primary btn-sm" id="ajoutercategoryButton"data-bs-toggle="modal" data-bs-target="#ajoutercategoryModal">Ajouter category</button>
+                <button type="button" class="btn btn-primary " id="ajoutercategoryButton"data-bs-toggle="modal" data-bs-target="#ajoutercategoryModal">Ajouter category</button>
                 <div class="modal fade" id="ajoutercategoryModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div    class="modal-dialog modal-xl">
                         <div  class="modal-content">
@@ -78,8 +73,9 @@
                 </th>
                 <th class="min-w-125px text-center">ID</th>
                 <th class="min-w-125px text-center">Category</th>
+                <th class="min-w-125px text-center">Description</th>
                 <th class="min-w-75px text-center">Nombre des Livres</th>
-                <th class="text-end min-w-70px text-center">Actions</th>
+                <th class="text-end min-w-70px text-md-end">Actions</th>
             </tr>
             <!--end::Table row-->
             </thead>
@@ -94,17 +90,26 @@
                         <input class="form-check-input" type="checkbox" value="{{$category->id}}" />
                     </div>
                 </td>
-                <td>
+                <td class="text-center">
                     {{$category->id}}
                 </td>
                 <!--end::Email=-->
                 <!--begin::Company=-->
-                <td>                    {{$category->name}}
+                <td  class="text-center">                    {{$category->name}}
+                </td>
+                <td  class="text-center">                    {{$category->description}}
                 </td>
                 <!--end::Company=-->
                 <!--begin::Payment method=-->
-                <td data-filter="mastercard">
-                    <img src="assets/media/svg/card-logos/mastercard.svg" class="w-35px me-3" alt="" />**** 7357</td>
+                <td  class="text-center">
+                    {{
+    DB::table('livre_category')
+                   ->
+                   where('category_id', '=', $category->id)
+                   ->
+                   count()
+}}
+                </td>
                 <td class="text-end">
                     <button type="button" value="{{$category->id}}"  class="btn btn-light-success editCatbtn btn-sm">Editer</button>
                     <button type="button" value="{{$category->id}}" class="btn btn-light-danger deleteCatbtn btn-sm">Supprimer</button>

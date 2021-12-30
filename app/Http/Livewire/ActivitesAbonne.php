@@ -22,6 +22,8 @@ class ActivitesAbonne extends Component
         return view('livewire.activites-abonne',[
             'activities'=>DB::table('_activities_abonne')
                 ->where('abonne_id', Session::get('abonne')->id)
+                ->whereNull('deleted_at')
+
                 ->when($this->Options,function ($query){
                     if ($this->Options=='active'){
                         $query->orderBy('status','asc');

@@ -21,7 +21,7 @@
 													</svg>
 												</span>
                 <!--end::Svg Icon-->
-                <input type="text" data-kt-customer-table-filter="search"  wire:model="searchTerm" class="form-control form-control-solid w-250px ps-15" placeholder="Search Customers" />
+                <input type="text" data-kt-customer-table-filter="search"  wire:model="searchTerm" class="form-control form-control-solid w-250px ps-15" placeholder="Search " />
             </div>
             <!--end::Search-->
         </div>
@@ -108,14 +108,20 @@
                 <td>{{$auteur->country}}</td>
                 <!--end::Company=-->
                 <!--begin::Payment method=-->
-                <td data-filter="mastercard">
-                    <img src="assets/media/svg/card-logos/mastercard.svg" class="w-35px me-3" alt="" />**** 7357</td>
+                <td >
+                    {{
+DB::table('livres')
+->
+where('auteur', '=', $auteur->id)
+->
+count()
+}}</td>
                 <!--end::Payment method=-->
                 <!--begin::Date=-->
                 <td>
-                    <div class="modal fade" id="descriptionModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-xl">
-                            <div class="modal-content">
+                    <div wire:ingnore.self class="modal fade" id="descriptionModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div  wire:ingnore.self class="modal-dialog modal-xl">
+                            <div  wire:ingnore.self class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Description</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -138,8 +144,9 @@
                 <!--end::Date=-->
                 <!--begin::Action=-->
                 <td class="text-end">
-                    <button type="button" value="{{$auteur->id}}" id="EditAuteurButton" class="btn btn-light-success editbtn btn-sm">Editer</button>
                     <button type="button" value="{{$auteur->id}}" class="btn btn-light-danger deletebtn btn-sm">Supprimer</button>
+
+                    <button type="button" value="{{$auteur->id}}" id="EditAuteurButton" class="btn btn-light-success editbtn btn-sm">Editer</button>
                     <!--end::Menu-->
                 </td>
                 <!-- Modal-deleteAuteur  -->
@@ -178,7 +185,7 @@
                                     'id':c.value,
                                 },
                                 success: function (response) {
-                                    Livewire.emit('refreshTable')
+                                    Livewire.emit('refreshAuteurTable')
                                 }
                             });
                         }
@@ -207,13 +214,10 @@
             $('#descriptionModal').modal('show');
             $.ajax({
                 type: "GET",
-                url: "/auteurs/description/"+category_id,
+                url: "/auteur/description/"+category_id,
                 success: function (response) {
                     console.log(response);
-
                     document.getElementById("55").innerHTML = response.description;
-
-
                 }
             });
         }
@@ -273,13 +277,14 @@ function selectcountry(k){
     $('#selectCountry').select2().trigger('change');
 
     }
+
     $(document).on('click', '.editbtn', function (e) {
             e.preventDefault();
             var auteur_id = $(this).val();
             $('#EditAuteurModal').modal('show');
             $.ajax({
                 type: "GET",
-                url: "/auteurs/edit/"+auteur_id,
+                url: "/auteur/edit/"+auteur_id,
                 success: function (response) {
                     if (response.status == 404) {
                         console.log(response);
@@ -292,6 +297,8 @@ function selectcountry(k){
                         $('#id_auteur').val(response.student.id);
                         $('#fullname').val(response.student.fullname);
                         selectcountry(response.student.country)
+                        $("#lastpic").attr("href", "{{ URL::to('/') }}"+response.student.photo)
+
                     }
                 }
             });
@@ -324,14 +331,14 @@ function selectcountry(k){
                         t.value?(
                             $.ajax({
                                 type: "GET",
-                                url: "/auteurs/delete/"+auteur_id,
+                                url: "/auteur/delete/"+auteur_id,
                                 success: function (response) {
                                     Swal.fire({
                                             text:" Auteur has not been Deleted!.",icon:"success",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
                                                 confirmButton:"btn btn-primary"}
                                         }
                                     )
-                                    Livewire.emit('refreshTable')
+                                    Livewire.emit('refreshAuteurTable')
 
                                 }
                             })

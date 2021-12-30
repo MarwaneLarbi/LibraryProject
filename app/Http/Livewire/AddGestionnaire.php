@@ -6,6 +6,7 @@ use App\Models\abonne;
 use App\Models\admin;
 use App\Traits\sendSMS;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -14,7 +15,9 @@ class AddGestionnaire extends Component
     use sendSMS;
     public function store(Request $req){
         $check=admin::where('id',$req->gest_id)->count();
-        if ($check!=0){
+        $check2=admin::where('email',$req->gest_email)->count();
+
+        if ($check!=0 || $check2!=0){
             return response()->json([
                 'status'=>500,
                 'success'=>false,
@@ -26,6 +29,7 @@ class AddGestionnaire extends Component
         $newGestionnaire->nom=$req->gest_nom;
         $newGestionnaire->prenom=$req->gest_prenom;
         $newGestionnaire->email=$req->gest_email;
+        $newGestionnaire->password=Hash::make($req->password);
         $newGestionnaire->tel=$req->gest_tel;
         $newGestionnaire->adresse=$req->gest_adresse;
         $newGestionnaire->dateNaissence=$req->date_naissence;

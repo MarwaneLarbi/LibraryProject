@@ -53,12 +53,12 @@
             </div>
             <!--end::Toolbar-->
             <!--begin::Group actions-->
-            <div class="d-flex justify-content-end align-items-center d-none" data-kt-docs-table-toolbar="selected">
+            <div class="d-flex justify-content-end align-items-center d-none" data-kt-docs-table-toolbar="selected_livre">
                 <div class="fw-bolder me-5">
-                    <span class="me-2" data-kt-docs-table-select="selected_count"></span> Selected
+                    <span class="me-2" data-kt-docs-table-select="selected_count_livre"></span> Selected
                 </div>
-                <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" title="Coming Soon">
-                    Selection Action
+                <button type="button" id="delete_all_livres" class="btn btn-danger" data-bs-toggle="tooltip" >
+                    Supprimer
                 </button>
             </div>
             <!--end::Group actions-->
@@ -67,14 +67,14 @@
     </div>
     <div class="card-body pt-0">
         <div class="table-responsive">
-        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
+        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_livres_table">
             <!--begin::Table head-->
             <thead>
             <!--begin::Table row-->
             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                 <th class="w-10px pe-2">
                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                        <input class="form-check-input"  type="checkbox" data-kt-check="true" data-kt-check-target="#kt_customers_table .form-check-input" value="1" />
+                        <input class="form-check-input"  type="checkbox" data-kt-check="true" data-kt-check-target="#kt_livres_table .form-check-input" value="1" />
                     </div>
                 </th>
                 <th class="min-w-85px text-center">ID</th>
@@ -96,7 +96,7 @@
                     <!--begin::Checkbox-->
                     <td>
                         <div class="form-check form-check-sm form-check-custom form-check-solid">
-                            <input class="form-check-input" type="checkbox" value="1" />
+                            <input class="form-check-input" type="checkbox" value="{{$book->id}}" />
                         </div>
                     </td>
                     <td class=" text-center">
@@ -151,6 +151,79 @@
         </div>
         <!--end::Modal dialog-->
     </div>
+    <script>
+
+        const container_livres_table = document.querySelector('#kt_livres_table');
+        const checkboxes_livres_table = container_livres_table.querySelectorAll('[type="checkbox"]');
+        checkboxes_livres_table.forEach(c => {
+            // Checkbox on click event
+            c.addEventListener('click', function () {
+                setTimeout(function () {
+                    toggleToolbars();
+                }, 50);
+            });
+        });
+        function toggleToolbars(){
+            const container = document.querySelector('#kt_livres_table');
+            const toolbarBase = document.querySelector('[data-kt-docs-table-toolbar="base"]');
+            const toolbarSelected = document.querySelector('[data-kt-docs-table-toolbar="selected_livre"]');
+            const selectedCount = document.querySelector('[data-kt-docs-table-select="selected_count_livre"]');
+            const allCheckboxes = container.querySelectorAll('tbody [type="checkbox"]');
+            let checkedState = false;
+            let count = 0;
+            allCheckboxes.forEach(c => {
+                if (c.checked) {
+                    checkedState = true;
+                    count++;
+                }
+            });
+            // Toggle toolbars
+            if (checkedState) {
+                selectedCount.innerHTML = count;
+                toolbarBase.classList.add('d-none');
+                toolbarSelected.classList.remove('d-none');
+            } else {
+                toolbarBase.classList.remove('d-none');
+                toolbarSelected.classList.add('d-none');
+            }}
+        const delete_all_livres = document.getElementById('delete_all_livres');
+        delete_all_livres.addEventListener('click', function (e) {
+            const allCheckboxes = container_livres_table.querySelectorAll('tbody [type="checkbox"]');
+            e.preventDefault(),Swal.fire({
+                    text:"Are you sure you would like to Delete?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, Delete it!",cancelButtonText:"No, return",customClass:{
+                        confirmButton:"btn btn-danger",cancelButton:"btn btn-active-light"}
+                }
+            ).then((function(t){
+                    t.value?(
+
+                        allCheckboxes.forEach(c => {
+                            if (c.checked) {
+                                console.log(c.value)
+                                $.ajax({
+                                    type: "post",
+                                    url:"{{ route('livre.deleteselected') }}",
+                                    data:{
+                                        '_token':"{{csrf_token()}}",
+                                        'id':c.value,
+                                    },
+                                    success: function (response) {
+                                        Livewire.emit('refreshBookTable')
+                                    }
+                                });
+                            }
+                        })
+                    ):"cancel"===Swal.fire({
+                            text:"this user has not been Deleted!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                confirmButton:"btn btn-primary"}
+                        }
+                    )}
+            ))
+
+
+        });
+
+    </script>
+
 </div>
 @push('custom-scripts')
     <script>

@@ -3,7 +3,7 @@
         <span class="svg-icon svg-icon-2x"></span>
     </div>
     <!--begin::Form-->
-    <form class="form"  id="kt_modal_add_customer_form" data-kt-redirect="../../demo1/dist/apps/customers/list.html" enctype="multipart/form-data">
+    <form class="form"  id="kt_modal_add_auteur_form" method="post"  action="{{ route('AddAuteurForm.store') }}" enctype="multipart/form-data">
         @csrf
             <input name="_token" value="{{csrf_token()}}" hidden>
         <!--begin::Modal header-->
@@ -32,12 +32,12 @@
                             <!--begin::Input group-->
                             <div class="fv-row mb-7">
                                 <!--begin::Label-->
-                                <button type="button" class="btn-close"  id="closaddmodal"  data-bs-dismiss="modal" aria-label="Close" hidden></button>
+                                <button type="button" class="btn-close"  id="closaddauteurmodal"  data-bs-dismiss="modal" aria-label="Close" hidden></button>
 
                                 <label class="required fs-6 fw-bold mb-2">Nom & Prenom</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" class="form-control form-control-solid" placeholder="" name="name" value="" />
+                                <input type="text" class="form-control form-control-solid" placeholder="" name="fullname" value="" />
                                 <!--end::Input-->
                             </div>
                             <!--end::Input group-->
@@ -61,11 +61,19 @@
                                 </div>
                                 <!--end::Input group-->
                             </div>
+                            <div class="fv-row mb-15">
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Photo d'auteur</label>
+                                    <input class="form-control" type="file" id="formFile" name="photo">
+                                </div>
+                            </div>
                             <!--begin::Input group-->
                             <div class="fv-row mb-15">
                                 <label class="fs-6 fw-bold mb-2">Description</label>
                                     <textarea id="content" name="content"></textarea>
                             </div>
+
+
                             <!--end::Billing form-->
                         </div>
                         <!--end::Scroll-->
@@ -91,6 +99,103 @@
 </div>
 @push('custom-scripts')
     <script>
+        const kt_modal_add_auteur_form = document.getElementById('kt_modal_add_auteur_form');
+        var validator_add_auteur = FormValidation.formValidation(
+            kt_modal_add_auteur_form,
+            {
+                fields: {
+                    'fullname': {
+                        validators: {
+                            notEmpty: {
+                                message: "auteur name is required"
+                            }
+                        }
+                    },
+                    'photo': {
+                        validators: {
+                            notEmpty: {
+                                message: "auteur name is required"
+                            }
+                        }
+                    },
+                },
+
+
+                plugins: {
+                    declarative: new FormValidation.plugins.Declarative({
+                        html5Input: true,
+
+                    }),
+                    trigger: new FormValidation.plugins.Trigger(),
+                    bootstrap: new FormValidation.plugins.Bootstrap5({
+                        rowSelector: '.fv-row',
+                        eleInvalidClass: '',
+                        eleValidClass: ''
+                    })
+                }
+            }
+        );
+        $(function (){
+            $('#kt_modal_add_auteur_form').on('submit',function (e){
+                e.preventDefault();
+                var form = this;
+                data_auteur=new FormData(form)
+                // Validate form before submit
+                if (validator_add_auteur) {
+                    validator_add_auteur.validate().then(function (status) {
+                        console.log('validated!');
+                        if (status == 'Valid') {
+                            // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                            setTimeout(function () {
+
+                                $.ajax({
+                                    url:$(form).attr('action'),
+                                    method:$(form).attr('method'),
+                                    data:data_auteur,
+                                    processData:false,
+                                    dataType:'json',
+                                    contentType:false,
+                                    success:function(response){
+
+                                        if(response.success==true)
+                                        {
+                                            Livewire.emit('refreshAuteurTable')
+                                            $("#closaddauteurmodal").trigger("click")
+                                            $( '#kt_modal_add_auteur_form' ).each(function(){
+                                                this.reset();
+                                            });
+
+                                        }
+                                        else {
+                                            Swal.fire({
+                                                text: "Auteur Déja Existe",
+                                                icon: "error",
+                                                buttonsStyling: !1,
+                                                confirmButtonText: "Ok, got it!",
+                                                customClass: {
+                                                    confirmButton: "btn btn-primary"
+                                                }
+                                            })
+                                        }
+
+                                    }
+
+                                });
+                            }, 2000);
+                        }
+                        else {
+                            Swal.fire({
+                                    text:"Désolé, il semble qu'il y ait des erreurs détectées, veuillez réessayer",icon:"warning",buttonsStyling:!1,confirmButtonText:"ok !",customClass:{
+                                        confirmButton:"btn btn-primary"}
+                                }
+                            )
+                        }
+                    });
+                }
+
+
+            })
+        })
         tinymce.init({
             selector: "#content",
             setup: function (editor) {
@@ -107,130 +212,7 @@
 
 
 
-        "use strict";var KTModalCustomersAdd=function()
-        {
-            var t,e,o,n,r,i;return{
-            init:function()
-            {
-                i=new bootstrap.Modal(document.querySelector("#kt_modal_add_customer")),
-                    r=document.querySelector("#kt_modal_add_customer_form"),
-                    t=r.querySelector("#kt_modal_add_customer_submit"),
-                    e=r.querySelector("#kt_modal_add_customer_cancel"),
-                    o=r.querySelector("#kt_modal_add_customer_close"),
-                    n=FormValidation.formValidation(r,{
-                            fields:{
-                                name:{
-                                    validators:{
-                                        notEmpty:{
-                                            message:"Customer name is required"}}},
-                                country:{
-                                    validators:{
-                                        notEmpty:{
-                                            message:"Country is required"}}},
-                            },
-                            plugins:{
-                                trigger:new FormValidation.plugins.Trigger,bootstrap:new FormValidation.plugins.Bootstrap5({
-                                    rowSelector:".fv-row",eleInvalidClass:"",eleValidClass:""}
-                                )}
-                        }
-                    ),$(r.querySelector('[name="country"]')).on("change",(function(){
-                        n.revalidateField("country")}
-                )),t.addEventListener("click",(function(e){
-                        e.preventDefault(),n&&n.validate().then((function(e){
-                                var testdata = $('#kt_modal_add_customer_form').serialize();
-                                $.ajax({
-                                    type: 'POST',
-                                    url:"{{ route('AddAuteurForm.check') }}",
-                                    data: testdata,
-                                    success: function(data) {
-                                        if (data.success!=true) {
-                                            "Valid"==e?(t.setAttribute("data-kt-indicator","on"),setTimeout((function(){
-                                                    t.removeAttribute("data-kt-indicator"),Swal.fire({
-                                                            text:"Form has been successfully submitted!",icon:"success",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
-                                                                confirmButton:"btn btn-primary"}
-                                                        }
-                                                    ).then((function(e){
-                                                            var data = $('#kt_modal_add_customer_form').serialize();
 
-                                                            $.ajax({
-                                                                type:'post',
-                                                                url:"{{ route('AddAuteurForm.store') }}",
-                                                                data:data,
-                                                                beforeSend:function(data){
-                                                                    $(document).find('.reset').text('');
-
-                                                                },
-                                                                success:function (data){
-                                                                    $( '#kt_modal_add_customer_form' ).each(function(){
-                                                                        this.reset();
-                                                                    });
-                                                                    $("#closaddmodal").trigger("click")
-                                                                    Livewire.emit('refreshTable')
-
-                                                                },
-                                                                error:function (reject){
-                                                                    if (reject.status == 422) {
-                                                                        $.each(reject.responseJSON.errors, function (i, error) {
-                                                                            $('#'+i).text(error[0]);
-                                                                            $('#'+i+'Event').css("border-color", "red");
-
-                                                                        });
-
-                                                                    }
-                                                                }
-                                                            });
-
-                                                        }
-                                                    ))}
-                                            ))):Swal.fire( {
-                                                    text:"Sorry, looks like there are some errors detected, please try again.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
-                                                        confirmButton:"btn btn-primary"}
-                                                }
-                                            )
-                                        }
-                                        else Swal.fire({
-                                            text: "Auteur Déja Existe",
-                                            icon: "error",
-                                            buttonsStyling: !1,
-                                            confirmButtonText: "Ok, got it!",
-                                            customClass: {
-                                                confirmButton: "btn btn-primary"
-                                            }
-                                        })
-                                    }
-                                });
-}
-                        ))}
-                )),e.addEventListener("click",(function(t){
-                        t.preventDefault(),Swal.fire({
-                                text:"Are you sure you would like to cancel?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, cancel it!",cancelButtonText:"No, return",customClass:{
-                                    confirmButton:"btn btn-primary",cancelButton:"btn btn-active-light"}
-                            }
-                        ).then((function(t){
-                                t.value?($("#closaddmodal").trigger("click")):"cancel"===t.dismiss&&Swal.fire({
-                                        text:"Your form has not been cancelled!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
-                                            confirmButton:"btn btn-primary"}
-                                    }
-                                )}
-                        ))}
-                )),o.addEventListener("click",(function(t){
-                        t.preventDefault(),Swal.fire({
-                                text:"Are you sure you would like to cancel?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, cancel it!",cancelButtonText:"No, return",customClass:{
-                                    confirmButton:"btn btn-primary",cancelButton:"btn btn-active-light"}
-                            }
-                        ).then((function(t){
-                                t.value?($("#closaddmodal").trigger("click")):"cancel"===Swal.fire({
-                                        text:"Your form has not been cancelled!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
-                                            confirmButton:"btn btn-primary"}
-                                    }
-                                )}
-                        ))}
-                ))}
-        }
-        }
-        ();KTUtil.onDOMContentLoaded((function(){
-                KTModalCustomersAdd.init()}
-        ));
 
     </script>
 

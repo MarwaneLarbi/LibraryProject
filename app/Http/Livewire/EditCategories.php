@@ -30,7 +30,7 @@ class EditCategories extends Component
             ]);
         }
         else{
-            $updateCategory=new category();
+                $updateCategory=category::find($req->id_category);
             $updateCategory->name=$req->name_category;
             $updateCategory->description=$req->description_category;
             $updateCategory->save();
@@ -54,7 +54,7 @@ class EditCategories extends Component
             ]);
         }
         else{
-            $updateCategory=new category();
+            $updateCategory=category::find($req->id_category);
             $updateCategory->name=$req->name_category;
             $updateCategory->description=$req->description_category;
             $updateCategory->save();
