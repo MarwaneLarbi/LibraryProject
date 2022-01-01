@@ -11,6 +11,14 @@ class auteur extends Model
 {
     use HasFactory;
     use SoftDeletes,CascadeSoftDeletes;
+    protected $table = "auteurs";
+    protected $fillable=['fullname','country','description','photo','created_at','updated_at','deleted_at'];
+    protected $hidden =['created_at','updated_at','pivot','deleted_at'];
+    public $timestamps = true;
+
+    public function livres(){
+        return $this->hasMany(livre::class);
+    }
 
     public function auteur(){
 

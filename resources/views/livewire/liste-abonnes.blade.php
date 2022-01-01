@@ -21,7 +21,7 @@
             <!--begin::Toolbar-->
             <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                 <!--begin::Export-->
-                <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_customers_export_modal">
+                <button id="exportabonne" type="button" class="btn btn-light-primary me-3" >
                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                     <span class="svg-icon svg-icon-2">
 													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -137,6 +137,7 @@
                 <!--begin::Table body-->
                 <tbody class="fw-bold text-gray-600">
                 @foreach($abonnes as $abonne)
+
                     <tr>
                     <td>
                         <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -177,7 +178,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div   id="html-content-holder-{{$abonne->id}}"  class="idcard">
+                                    <div   id="html-content-holder-{{$abonne->id}}"  class="idcard" >
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                                             <path fill="#67f" fill-opacity="0.20" d="M0,256L48,240C96,224,192,192,288,170.7C384,149,480,139,576,144C672,149,768,171,864,176C960,181,1056,171,1152,144C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
                                         </svg>
@@ -208,8 +209,6 @@
                                         </div>
                                     </div>
 
-                                    <div id="previewImage">
-                                    </div>
                                 </div>
 
                                 <div class="modal-footer">
@@ -219,16 +218,19 @@
                                 <script>
 
                                     $(document).ready(function () {
-                                        var element = $("#html-content-holder-{{$abonne->id}}"); // global variable
                                         var getCanvas; //global variable
-                                        html2canvas(element, {
-                                            onrendered: function (canvas) {
-                                                getCanvas = canvas;
-                                            }
-                                        });
 
                                         $("#btn-Convert-Html2Image-{{$abonne->id}}").on('click', function () {
-                                            var imgageData = getCanvas.toDataURL("image/png");
+                                            $('#html-content-holder-{{$abonne->id}}').show();
+                                            var element = $("#html-content-holder-{{$abonne->id}}"); // global variable
+                                            html2canvas(element, {
+                                                onrendered: function (canvas) {
+                                                    getCanvas = canvas;
+                                                }
+                                            });
+
+
+                                            var imgageData = get.toDataURL("image/png");
                                             //Now browser starts downloading it instead of just showing it
                                             var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
                                             $("#btn-Convert-Html2Image-{{$abonne->id}}").attr("download", "your_image.png").attr("href", newData);
@@ -394,6 +396,16 @@
     <!--end::Modal dialog-->
 </div>
 <script>
+    $(document).ready(function () {
+        $("#exportabonne").click(function(){
+            TableToExcel.convert(document.getElementById("abonnes_table"), {
+                name: "Traceability.xlsx",
+                sheet: {
+                    name: "Sheet1"
+                }
+            });
+        });
+    });
 
     const container = document.querySelector('#abonnes_table');
     const checkboxes = container.querySelectorAll('[type="checkbox"]');
@@ -559,6 +571,8 @@
                 $('#edit_abonne_prenom').val(response.abonne.prenom);
                 $('#edit_abonne_email').val(response.abonne.email);
                 $('#edit_abonne_tel').val(response.abonne.tel);
+                $('#edit_abonne_adresse').val(response.abonne.adresse);
+
                 $('#edit_abonne_abonnement').val(response.abonne.package_id);
                 $('#edit_abonne_abonnement').select2().trigger('change');
                 $('#edit_abonne_DN').val(response.abonne.dateNaissence);

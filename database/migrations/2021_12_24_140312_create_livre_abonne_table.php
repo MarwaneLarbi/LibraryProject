@@ -18,6 +18,7 @@ class CreateLivreAbonneTable extends Migration
             $table->bigInteger('livre_id');
             $table->bigInteger('abonne_id');
             $table->string('status');
+            $table->timestamp('expiry_at');
             $table->timestamps();
             $table->softDeletes();
         });

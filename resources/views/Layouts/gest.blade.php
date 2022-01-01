@@ -9,6 +9,7 @@
     <meta property="og:site_name" content="Marwane | Biblio" />
     <!--begin::Fonts-->
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-touch-icon-57x57.png" />
+    <link rel="shortcut icon" href="assets/media/logos/red.png" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -23,7 +24,6 @@
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
     @livewireStyles
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
@@ -31,6 +31,11 @@
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" integrity="sha256-c3RzsUWg+y2XljunEQS0LqWdQ04X1D3j22fd/8JCAKw=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
+
     <!--end::Global Stylesheets Bundle-->
 </head>
 <!--end::Head-->
@@ -66,8 +71,8 @@
                     <!--end::Aside mobile toggle-->
                     <!--begin::Mobile logo-->
                     <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-                        <a href="../../demo1/dist/index.html" class="d-lg-none">
-                            <img alt="Logo" src="assets/media/logos/logo-2.svg" class="h-30px" />
+                        <a href="http://localhost:8000/emprunts" class="d-lg-none">
+                            <img alt="Logo" src="assets/media/logos/red.png" class="h-30px" />
                         </a>
                     </div>
                     <!--end::Mobile logo-->
@@ -652,26 +657,29 @@
                                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                                     <!--begin::Menu wrapper-->
                                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                                        <img src="assets/media/avatars/150-26.jpg" alt="user" />
+                                        <img src="{{session()->get('LoggedUser')->photo}}" alt="user" />
                                     </div>
                                     <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
+
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
                                             <div class="menu-content d-flex align-items-center px-3">
                                                 <!--begin::Avatar-->
                                                 <div class="symbol symbol-50px me-5">
-                                                    <img alt="Logo" src="assets/media/avatars/150-26.jpg" />
+                                                    <img alt="Logo" src="{{session()->get('LoggedUser')->photo}}" />
                                                 </div>
                                                 <!--end::Avatar-->
                                                 <!--begin::Username-->
                                                 <div class="d-flex flex-column">
-                                                    <div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-                                                        <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-                                                    <a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+                                                    <div class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">{{session()->get('LoggedUser')->role}}</div>
+
+                                                    <div class="fw-bolder d-flex align-items-center fs-5">{{session()->get('LoggedUser')->nom}} {{session()->get('LoggedUser')->Prenom}}
+                                                    </div>
+                                                    <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{session()->get('LoggedUser')->email}}</a>
                                                 </div>
                                                 <!--end::Username-->
                                             </div>
@@ -680,7 +688,7 @@
                                         <!--begin::Menu separator-->
                                         <div class="separator my-2"></div>
                                         <div class="menu-item px-5 my-1">
-                                            <a href="../../demo1/dist/account/settings.html" class="menu-link px-5">Account Settings</a>
+                                            <a href="http://localhost:8000/account" class="menu-link px-5">Account Settings</a>
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
@@ -3342,6 +3350,7 @@
 <script src="assets/js/custom/jquery.PrintArea.js"></script>
 <script src="assets/plugins/custom/moxiemanager.min.js"></script>
 <script src="assets/js/custom/paginate.min.js"></script>
+<script src="assets/js/custom/account/settings/signin-methods.js"></script>
 
 {{--
 <script src="assets/js/custom/apps/customers/add.js"></script>

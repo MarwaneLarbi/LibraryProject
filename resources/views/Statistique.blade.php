@@ -74,7 +74,7 @@
         </div>
         <div class="card card-bordered">
             <div class="card-body">
-                <h1 class="text-xxl-center"> title</h1>
+                <h1 class="text-xxl-center"> Statistique</h1>
             </div>
         </div>
         <br>

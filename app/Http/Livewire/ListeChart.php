@@ -20,6 +20,8 @@ class ListeChart extends Component
             'Emprunts'=>DB::table('livre_abonne')
                 ->where( DB::raw('YEAR(created_at)'), '=', '2021' )
                 ->where( 'status', '=', 'done' )
+                ->where('deleted_at', null)
+
                 ->get()
 
         ]);

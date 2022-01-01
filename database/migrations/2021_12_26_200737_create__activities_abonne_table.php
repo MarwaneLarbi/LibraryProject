@@ -18,6 +18,7 @@ class CreateActivitiesAbonneTable extends Migration
             $table->bigInteger('livre_id');
             $table->bigInteger('abonne_id');
             $table->string('status');
+            $table->string('bookName');
             $table->timestamps('date');
             $table->timestamps();
             $table->softDeletes();

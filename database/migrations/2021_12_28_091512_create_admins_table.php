@@ -18,12 +18,13 @@ class CreateAdminsTable extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('adresse');
-            $table->integer('tel');
+            $table->string('tel');
             $table->string('email')->unique();
             $table->date('dateNaissence');
             $table->string('role');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('photo')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

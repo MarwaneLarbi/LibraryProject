@@ -34,7 +34,8 @@
             ),e.addEventListener("click",(function(n){
                     n.preventDefault(),i.validate().then((function(i){
                         if ("Valid"==i){
-                            e.setAttribute("data-kt-indicator","on"),e.disabled=!0,t.submit();
+                            e.setAttribute("data-kt-indicator","on"),e.disabled=!0,
+                                t.submit();
                         }
                         else
                         {

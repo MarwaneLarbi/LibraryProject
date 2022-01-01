@@ -66,8 +66,8 @@ class AddLivre extends Component
 
         $image = $req->file('book_photo');
         $image_name =date('YmdHis') . "." .  $image -> getClientOriginalName();
-        $image -> move(public_path('/images'), $image_name);
-        $image_path = "/images/".$image_name;
+        $image -> move(public_path('/images/Books'), $image_name);
+        $image_path = "/images/Books/".$image_name;
                 $newBook= new livre();
                 $newBook->titre=$req->book_name;
                 $newBook->id=$req->book_code;

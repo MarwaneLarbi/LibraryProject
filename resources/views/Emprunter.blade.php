@@ -30,9 +30,10 @@
                 </div>
                 <!--end::Statistics Widget 2-->
             </div>
-            <div class="col-xl-4">
+
+            <div class="col-xl-2">
                 <!--begin::Statistics Widget 5-->
-                <a href="#" class="card bg-body hoverable card-xl-stretch mb-xl-8">
+                <a class="card bg-body  card-xl-stretch mb-xl-8">
                     <!--begin::Body-->
                     <div class="card-body">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
@@ -45,8 +46,8 @@
 													</svg>
 												</span>
                         <!--end::Svg Icon-->
-                        <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">500M$</div>
-                        <div class="fw-bold text-gray-400">SAP UI Progress</div>
+                        <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5"> {{Session::get('abonne')->endDate}}</div>
+                        <div class="fw-bold text-gray-400">Abonnement</div>
                     </div>
                     <!--end::Body-->
                 </a>
@@ -54,49 +55,83 @@
             </div>
             <div class="col-xl-2">
                 <!--begin::Statistics Widget 5-->
-                <a href="#" class="card bg-body hoverable card-xl-stretch mb-xl-8">
+                <a href="#" class="card bg-success hoverable card-xl-stretch mb-5 mb-xl-8">
                     <!--begin::Body-->
                     <div class="card-body">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
-                        <span class="svg-icon svg-icon-primary svg-icon-3x ms-n1">
-													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-														<rect x="8" y="9" width="3" height="10" rx="1.5" fill="black"></rect>
-														<rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5" fill="black"></rect>
-														<rect x="18" y="11" width="3" height="8" rx="1.5" fill="black"></rect>
-														<rect x="3" y="13" width="3" height="6" rx="1.5" fill="black"></rect>
-													</svg>
+                        <!--begin::Svg Icon | path: icons/duotune/graphs/gra007.svg-->
+                        <span class="svg-icon svg-icon-white svg-icon-3x ms-n1">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path opacity="0.5" d="M12.8956 13.4982L10.7949 11.2651C10.2697 10.7068 9.38251 10.7068 8.85731 11.2651C8.37559 11.7772 8.37559 12.5757 8.85731 13.0878L12.7499 17.2257C13.1448 17.6455 13.8118 17.6455 14.2066 17.2257L21.1427 9.85252C21.6244 9.34044 21.6244 8.54191 21.1427 8.02984C20.6175 7.47154 19.7303 7.47154 19.2051 8.02984L14.061 13.4982C13.7451 13.834 13.2115 13.834 12.8956 13.4982Z" fill="black"/>
+<path d="M7.89557 13.4982L5.79487 11.2651C5.26967 10.7068 4.38251 10.7068 3.85731 11.2651C3.37559 11.7772 3.37559 12.5757 3.85731 13.0878L7.74989 17.2257C8.14476 17.6455 8.81176 17.6455 9.20663 17.2257L16.1427 9.85252C16.6244 9.34044 16.6244 8.54191 16.1427 8.02984C15.6175 7.47154 14.7303 7.47154 14.2051 8.02984L9.06096 13.4982C8.74506 13.834 8.21146 13.834 7.89557 13.4982Z" fill="black"/>
+</svg>
 												</span>
                         <!--end::Svg Icon-->
-                        <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">500M$</div>
-                        <div class="fw-bold text-gray-400">SAP UI Progress</div>
+                        <div class="text-white fw-bolder fs-2 mb-2 mt-5">
+                            {{
+$books=DB::table('_activities_abonne')
+->where('abonne_id', Session::get('abonne')->id)
+->where('status', '=', 'active')
+->count()
+}}
+                        </div>
+                        <div class="fw-bold text-white">Total Emprunts</div>
                     </div>
                     <!--end::Body-->
                 </a>
                 <!--end::Statistics Widget 5-->
             </div>
-            <div class="col-xl-2 ">
+            <div class="col-xl-2">
                 <!--begin::Statistics Widget 5-->
-                <a href="#" class="card bg-body hoverable card-xl-stretch mb-xl-8">
+                <a href="#" class="card bg-danger  card-xl-stretch mb-5 mb-xl-8">
                     <!--begin::Body-->
                     <div class="card-body">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
-                        <span class="svg-icon svg-icon-primary svg-icon-3x ms-n1">
-													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-														<rect x="8" y="9" width="3" height="10" rx="1.5" fill="black"></rect>
-														<rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5" fill="black"></rect>
-														<rect x="18" y="11" width="3" height="8" rx="1.5" fill="black"></rect>
-														<rect x="3" y="13" width="3" height="6" rx="1.5" fill="black"></rect>
-													</svg>
+                        <!--begin::Svg Icon | path: icons/duotune/graphs/gra007.svg-->
+                        <span class="svg-icon svg-icon-white svg-icon-3x ms-n1">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path opacity="0.5" d="M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z" fill="black"/>
+<path d="M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z" fill="black"/>
+</svg>
 												</span>
                         <!--end::Svg Icon-->
-                        <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">500M$</div>
-                        <div class="fw-bold text-gray-400">SAP UI Progress</div>
+                        <div class="text-white fw-bolder fs-2 mb-2 mt-5">
+                            {{
+$books=DB::table('_activities_abonne')
+->where('abonne_id', Session::get('abonne')->id)
+->where('status', '=', 'inactive')
+->count()
+}}
+                        </div>
+                        <div class="fw-bold text-white">Total Retours</div>
                     </div>
                     <!--end::Body-->
                 </a>
                 <!--end::Statistics Widget 5-->
             </div>
+            <div class="col-xl-2">
+                <!--begin: Statistics Widget 6-->
+                <div class="card bg-warning card-xl-stretch mb-xl-8">
+                    <!--begin::Body-->
+                    <div class="card-body my-3">
+                        <a  class="card-title fw-bolder text-light fs-5 mb-3 d-block">Nombre</a>
+                        <div class="py-1">
+                            <span class="text-light  text-center fs-1 fw-bolder me-2">
+                                {{
+                $books=DB::table('livre_abonne')->whereDate('expiry_at', '<', now())
+                                ->where('abonne_id', Session::get('abonne')->id)
+                                ->where('status', '=', 'pending')
+            ->count()
+}}
 
+                                </span>
+                        </div>
+                        <div class="progress h-7px bg-light bg-opacity-50 mt-7">
+                            <div class="progress-bar bg-light" role="progressbar" style="width: {{$books*20}}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <!--end:: Body-->
+                </div>
+                <!--end: Statistics Widget 6-->
+            </div>
             <div class="col-xl-1">
                 <a  id="deconnect_abonne" href="#" class="card bg-body hoverable card-xl-stretch ">
                 <!--begin::Statistics Widget 2-->
@@ -104,12 +139,14 @@
                     <!--begin::Body-->
                     <div class="card-body d-flex align-items-center pt-3 pb-0">
                         <i class="bi bi-box-arrow-in-left fs-5x"></i>
-
                         </div>
 
                     <!--end::Body-->
                 </div>
+                    <h1 class="" style="padding-left: 11px"> LogOut</h1>
+
                 </a>
+
                 <!--end::Statistics Widget 2-->
             </div>
         </div>
@@ -117,7 +154,6 @@
             <div class="card lg-2 ">
                 <div class="card-body">
                     <div class="position-relative start-50 translate-middle-x">
-                        <h1 class=""> Liste Des Abonnées</h1>
                         <br>
                     </div>
                     @livewire('liste-emprunts')
@@ -204,8 +240,6 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 @livewire('qr-code-reader-abonne')
-
-
                             </div>
                         </div>
                     </div>

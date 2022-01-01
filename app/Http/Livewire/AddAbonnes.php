@@ -3,11 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\abonne;
+use App\Models\auteur;
 use App\Models\category;
 use App\Models\livre;
 use App\Models\package;
 use App\Traits\sendSMS;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -50,13 +52,13 @@ class AddAbonnes extends Component
         }
         $months = 0;
         switch ($req->abonnemnt){
-            case 11:
+            case 1:
                 $months = 1;
             break;
-            case 12:
+            case 2:
                 $months = 3;
             break;
-            case 13:
+            case 3:
                 $months = 12;
             break;
 
@@ -69,11 +71,10 @@ class AddAbonnes extends Component
                 $newAbonne->prenom=$req->abonne_prenom;
                 $newAbonne->email=$req->abonne_email;
                 $newAbonne->tel=$req->abonne_tel;
+                $newAbonne->adresse=$req->abonne_adresse;
                 $newAbonne->dateNaissence=$req->date_naissence;
                 $newAbonne->package_id=$req->abonnemnt;
                 $newAbonne->status='active';
-                $newAbonne->role='abonne';
-
         if ($req->abonne_notification){}
                 $newAbonne->notification=$req->abonne_notification;
                 $newAbonne->endDate=$expiry_date->format('Y-m-d');
@@ -82,6 +83,13 @@ class AddAbonnes extends Component
                 $number='+213'.$req->abonne_tel;
                 $newAbonne->save();
                 $this->sendMessage($message,'+213'.$req->abonne_tel);
+
+        $details = [
+            'abonne'=>abonne::find($req->abonne_id)
+        ];
+        \Mail::to('marwane.dz2@gmail.com')->send(new \App\Mail\LibraryUserCard($details));
+
+
         return response()->json([
             'status'=>200,
             'success'=>true,
@@ -151,7 +159,50 @@ class AddAbonnes extends Component
                             }
 
            }               }*/
-        return $test2->pivot;
+        $expiry_date = Carbon::now()->addMonths(1);
 
+/*        DB::table('_activities_abonne')
+            ->
+            where(DB::raw('DAY(date)'), '=', '29')
+            ->
+            where('status', '=', 'active')
+            ->
+            count().',';*/
+
+
+/*            $books=DB::table('livre_abonne')->whereDate('expiry_at', '<', now())
+            ->
+            where('status', '=', 'pending')
+            ->get();
+        foreach ($books as $product)
+        {
+            $find=abonne::find($product->abonne_id);
+            $find->Warning=$find->Warning+1;
+            $find->save();
+        }*/
+
+        //$abonne=abonne::find('4445645824')->first();
+   /*     return $authors = livre::whereHas('categories', function (Builder $query) {
+            $query->where('category_id', '=', '3');
+        })->get();*/
+
+       // $books = livre::with('auteurs')->get();
+  /*      $books=livre::whereHas('auteurs', function (Builder $query) {
+            $query->where('auteurs_id', '=', '14');
+        })->get();*/
+       // $roles = livre::find(1)->roles()->orderBy('name')->get();
+
+      //  return livre::with('auteurs')->find(370212);
+        $orders = livre::all();//To get the output in array
+        /*        ^               ^
+         This will get the user | This will get all the Orders related to the user*/
+
+  /*      return $books=livre::whereHas('auteurs', function (Builder $query) {
+            $query->where('id', '=', '14');
+        })->get();*/
+
+        return $books=livre::whereHas('categories', function (Builder $query) {
+        $query->where('category_id', '=', '4');
+    })->get();
     }
 }

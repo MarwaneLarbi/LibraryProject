@@ -128,7 +128,15 @@
                 </div>
                 <!--end::Col-->
             </div>
+            <div class="d-flex flex-column mb-8 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                    <span class="">Adresse</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                </label>
+                <!--end::Label-->
+                <input type="text" class="form-control form-control-solid" placeholder="" name="abonne_adresse" />
 
+            </div>
             <div class="d-flex flex-stack mb-8">
                 <!--begin::Label-->
                 <div class="me-5">
@@ -185,6 +193,13 @@
                         }
                     },
                     'abonne_prenom': {
+                        validators: {
+                            notEmpty: {
+                                message: 'champ requis'
+                            }
+                        }
+                    },
+                    'abonne_adresse': {
                         validators: {
                             notEmpty: {
                                 message: 'champ requis'

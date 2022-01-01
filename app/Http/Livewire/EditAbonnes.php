@@ -31,6 +31,7 @@ class EditAbonnes extends Component
         $update->nom=$req->edit_abonne_nom;
         $update->prenom=$req->edit_abonne_prenom;
         $update->email=$req->edit_abonne_email;
+        $update->adresse=$req->edit_abonne_adresse;
         $update->tel=$req->edit_abonne_tel;
         $update->dateNaissence=$req->edit_date_naissence;
         $update->save();
@@ -62,15 +63,15 @@ class EditAbonnes extends Component
             $date=now();
         }
         switch ($req->update_abonne_abonnement){
-            case 11:
+            case 1:
                 $months = 1;
                 $date->modify('+1 month');
 
                 break;
-            case 12:
+            case 2:
                 $date->modify('+3 month');
                 break;
-            case 13:
+            case 3:
                 $date->modify('+12 month');
                 break;
 

@@ -25,6 +25,8 @@ class CreateAbonnesTable extends Migration
             $table->string('status');
             $table->boolean('notification');
             $table->integer('package_id');
+            $table->integer('Warning')->nullable()->change();
+
 
             $table->timestamps();
 

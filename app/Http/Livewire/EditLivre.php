@@ -42,8 +42,8 @@ class EditLivre extends Component
     if($req->hasFile('edit_book_photo')){
         $image = $req->file('edit_book_photo');
         $image_name = $image -> getClientOriginalName();
-        $image -> move(public_path('/images'), $image_name);
-        $this->image_path= "/images/".$image_name;
+        $image -> move(public_path('/images/Books'), $image_name);
+        $this->image_path= "/images/Books/".$image_name;
         $this->hasimage=true;
     }
     if ($req->_currentcode!=$req->edit_book_code)

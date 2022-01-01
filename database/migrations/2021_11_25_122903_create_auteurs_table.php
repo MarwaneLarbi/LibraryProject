@@ -18,6 +18,7 @@ class CreateAuteursTable extends Migration
             $table->string('fullname');
             $table->string('country')->nullable();
             $table->text('description')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

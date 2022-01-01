@@ -20,6 +20,10 @@
                 <div class="card-body">
                     <div id="kt_apexcharts_1" style="height: 485px;"></div>
                 </div>
+                <div class="card-body">
+                    <div id="kt_apexcharts_2" style="height: 485px; display: none"></div>
+                </div>
+
             </div>
         </div>
         <div class="col-md-5">
@@ -34,7 +38,7 @@
 
                 </div>
                 <div class="card-body">
-                    <div id="kt_amcharts_3" style="height: 500px;"></div>
+                    <div id="kt_amcharts_3" style="height: 550px;"></div>
                 </div>
             </div>
         </div>
@@ -57,17 +61,17 @@
 </div>
 @push('custom-scripts')
     <script>
-        perYears('years')
+
         const perYear = document.getElementById('kt_charts_widget_2_year_btn');
         perYear.addEventListener('click', function (e) {
-            perYears('years')
+            $('#kt_apexcharts_1').show();
+            $('#kt_apexcharts_2').hide();
         });
         const perMonth = document.getElementById('kt_charts_widget_2_month_btn');
         perMonth.addEventListener('click', function (e) {
-            perYears('month')
+            $('#kt_apexcharts_1').hide();
+            $('#kt_apexcharts_2').show();
         });
-function perYears(option){
-    console.log(option)
     var element = document.getElementById('kt_apexcharts_1');
 
     var height = parseInt(KTUtil.css(element, 'height'));
@@ -77,9 +81,7 @@ function perYears(option){
     var secondaryColor = KTUtil.getCssVariableValue('--bs-gray-300');
 
     if (!element) {
-
     }
-    if(option=='years'){
         var options = {
             series: [{
                 name: 'Emprunts',
@@ -206,157 +208,159 @@ function perYears(option){
                         show: true
                     }
                 }
-            }
-        };
-
-    }
-    else if(option=='month'){
-        var options = {
-            series: [{
-                name: 'Emprunts',
-                data: [
-
-                    @for($i=1;$i<30;$i++)
-                        {{
-                            DB::table('_activities_abonne')
-                   ->
-                   where(DB::raw('DAY(created_at)'), '=', $i)
-                   ->
-                   where(DB::raw('MONTH(created_at)'), '=', now()->format('m'))
-                   ->
-                   where('status', '=', 'active')
-                   ->
-                   count().','
-    }}
-                        @endfor
-                ]
-            }, {
-                name: 'Retours',
-                data: [
-
-                    @for($i=1;$i<30;$i++)
-                        {{
-                            DB::table('_activities_abonne')
-                   ->
-                   where(DB::raw('DAY(created_at)'), '=', $i)
-                   ->
-                   where(DB::raw('MONTH(created_at)'), '=', now()->format('m'))
-                   ->
-                   where('status', '=', 'inactive')
-                   ->
-                   count().','
-    }}
-                        @endfor
-                ]
-            }],
-            chart: {
-                fontFamily: 'inherit',
-                type: 'bar',
-                height: height,
-                toolbar: {
-                    show: false
-                }
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: ['30%'],
-                    endingShape: 'rounded'
-                },
-            },
-            legend: {
-                show: false
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2,
-                colors: ['transparent']
-            },
-            xaxis: {
-                categories: [
-
-                    @for($i=1;$i<31;$i++)
-                        {{
-                            $i.','
-    }}
-                        @endfor
-
-                ],
-                axisBorder: {
-                    show: false,
-                },
-                axisTicks: {
-                    show: false
-                },
-                labels: {
-                    style: {
-                        colors: labelColor,
-                        fontSize: '12px'
-                    }
-                }
-            },
-            yaxis: {
-                labels: {
-                    style: {
-                        colors: labelColor,
-                        fontSize: '12px'
-                    }
-                }
-            },
-            fill: {
-                opacity: 1
-            },
-            states: {
-                normal: {
-                    filter: {
-                        type: 'none',
-                        value: 0
-                    }
-                },
-                hover: {
-                    filter: {
-                        type: 'none',
-                        value: 0
-                    }
-                },
-                active: {
-                    allowMultipleDataPointsSelection: false,
-                    filter: {
-                        type: 'none',
-                        value: 0
-                    }
-                }
-            },
-            tooltip: {
-                style: {
-                    fontSize: '12px'
-                },
-                y: {
-                    formatter: function (val) {
-                        return '' + val + ' Livres'
-                    }
-                }
-            },
-            colors: [baseColor, '#E91E63'],
-            grid: {
-                borderColor: borderColor,
-                strokeDashArray: 4,
-                yaxis: {
-                    lines: {
-                        show: true
-                    }
-                }
-            }
-        };
-
-    }
+            }}
 
     var chart = new ApexCharts(element, options);
     chart.render();
-}
+
+    /////////////////////////////////////////////
+        var element66 = document.getElementById('kt_apexcharts_2');
+
+        var height66 = parseInt(KTUtil.css(element66, 'height'));
+        var labelColor66 = KTUtil.getCssVariableValue('--bs-gray-500');
+        var borderColo66r = KTUtil.getCssVariableValue('--bs-gray-200');
+        var baseColor66 = KTUtil.getCssVariableValue('--bs-primary');
+        var secondaryColor66 = KTUtil.getCssVariableValue('--bs-gray-300');
+
+            var options66 = {
+                series: [{
+                    name: 'Emprunts',
+                    data: [
+                        @for($i=1;$i<=30;$i++)
+                            {{
+                                DB::table('_activities_abonne')
+                       ->
+                       where(DB::raw('DAY(date)'), '=', $i)
+                       ->
+                       where('status', '=', 'active')
+                       ->
+                       count().','
+        }}
+                            @endfor
+                    ]
+                }, {
+                    name: 'Retours',
+                    data: [
+                        @for($i=1;$i<=30;$i++)
+                            {{
+                                DB::table('_activities_abonne')
+                       ->
+                       where(DB::raw('DAY(date)'), '=', $i)
+                       ->
+                       where('status', '=', 'active')
+                       ->
+                       count().','
+        }}
+                            @endfor
+                    ]
+                }],
+                chart: {
+                    fontFamily: 'inherit',
+                    type: 'bar',
+                    height: height,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: ['30%'],
+                        endingShape: 'rounded'
+                    },
+                },
+                legend: {
+                    show: false
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: [
+
+                        @for($i=1;$i<31;$i++)
+                            {{
+                                $i.','
+        }}
+                            @endfor
+
+                    ],
+                    axisBorder: {
+                        show: false,
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    labels: {
+                        style: {
+                            colors: labelColor,
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: labelColor,
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                states: {
+                    normal: {
+                        filter: {
+                            type: 'none',
+                            value: 0
+                        }
+                    },
+                    hover: {
+                        filter: {
+                            type: 'none',
+                            value: 0
+                        }
+                    },
+                    active: {
+                        allowMultipleDataPointsSelection: false,
+                        filter: {
+                            type: 'none',
+                            value: 0
+                        }
+                    }
+                },
+                tooltip: {
+                    style: {
+                        fontSize: '12px'
+                    },
+                    y: {
+                        formatter: function (val) {
+                            return '' + val + ' Livres'
+                        }
+                    }
+                },
+                colors: [baseColor, '#E91E63'],
+                grid: {
+                    borderColor: borderColor,
+                    strokeDashArray: 4,
+                    yaxis: {
+                        lines: {
+                            show: true
+                        }
+                    }
+                }
+            };
+
+        var chart66 = new ApexCharts(element66, options66);
+        chart66.render();
+
+
 
         //////2///////////////////
         am4core.ready(function () {

@@ -17,7 +17,7 @@ class isAdmin
     public function handle(Request $request, Closure $next)
     {
         $user=session()->get('LoggedUser');
-        if ($user->role=='admin')
+        if ($user->role=='Admin')
         {
             return $next($request);
 

@@ -266,9 +266,11 @@
                                             beep()
                                             $('#emprunt_add_id').val('')
                                         } else {
-                                            beepError(),
-                                                Swal.fire({
-                                                        text: "incorrect id!.",
+                                            if(response.status==505)
+                                            {                                            $('#emprunt_add_id').val('')
+                                                beepError(),
+                                                    Swal.fire({
+                                                        text: "pas Des livre Disponible.",
                                                         icon: "error",
                                                         buttonsStyling: !1,
                                                         confirmButtonText: "Ok, got it!"
@@ -277,11 +279,29 @@
                                                         }
                                                     }
                                                 )
+
+                                            }
+                                            else {
+                                                $('#emprunt_add_id').val('')
+                                                beepError(),
+                                                    Swal.fire({
+                                                            text: "incorrect id!.",
+                                                            icon: "error",
+                                                            buttonsStyling: !1,
+                                                            confirmButtonText: "Ok, got it!"
+                                                            , customClass: {
+                                                                confirmButton: "btn btn-primary"
+                                                            }
+                                                        }
+                                                    )
+                                            }
+
                                         }
                                     }
 
                                 });}
                                     else{
+                                        $('#emprunt_add_id').val('')
                                         beepError();
                                         Swal.fire({
                                                 text: "Désolé, tu es deja empruntes ce livre ",
@@ -297,7 +317,7 @@
                                 }
 
                         else {
-
+                                    $('#emprunt_add_id').val('')
                                     Swal.fire({
                                             text: "Désolé,tu peux emprunter ue  3 livre ",
                                             icon: "error",
@@ -314,7 +334,7 @@
                             }, 10);
                         } else {
                             beepError();
-
+                            $('#emprunt_add_id').val('')
                             Swal.fire({
                                     text: "Désolé, il semble qu'il y ait des erreurs détectées, veuillez réessayer",
                                     icon: "error",

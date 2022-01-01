@@ -45,6 +45,9 @@ class EditGestionnaire extends Component
         ]);
 
     }
+    public function editerProfile(Request $req){
+        dd($req->all());
+    }
 
     public function render()
     {

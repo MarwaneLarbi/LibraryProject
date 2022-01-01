@@ -16,6 +16,10 @@ class livre extends Model
     protected $hidden =['created_at','updated_at','pivot','deleted_at'];
     public $timestamps = true;
 
+    public function auteurs(){
+
+        return $this->belongsTo(auteur::class, 'auteur');
+    }
     public function tags()
     {
         return $this->belongsToMany(tag::class, 'livre_tag','livre_id')->withTimestamps();
