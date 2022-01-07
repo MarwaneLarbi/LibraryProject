@@ -2,7 +2,7 @@
 
 
 <!DOCTYPE html>
-@extends('layouts.gest')
+@extends('Layouts.gest')
 @section('content')
     <div class="position-lg-relative start-70 translate-middle-x">
         <h1> Categories & Mots Clés</h1>
@@ -112,11 +112,11 @@ $books=DB::table('_activities_abonne')
                 <div class="card bg-warning card-xl-stretch mb-xl-8">
                     <!--begin::Body-->
                     <div class="card-body my-3">
-                        <a  class="card-title fw-bolder text-light fs-5 mb-3 d-block">Nombre</a>
+                        <a  class="card-title fw-bolder text-light fs-5 mb-3 d-block">Nombre Livres en attents</a>
                         <div class="py-1">
                             <span class="text-light  text-center fs-1 fw-bolder me-2">
                                 {{
-                $books=DB::table('livre_abonne')->whereDate('expiry_at', '<', now())
+                $books=DB::table('livre_abonne')
                                 ->where('abonne_id', Session::get('abonne')->id)
                                 ->where('status', '=', 'pending')
             ->count()
@@ -125,7 +125,7 @@ $books=DB::table('_activities_abonne')
                                 </span>
                         </div>
                         <div class="progress h-7px bg-light bg-opacity-50 mt-7">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: {{$books*20}}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: {{$books*33}}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <!--end:: Body-->

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-@extends('layouts.gest')
+@extends('Layouts.gest')
 @section('content')
     <div style="padding: 0 2%;" >
         <div class="card mb-5 mb-xl-10">

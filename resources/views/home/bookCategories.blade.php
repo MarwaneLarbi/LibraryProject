@@ -46,21 +46,25 @@
 
                                 </div>
                                 <div class="listing-content">
-                                    <h3 class="title"><a href="listing-details-1.html">{{$book->titre}}</a></h3>
+                                    <h3 class="title"><a href="http://localhost:8000/livres/id/{{$book->id}}">{{$book->titre}}</a></h3>
                                     <p>
 
                                     </p>
                                     <span class="phone-meta">
 <p>{!! substr($book->description, 0, 20) !!}
 </p>
-                                                <span class="status st-open text-center">Livre disponible : {{  $book->nombre_exmp-  DB::table('livre_abonne')
+                                                <span class="status st-open text-center">Livre disponible :
+                                                    {{  $book->nombre_exmp-  DB::table('livre_abonne')
                 ->where('livre_id', $book->id)
                 ->where('status', 'pending')
-                ->where('deleted_at', null)->count()}}</span></span>
+                ->where('deleted_at', null)->count()}}
+                                                </span></span>
 
                                     <div class="listing-meta">
-                                        @foreach($book->tags as $tag)
-                                            <span class="badge rounded-pill bg-primary ">{{$tag->name}}</span>
+                                        @foreach($book->tags  as $key => $tag)
+                                            @if($key < 3)
+                                                <span class="badge rounded-pill bg-primary ">{{$tag->name}}</span>
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>

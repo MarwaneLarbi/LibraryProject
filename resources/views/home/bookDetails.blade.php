@@ -18,7 +18,7 @@
                                            <span class="text-primary fw-bold">Auteur</span>
                                         </div>
                                         <div class="info">
-                                            <h6>Card Payment</h6>
+                                            <h6>{{$book->auteurs->fullname}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -80,6 +80,7 @@
                             @endforeach
 
                         </div>
+
                         <!--====== Start Breadcrumbs section ======-->
                         <section class="page-breadcrumbs page-breadcrumbs-one  pb-70">
                             <h4 class="title"> </h4>
@@ -103,15 +104,130 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
 
                                     </div>
+
+
                                 </div>
+
                             </div>
+
+
                         </section>
 
+                        <div class="listing-review-box mb-50">
+                            <h4 class="title"></h4>
+                            <ul class="review-list">
+                                @foreach($comments as $comment)
+
+                                <li class="review">
+
+                                    <div class="review-content">
+                                        <div class="row  d-flex align-items-center " >
+                                            <div class="col-md-11">
+                                                <h5>{{$comment->name}}</h5>
+                                                <span class="date">{{$comment->created_at}}</span>
+                                                <p>{{$comment->comment}} </p>
+
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="content-meta d-flex align-items-end ">
+                                                    <ul class="ratings
+
+    @if($comment->rating==1)
+       ratings-one">
+   @elseif($comment->rating==2)
+       ratings-two">
+    @elseif($comment->rating==3)
+      ratings-three">
+    @elseif($comment->rating==4)
+        ratings-four">
+@elseif($comment->rating==5)
+     ratings-five">
+@endif
+
+                                                        <li><span class="av-rate">4.5</span></li>
+                                                        <li class="star"><i class="flaticon-star-1"></i></li>
+                                                        <li class="star"><i class="flaticon-star-1"></i></li>
+                                                        <li class="star"><i class="flaticon-star-1"></i></li>
+                                                        <li class="star"><i class="flaticon-star-1"></i></li>
+                                                        <li class="star"><i class="flaticon-star-1"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </li>
+                                @endforeach
+
+                            </ul>
+                            @if(count($comments))
+                                {{$comments->links('pagination::bootstrap-4')}}
+                            @endif
+                        </div>
+                        <div class="listing-review-form mb-30">
+
+                            <form action="{{route('comments.store')}}" method="get">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4 class="title">Write a Review</h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="star-rating">
+                                            <input type="radio" name="stars" id="star-a" value="5"/>
+                                            <label for="star-a"></label>
+
+                                            <input type="radio" name="stars" id="star-b" value="4"/>
+                                            <label for="star-b"></label>
+
+                                            <input type="radio" name="stars" id="star-c" value="3"  checked="checked"/>
+                                            <label for="star-c"></label>
+
+                                            <input type="radio" name="stars" id="star-d" value="2"/>
+                                            <label for="star-d"></label>
+
+                                            <input type="radio" name="stars" id="star-e" value="1"/>
+                                            <label for="star-e"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form_group">
+                                            <textarea class="form_control" placeholder="Write Message" name="message" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form_group">
+                                            <input type="text" class="form_control" placeholder="Your name" name="name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form_group">
+                                            <input type="email" class="form_control" placeholder="Email here" name="email" required>
+                                            <input  value="{{ request()->route()->parameters['id']}}" name="post_id" hidden>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form_group">
+                                            <button class="main-btn icon-btn">Submit Review</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
 
                     </div>
+
                 </div>
                 <div class="col-lg-4">
                     <div class="sidebar-widget-area">
@@ -155,6 +271,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

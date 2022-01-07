@@ -21,8 +21,18 @@ Route::get('/test22', function () {
         'details'=>$details,
     ]);
 });
+Route::get('/blog1', function () {
+
+    return view('inscription');
+});
+Route::get('/contact', function () {
+
+    return view('contactus');
+});
 
 Route::get('/test', [\App\Http\Livewire\AddAbonnes::class,'testdata']);
+Route::get('/contact/store', [\App\Http\Controllers\contact::class,'store'])->name('contact.store');
+Route::get('/comments/store', [\App\Http\Livewire\BooksList::class,'store_comments'])->name('comments.store');
 
 Route::get('/livres/livres', [\App\Http\Livewire\BooksList::class,'saveContact'])->name('livres.search');
 Route::get('/larbi', function () {
@@ -108,6 +118,10 @@ Route::group(['middleware' => ['isLogged']], function() {
         Route::get('Statistque', function () {
 
             return view('Statistique');
+        });
+        Route::get('/messages', function () {
+
+            return view('Contacts');
         });
         Route::prefix('gestionnaire')->group(function () {
             Route::get('/', function () {

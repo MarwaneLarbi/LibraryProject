@@ -81,13 +81,20 @@
                                                     <!--begin::Title-->
                                                     <div class="fs-5 fw-bold mb-2">
                                                         <span class="text-success">
-                                                                       {{\App\Models\abonne::find($emprunt->abonne_id)->nom}}
-                                                            {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                          @if(\App\Models\abonne::where( 'id',$emprunt->abonne_id)->count()!=null)
+                                                                {{
+                                                                    \App\Models\abonne::find($emprunt->abonne_id)->nom}}
+                                                                {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                            @endif
                                                         </span>
 
 
                                                         a emprenté le  livre
-                                                        <span class="text-uppercase"> "{{ \App\Models\livre::find($emprunt->livre_id)->titre }}"</span>
+                                                        <span class="text-uppercase"> "
+                                                            @if(\App\Models\livre::where('id',$emprunt->livre_id)->count()!=null)
+                                                                {{ \App\Models\livre::find($emprunt->livre_id)->titre }}
+                                                            @endif
+                                                        </span>
                                                     </div>
                                                     <!--end::Title-->
                                                     <!--begin::Description-->
@@ -132,12 +139,18 @@
                                                     <!--begin::Title-->
                                                     <div class="fs-5 fw-bold mb-2">
                                                         <span class="text-danger">
-                                                                       {{\App\Models\abonne::find($emprunt->abonne_id)->nom}}
-                                                            {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                          @if(\App\Models\abonne::where( 'id',$emprunt->abonne_id)->count()!=null)
+                                                                {{
+                                                                    \App\Models\abonne::find($emprunt->abonne_id)->nom}}
+                                                                {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                            @endif
+
                                                         </span>
 
                                                         a rendu  le  livre
-                                                        <span class="text-uppercase"> "{{ \App\Models\livre::find($emprunt->livre_id)->titre }}"</span>
+                                                        <span class="text-uppercase"> "                                                            @if(\App\Models\livre::where('id',$emprunt->livre_id)->count()!=null)
+                                                                {{ \App\Models\livre::find($emprunt->livre_id)->titre }}
+                                                            @endif"</span>
                                                         </div>                                                    <!--end::Title-->
                                                     <!--begin::Description-->
                                                     <div class="d-flex align-items-center mt-1 fs-6">
@@ -204,13 +217,18 @@
                                                         <!--begin::Title-->
                                                         <div class="fs-5 fw-bold mb-2">
                                                         <span class="text-success">
-                                                                       {{\App\Models\abonne::find($emprunt->abonne_id)->nom}}
-                                                            {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                          @if(\App\Models\abonne::where( 'id',$emprunt->abonne_id)->count()!=null)
+                                                                {{
+                                                                    \App\Models\abonne::find($emprunt->abonne_id)->nom}}
+                                                                {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                            @endif
                                                         </span>
 
 
                                                             a emprenté le  livre
-                                                            <span class="text-uppercase"> "{{ \App\Models\livre::find($emprunt->livre_id)->titre }}"</span>
+                                                            <span class="text-uppercase"> "                                                            @if(\App\Models\livre::where('id',$emprunt->livre_id)->count()!=null)
+                                                                    {{ \App\Models\livre::find($emprunt->livre_id)->titre }}
+                                                                @endif"</span>
                                                         </div>
                                                         <!--end::Title-->
                                                         <!--begin::Description-->
@@ -255,12 +273,17 @@
                                                         <!--begin::Title-->
                                                         <div class="fs-5 fw-bold mb-2">
                                                         <span class="text-danger">
-                                                                       {{\App\Models\abonne::find($emprunt->abonne_id)->nom}}
-                                                            {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                          @if(\App\Models\abonne::where( 'id',$emprunt->abonne_id)->count()!=null)
+                                                                {{
+                                                                    \App\Models\abonne::find($emprunt->abonne_id)->nom}}
+                                                                {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                            @endif
                                                         </span>
 
                                                             a rendu  le  livre
-                                                            <span class="text-uppercase"> "{{ \App\Models\livre::find($emprunt->livre_id)->titre }}"</span>
+                                                            <span class="text-uppercase"> "                                                            @if(\App\Models\livre::where('id',$emprunt->livre_id)->count()!=null)
+                                                                    {{ \App\Models\livre::find($emprunt->livre_id)->titre }}
+                                                                @endif"</span>
                                                         </div>                                                    <!--end::Title-->
                                                         <!--begin::Description-->
                                                         <div class="d-flex align-items-center mt-1 fs-6">
@@ -327,13 +350,16 @@
                                                         <!--begin::Title-->
                                                         <div class="fs-5 fw-bold mb-2">
                                                         <span class="text-success">
-                                                                       {{\App\Models\abonne::find($emprunt->abonne_id)->nom}}
-                                                            {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                          @if(\App\Models\abonne::where( 'id',$emprunt->abonne_id)->count()!=null)
+                                                                {{
+                                                                    \App\Models\abonne::find($emprunt->abonne_id)->nom}}
+                                                                {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                            @endif
                                                         </span>
-
-
                                                             a emprenté le  livre
-                                                            <span class="text-uppercase"> "{{ \App\Models\livre::find($emprunt->livre_id)->titre }}"</span>
+                                                            <span class="text-uppercase"> "                                                            @if(\App\Models\livre::where('id',$emprunt->livre_id)->count()!=null)
+                                                                    {{ \App\Models\livre::find($emprunt->livre_id)->titre }}
+                                                                @endif"</span>
                                                         </div>
                                                         <!--end::Title-->
                                                         <!--begin::Description-->
@@ -378,12 +404,17 @@
                                                         <!--begin::Title-->
                                                         <div class="fs-5 fw-bold mb-2">
                                                         <span class="text-danger">
-                                                                       {{\App\Models\abonne::find($emprunt->abonne_id)->nom}}
-                                                            {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                          @if(\App\Models\abonne::where( 'id',$emprunt->abonne_id)->count()!=null)
+                                                                {{
+                                                                    \App\Models\abonne::find($emprunt->abonne_id)->nom}}
+                                                                {{\App\Models\abonne::find($emprunt->abonne_id)->prenom}}
+                                                            @endif
                                                         </span>
 
                                                             a rendu  le  livre
-                                                            <span class="text-uppercase"> "{{ \App\Models\livre::find($emprunt->livre_id)->titre }}"</span>
+                                                            <span class="text-uppercase"> "                                                            @if(\App\Models\livre::where('id',$emprunt->livre_id)->count()!=null)
+                                                                    {{ \App\Models\livre::find($emprunt->livre_id)->titre }}
+                                                                @endif"</span>
                                                         </div>                                                    <!--end::Title-->
                                                         <!--begin::Description-->
                                                         <div class="d-flex align-items-center mt-1 fs-6">
@@ -419,8 +450,8 @@
 
 
        days= $("#kt_datatable_days").DataTable({
-            ordering: false ,
             searching: true,
+           ordering: false ,
 
         });
 
@@ -430,8 +461,8 @@
        });
 
        months=$("#kt_datatable_months").DataTable({
-            ordering: false ,
             searching: true,
+           ordering: false ,
 
         });
        const filterSearchmonths = document.querySelector('[data-kt-docs-table-filter="search_month"]');
@@ -439,11 +470,9 @@
            months.search(e.target.value).draw();
        });
        years= $("#kt_datatable_years").DataTable({
-
             ordering: false ,
             searching: true,
-
-        });
+       });
        const filtersearch_years = document.querySelector('[data-kt-docs-table-filter="search_years"]');
        filtersearch_years.addEventListener('keyup', function (e) {
            years.search(e.target.value).draw();

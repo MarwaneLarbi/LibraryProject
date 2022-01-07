@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-@extends('layouts.gest')
+@extends('Layouts.gest')
 @section('content')
 
     <div class="row" style="padding: 0 2%;">

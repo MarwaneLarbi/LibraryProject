@@ -21,8 +21,6 @@
     <link rel="stylesheet" href="assets/css/magnific-popup.css">
     <!--====== Slick css ======-->
     <link rel="stylesheet" href="assets/css/slick.css">
-    <!--====== Nice-select css ======-->
-    <link rel="stylesheet" href="assets/css/nice-select.css">
     <!--====== Jquery ui css ======-->
     <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
     <!--====== Animate css ======-->
@@ -34,6 +32,7 @@
 
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+
     @livewireStyles
 
 </head>
@@ -207,8 +206,6 @@
 <script src="assets/js/isotope.pkgd.min.js"></script>
 <!--====== Imagesloaded js ======-->
 <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-<!--====== Nice-select js ======-->
-<script src="assets/js/jquery.nice-select.min.js"></script>
 <!--====== counterup js ======-->
 <script src="assets/js/jquery.counterup.min.js"></script>
 <!--====== waypoints js ======-->
@@ -225,6 +222,6 @@
 <script src="assets/plugins/global/plugins.bundle.js"></script>
 
 @livewireScripts
-
+@stack('scripts')
 </body>
 </html>

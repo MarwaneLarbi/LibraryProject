@@ -13,35 +13,42 @@
                             <form action="{{route('livres.search')}}" method="GET" id="searshform">
                                 @csrf
                                 <div class="search-form">
-                                    <div class="form_group">
-                                        <input type="search" class="form_control" placeholder="Search keyword"  wire:model="searchboook" name="searchboook">
+                                    <div  class="form_group">
+                                        <input type="search" class="form_control" placeholder="Search keyword"  name="searchboook">
                                         <i class="ti-search"></i>
                                     </div>
                                     <div  class="form_group">
-
-                                        <select  name="categories"  wire:modal="categories_2" class="wide">
-                                            <option value="" data-dsplay="Category">Category</option>
+                                        <label for="exampleDataList" class="form-label">Categories</label>
+                                        <input class="form-control" list="datalistcategories" id="exampleDataList"name="categories" placeholder="All Category">
+                                        <datalist id="datalistcategories">
+                                            <option value="" data-dsplay="Category">All Category</option>
                                             @foreach($categories as $category)
-                                                <option value="22">{{$category->name}}</option>
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach
-                                        </select>
+                                        </datalist>
+
                                     </div>
                                     <div class="form_group">
-                                        <select name="auteurs"class="wide">
-                                            <option value="" data-dsplay="Auteur">Auteur</option>
+                                        <label for="exampleDataList" class="form-label">Auteurs</label>
+                                        <input class="form-control" list="datalistauteurs" id="exampleDataList" name="auteurs" placeholder="All auteurs">
+                                        <datalist id="datalistauteurs">
+                                            <option value="" data-dsplay="Auteur">All Auteur</option>
                                             @foreach($auteurs as $auteur)
-                                                <option value="22">{{$auteur->fullname}}</option>
+                                                <option value="{{$auteur->id}}">{{$auteur->fullname}}</option>
                                             @endforeach
-                                        </select>
+                                        </datalist>
+
                                     </div>
                                     <div class="form_group">
-                                        <select class="wide" name="Langue">
-                                            <option value="" data-dsplay="Langue"> Langue</option>
+                                        <label for="exampleDataList" class="form-label">Langue</label>
+                                        <input class="form-control" list="datalistOptions" id="exampleDataList" name="Langue" placeholder="All Langue">
+                                        <datalist id="datalistOptions">
+                                            <option value="" data-dsplay="Langue">All Langue</option>
                                             <option value="Arabe"  >Arabe</option>
                                             <option value="Anglais">Anglais </option>
                                             <option value="Français">Français</option>
                                             <option value="Espagnol">Espagnol</option>
-                                        </select>
+                                        </datalist>
                                     </div>
 
                                 </div>
@@ -50,6 +57,7 @@
                                     <button class="main-btn icon-btn" type="submit">Search Now</button>
                                 </div>
                             </form>
+
                         </div>
                         <div class="widget newsletter-widget mb-30">
                             <div class="newsletter-widget-wrap bg_cover" style="background-image: url(assets/images/newsletter-widget-1.jpg);">
@@ -92,8 +100,10 @@
                 ->where('deleted_at', null)->count()}}</span></span>
 
                                             <div class="listing-meta">
-                                                @foreach($book->tags as $tag)
-                                                    <span class="badge rounded-pill bg-primary ">{{$tag->name}}</span>
+                                                @foreach($book->tags  as $key => $tag)
+                                                    @if($key < 3)
+                                                        <span class="badge rounded-pill bg-primary ">{{$tag->name}}</span>
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         </div>

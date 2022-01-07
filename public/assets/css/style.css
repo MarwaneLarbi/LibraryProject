@@ -309,35 +309,6 @@ button {
   line-height: 25px;
 }
 
-/*
-    nice select css
-*/
-.nice-select {
-  outline: none;
-  float: none;
-  border-radius: 0px;
-  padding: 0 25px;
-}
-.nice-select.open:after {
-  -webkit-transform: none;
-          transform: none;
-}
-.nice-select:after {
-  content: "";
-  font-family: "themify";
-  right: 30px;
-  font-size: 12px;
-  font-weight: 400;
-  -webkit-transform: none;
-          transform: none;
-  border: none;
-  top: 0;
-  margin-top: 0;
-  color: #2E2E2E;
-}
-.nice-select .list {
-  width: 100%;
-}
 
 /*
     search
@@ -485,7 +456,22 @@ button {
   color: #fff;
 }
 
-.contact-information-list .information-item .info p a:hover, .copyright-area .copyright-link ul li a:hover, .footer-widget .widget.categories-widget ul.categories-link li a:hover, .footer-widget .widget.recent-post-widget .post-widget-list .post-content-item .post-title-date h6.title:hover, .sidebar-widget-area .widget.business-hour-widget ul.time-info li span.st-close, .sidebar-widget-area .widget.recent-post-widget .recent-post-list .post-thumbnail-content .post-title-date h6:hover, .sidebar-widget-area .widget.recent-post-widget .recent-post-list .post-thumbnail-content .post-title-date .posted-on i, .sidebar-widget-area .widget.search-widget form .form_group i, .blog-details-wrapper .comments-area .comments-list .comment .comment-wrap .comment-author-content .reply, .blog-details-wrapper .post-navigation .post-nav-item h5:hover, .blog-details-wrapper .entry-content .list li:before, .blog-details-wrapper .entry-content .fioxen-blockquote h6, .blog-details-wrapper .entry-content p span, .blog-post-item-four .entry-content h3.title:hover, .blog-post-item-four .entry-content .post-meta ul li span i, .blog-post-item-four .entry-content .post-meta ul li span:hover, .blog-post-item-three .entry-content .post-meta ul li span i, .blog-post-item-three .entry-content h3.title:hover, .blog-post-item-two .entry-content h3.title:hover, .blog-post-item-one .entry-content .post-meta ul li span i, .blog-post-item-one .entry-content .cat-btn:hover, .blog-post-item-one .entry-content h3.title:hover, .post-meta ul li span a:hover, .btn-link:hover, .description-wrapper .products-review-form .ratings li:hover i, .description-wrapper .products-review-area ul.review-list .review .review-content .reply:hover, .product-details-wrapper .product-info .product-meta .wishlist-btn, .product-details-wrapper .product-info span.price, .products-item-one .product-info span.price, .products-filter .sort-dropdown .show-text p, .add-listing-form.upload-listing-form .upload-content .upload-title-icon span, .listing-details-wrapper.listing-details-wrapper-two .listing-info-area .listing-info-content .listing-meta ul li span i, .listing-details-wrapper .listing-review-box .review-list .review .review-content .content-meta .reply, .listing-details-wrapper .listing-content p.para, .listing-list-item-two .listing-content .listing-meta ul span i, .listing-list-item-one .listing-content .listing-meta ul span i, .listing-grid-item-two .listing-content .listing-meta ul span i, .listing-grid-one .listing-content .listing-meta ul span i, .listing-grid-one .listing-content span.phone-meta:hover, .listing-item .listing-content span.phone-meta:hover, .listing-item .listing-content h3.title:hover, .single-checkbox label:after, .newsletter-wrapper .newsletter-form i, .intro-wrppaer-two .play-content .video-popup, .intro-wrapper-one .play-content-one .video-popup i, .counter-item-one .info h3, ul.ratings.ratings-five li.star:nth-child(5) i, ul.ratings.ratings-five li.star:nth-child(4) i, ul.ratings.ratings-five li.star:nth-child(3) i, ul.ratings.ratings-five li.star:nth-child(2) i, ul.ratings.ratings-five li.star:nth-child(1) i, ul.ratings.ratings-four li.star:nth-child(4) i, ul.ratings.ratings-four li.star:nth-child(3) i, ul.ratings.ratings-four li.star:nth-child(2) i, ul.ratings.ratings-four li.star:nth-child(1) i, ul.ratings.ratings-three li.star:nth-child(3) i, ul.ratings.ratings-three li.star:nth-child(2) i, ul.ratings.ratings-three li.star:nth-child(1) i, ul.ratings.ratings-two li.star:nth-child(2) i, ul.ratings.ratings-two li.star:nth-child(1) i, ul.ratings.ratings-one li.star:nth-child(1) i, .work-process-wrapper .single-process-step .process-content-box .step-count, .icon-box-one .icon i, .features-item-two .icon i, .features-item-one .icon i, .category-item-three:hover .info h4.title, .category-item-three:hover .icon i, .category-item-one:hover .info .icon i, .hero-wrapper-three .hero-content p.tags span, .header-area .header-top .top-right ul li a:hover, .header-area .header-top .top-content p a, .header-area .header-top .top-social ul.social-link li a:hover, .section-title span.sub-title {
+.contact-information-list .information-item .info p a:hover, .copyright-area .copyright-link ul li a:hover,
+.footer-widget .widget.categories-widget ul.categories-link li a:hover,
+.footer-widget .widget.recent-post-widget .post-widget-list .post-content-item .post-title-date h6.title:hover,
+.sidebar-widget-area .widget.business-hour-widget ul.time-info li span.st-close,
+.sidebar-widget-area .widget.recent-post-widget .recent-post-list .post-thumbnail-content .post-title-date h6:hover,
+.sidebar-widget-area .widget.recent-post-widget .recent-post-list .post-thumbnail-content .post-title-date .posted-on i,
+.sidebar-widget-area .widget.search-widget form .form_group i, .blog-details-wrapper .comments-area .comments-list .comment .comment-wrap .comment-author-content .reply,
+.blog-details-wrapper .post-navigation .post-nav-item h5:hover, .blog-details-wrapper .entry-content .list li:before, .blog-details-wrapper .entry-content .fioxen-blockquote h6,
+.blog-details-wrapper .entry-content p span, .blog-post-item-four .entry-content h3.title:hover, .blog-post-item-four .entry-content .post-meta ul li span i,
+.blog-post-item-four .entry-content .post-meta ul li span:hover, .blog-post-item-three .entry-content .post-meta ul li span i,
+.blog-post-item-three .entry-content h3.title:hover, .blog-post-item-two .entry-content h3.title:hover, .blog-post-item-one .entry-content .post-meta ul li span i,
+.blog-post-item-one .entry-content .cat-btn:hover, .blog-post-item-one .entry-content h3.title:hover, .post-meta ul li span a:hover, .btn-link:hover, .description-wrapper .products-review-form .ratings li:hover i, .description-wrapper .products-review-area ul.review-list .review .review-content .reply:hover, .product-details-wrapper .product-info .product-meta .wishlist-btn, .product-details-wrapper .product-info span.price, .products-item-one .product-info span.price, .products-filter .sort-dropdown .show-text p, .add-listing-form.upload-listing-form .upload-content .upload-title-icon span, .listing-details-wrapper.listing-details-wrapper-two .listing-info-area .listing-info-content .listing-meta ul li span i, .listing-details-wrapper .listing-review-box .review-list .review .review-content .content-meta .reply, .listing-details-wrapper .listing-content p.para, .listing-list-item-two .listing-content .listing-meta ul span i, .listing-list-item-one .listing-content .listing-meta ul span i, .listing-grid-item-two .listing-content .listing-meta ul span i, .listing-grid-one .listing-content .listing-meta ul span i, .listing-grid-one .listing-content span.phone-meta:hover, .listing-item .listing-content span.phone-meta:hover, .listing-item .listing-content h3.title:hover, .single-checkbox label:after, .newsletter-wrapper .newsletter-form i, .intro-wrppaer-two .play-content .video-popup, .intro-wrapper-one .play-content-one .video-popup i, .counter-item-one .info h3, ul.ratings.ratings-five li.star:nth-child(6) i,ul.ratings.ratings-five li.star:nth-child(5) i, ul.ratings.ratings-five li.star:nth-child(4) i, ul.ratings.ratings-five li.star:nth-child(3) i, ul.ratings.ratings-five li.star:nth-child(2) i, ul.ratings.ratings-five li.star:nth-child(1) i, ul.ratings.ratings-four li.star:nth-child(5) i,ul.ratings.ratings-four li.star:nth-child(4) i, ul.ratings.ratings-four li.star:nth-child(3) i, ul.ratings.ratings-four li.star:nth-child(2) i, ul.ratings.ratings-four li.star:nth-child(1) i, ul.ratings.ratings-three li.star:nth-child(4) i,ul.ratings.ratings-three li.star:nth-child(3) i, ul.ratings.ratings-three li.star:nth-child(2) i, ul.ratings.ratings-three li.star:nth-child(1) i,
+ul.ratings.ratings-two li.star:nth-child(3) i, ul.ratings.ratings-two li.star:nth-child(2) i, ul.ratings.ratings-two li.star:nth-child(1) i, ul.ratings.ratings-one li.star:nth-child(2) i, ul.ratings.ratings-one li.star:nth-child(1) i,
+.work-process-wrapper .single-process-step .process-content-box .step-count, .icon-box-one .icon i, .features-item-two .icon i,
+.features-item-one .icon i, .category-item-three:hover .info h4.title, .category-item-three:hover .icon i,
+.category-item-one:hover .info .icon i, .hero-wrapper-three .hero-content p.tags span, .header-area .header-top .top-right ul li a:hover, .header-area .header-top .top-content p a, .header-area .header-top .top-social ul.social-link li a:hover, .section-title span.sub-title {
   color: #007bff;
 }
 
@@ -5550,4 +5536,55 @@ h3.title {
   border: none;
   width: 100%;
   height: 700px;
+}
+
+/* use reverse flexbox to take advantage of flex-direction: reverse */
+.star-rating {
+    display: flex;
+    align-items: center;
+    width: 160px;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin: 40px auto;
+    position: relative;
+}
+/* hide the inputs */
+.star-rating input {
+    display: none;
+}
+/* set properties of all labels */
+.star-rating > label {
+    width: 30px;
+    height: 30px;
+    font-family: Arial;
+    font-size: 30px;
+    transition: 0.2s ease;
+    color: orange;
+}
+/* give label a hover state */
+.star-rating label:hover {
+    color: #ff69b4;
+    transition: 0.2s ease;
+}
+.star-rating label:active::before {
+    transform:scale(1.1);
+}
+
+/* set shape of unselected label */
+.star-rating label::before {
+    content: '\2606';
+    position: absolute;
+    top: 0px;
+    line-height: 26px;
+}
+/* set full star shape for checked label and those that come after it */
+.star-rating input:checked ~ label:before {
+    content:'\2605';
+}
+
+@-moz-document url-prefix() {
+    .star-rating input:checked ~ label:before {
+        font-size: 36px;
+        line-height: 21px;
+    }
 }

@@ -23,35 +23,46 @@
                                         <input type="search" class="form_control" placeholder="Search keyword"  name="searchboook" >
                                         <i class="ti-search"></i>
                                     </div>
-                                    <div  class="form_group">
 
-                                        <select  name="categories"  wire:modal="categories_2" class="wide">
-                                            <option value="" data-dsplay="Category">Category</option>
+                                    <div  class="form_group">
+                                        <label for="exampleDataList" class="form-label">Categories</label>
+                                        <input class="form-control" list="datalistcategories" id="exampleDataList"name="categories" placeholder="All Category">
+                                        <datalist id="datalistcategories">
+                                            <option value="" data-dsplay="Category">All Category</option>
                                             @if(isset($categories))
                                             @foreach($categories as $category)
                                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach
                                             @endif
-                                        </select>
+
+                                        </datalist>
+
                                     </div>
                                     <div class="form_group">
-                                        <select name="auteurs"class="wide">
-                                            <option value="" data-dsplay="Auteur">Auteur</option>
+                                        <label for="exampleDataList" class="form-label">Auteurs</label>
+                                        <input class="form-control" list="datalistauteurs" id="exampleDataList" name="auteurs" placeholder="All auteurs">
+                                        <datalist id="datalistauteurs">
+                                            <option value="" data-dsplay="Auteur">All Auteur</option>
                                             @if(isset($auteurs))
+
                                             @foreach($auteurs as $auteur)
                                                 <option value="{{$auteur->id}}">{{$auteur->fullname}}</option>
                                             @endforeach
                                             @endif
-                                        </select>
+
+                                        </datalist>
+
                                     </div>
                                     <div class="form_group">
-                                        <select class="wide" name="Langue">
-                                            <option value="" data-dsplay="Langue"> Langue</option>
+                                        <label for="exampleDataList" class="form-label">Langue</label>
+                                        <input class="form-control" list="datalistOptions" id="exampleDataList" name="Langue" placeholder="All Langue">
+                                        <datalist id="datalistOptions">
+                                            <option value="" data-dsplay="Langue">All Langue</option>
                                             <option value="Arabe"  >Arabe</option>
-                                            <option value="Anglais" >Anglais </option>
+                                            <option value="Anglais">Anglais </option>
                                             <option value="Français">Français</option>
                                             <option value="Espagnol">Espagnol</option>
-                                        </select>
+                                        </datalist>
                                     </div>
 
                                 </div>
@@ -107,8 +118,10 @@
                 ->where('deleted_at', null)->count()}}</span></span>
 
                                             <div class="listing-meta">
-                                                @foreach($book->tags as $tag)
-                                                    <span class="badge rounded-pill bg-primary ">{{$tag->name}}</span>
+                                                @foreach($book->tags  as $key => $tag)
+                                                    @if($key < 3)
+                                                        <span class="badge rounded-pill bg-primary ">{{$tag->name}}</span>
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         </div>
@@ -128,3 +141,8 @@
 
     <!--====== End Listing Section ======-->
 @endsection
+@push('scripts')
+    <script>
+        $('.form-select').select2();
+    </script>
+@endpush

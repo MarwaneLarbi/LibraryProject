@@ -79,6 +79,7 @@
                         <label for="formFile" class="form-label">Photo d'auteur</label>
                         <input class="form-control" type="file" id="formFile" name="edit_auteur_photo">
                         <a target="_blank" id="lastpic" href="{{ URL::to('/') }}/images/stackoverflow.png"> ancien photo</a>
+                    <img src="" id="auteur_editer_img" width="420px">
                     </div>
                 </div>
 

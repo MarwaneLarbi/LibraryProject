@@ -3,7 +3,7 @@
     <!--begin::Brand-->
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         <!--begin::Logo-->
-        <a href="../../demo1/dist/index.html">
+        <a href="http://localhost:8000/">
             <img style="margin-top: 19%;" alt="Logo" src="assets/media/logos/red.png" class="h-75px logo" />
         </a>
         <!--end::Logo-->
@@ -208,6 +208,28 @@
                         <span class="menu-title">Liste des Gestionnaire</span>
                     </a>
                 </div>
+                        <div class="menu-item">
+                            <div class="menu-content pt-8 pb-0">
+                                <span class="menu-section text-muted text-uppercase fs-8 ls-1">Messages</span>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="http://localhost:8000/messages">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+													<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+													<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+													<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+												</svg>
+											</span>
+                                            <!--end::Svg Icon-->
+										</span>
+                                <span class="menu-title">Liste des Messages</span>
+                            </a>
+                        </div>
                     @endif
 
             </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-@extends('layouts.gest')
+@extends('Layouts.gest')
 @section('content')
     <div class="position-lg-relative start-70 translate-middle-x">
         <h1> Categories & Mots Clés</h1>

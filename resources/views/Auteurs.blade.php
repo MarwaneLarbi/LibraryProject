@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-@extends('layouts.gest')
+@extends('Layouts.gest')
 <div>
 @section('content')
     <!--begin::Post-->

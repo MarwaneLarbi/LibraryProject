@@ -153,7 +153,7 @@
             </div>
 
             <div class="text-center">
-                <button  id="kt_modal_new_target_cancel" class="btn btn-light me-3">Cancel</button>
+                <button type="reset"  data-bs-dismiss="modal" aria-label="Close" class="btn btn-light me-3">Cancel</button>
                 <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
                     <span class="indicator-label">Submit</span>
                     <span class="indicator-progress">Please wait...
@@ -285,7 +285,7 @@
                                     else {
                                         Swal.fire({
                                                 text:"Désolé,utilisateur déja existe",
-                                            icon:"warning",
+                                            icon:"error",
                                             buttonsStyling:!1,
                                             confirmButtonText:"ok !",customClass:{
                                                     confirmButton:"btn btn-primary"}

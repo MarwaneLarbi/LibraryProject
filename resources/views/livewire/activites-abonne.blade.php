@@ -4,7 +4,12 @@
         <div class="card-header align-items-center border-0 mt-4">
             <h3 class="card-title align-items-start flex-column">
                 <span class="fw-bolder mb-2 text-dark">Activities</span>
-                <span class="text-muted fw-bold fs-7">ToTal Empruntes    <span class="fw-bolder mb-2 text-danger">{{$activities->count()}}</span></span>
+                <span class="text-muted fw-bold fs-7">ToTal Empruntes    <span class="fw-bolder mb-2 text-danger">                            {{
+$books=DB::table('_activities_abonne')
+->where('abonne_id', Session::get('abonne')->id)
+->where('status', '=', 'active')
+->count()
+}}</span></span>
             </h3>
             <div class="card-toolbar">
                 <!--begin::Menu-->
@@ -45,7 +50,6 @@
                                 <option></option>
                                 <option value="active">active</option>
                                 <option value="inactive">inactive</option>
-                                <option value="dateexp">Date Expiration</option>
 
                             </select>
 

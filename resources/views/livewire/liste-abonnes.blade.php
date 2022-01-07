@@ -122,13 +122,13 @@
                             <input class="form-check-input"  type="checkbox" data-kt-check="true" data-kt-check-target="#abonnes_table .form-check-input" value="1" />
                         </div>
                     </th>
-                    <th class="min-w-85px text-center">ID</th>
-                    <th class="min-w-125px text-center">Nom & Prenom</th>
-                    <th class="min-w-125px text-center">Email</th>
-                    <th class="min-w-125px text-center">Date Naissence</th>
-                    <th class="min-w-125px text-center">Status</th>
-                    <th class="min-w-125px text-center">Expiry Date</th>
-                    <th class="min-w-125px text-center">Actions</th>
+                    <th class="w-100px  text-center">ID</th>
+                    <th class="w-150px text-center">Nom & Prenom</th>
+                    <th class="w-150px text-center">Email</th>
+                    <th class="w-125px text-center">Date Naissence</th>
+                    <th class="w-80px text-center">Status</th>
+                    <th class="w-150px text-center">Expiry Date</th>
+                    <th class="text-center">Actions</th>
                 </tr>
                 <!--end::Table row-->
                 </thead>

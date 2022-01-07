@@ -42,8 +42,8 @@ class AddAbonnes extends Component
 
 
     public function store(Request $req){
-        $check=abonne::where('id',$req->id)->count();
-        if ($check!=0){
+        $check=abonne::where('id',$req->abonne_id)->first();
+        if ($check){
             return response()->json([
                 'status'=>500,
                 'success'=>false,
@@ -83,11 +83,6 @@ class AddAbonnes extends Component
                 $number='+213'.$req->abonne_tel;
                 $newAbonne->save();
                 $this->sendMessage($message,'+213'.$req->abonne_tel);
-
-        $details = [
-            'abonne'=>abonne::find($req->abonne_id)
-        ];
-        \Mail::to('marwane.dz2@gmail.com')->send(new \App\Mail\LibraryUserCard($details));
 
 
         return response()->json([

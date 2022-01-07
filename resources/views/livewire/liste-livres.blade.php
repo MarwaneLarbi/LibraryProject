@@ -77,14 +77,14 @@
                         <input class="form-check-input"  type="checkbox" data-kt-check="true" data-kt-check-target="#kt_livres_table .form-check-input" value="1" />
                     </div>
                 </th>
-                <th class="min-w-85px text-center">ID</th>
-                <th class="min-w-125px text-center">Titre</th>
-                <th class="min-w-125px text-center">Auteur</th>
-                <th class="min-w-125px text-center">éditeur</th>
-                <th class="min-w-125px text-center">ISBN</th>
-                <th class="min-w-125px text-center">Langue</th>
-                <th class="min-w-125px text-center">Nombre d'exemplaires</th>
-                <th class="min-w-125px text-center">Actions</th>
+                <th class="w-100px text-center">ID</th>
+                <th class="w-250px text-center">Titre</th>
+                <th class="w-150px text-center">Auteur</th>
+                <th class="w-150px  text-center">éditeur</th>
+                <th class="w-150px  text-center">ISBN</th>
+                <th class="w-100px  text-center">Langue</th>
+                <th class="w-100px  text-center">Nombre d'exemplaires</th>
+                <th class="min-w-140px text-center">Actions</th>
             </tr>
             <!--end::Table row-->
             </thead>
@@ -103,7 +103,7 @@
 
                         {{$book->id}}
                     </td>
-                    <td class=" text-center">
+                    <td class=" text-center fs-6 ">
                         {{$book->titre}}
                     </td>
                     <td class=" text-center">
@@ -124,7 +124,7 @@
                     <div id='print_{{$book->id}}' style="width: 10%" hidden>
                         {!! DNS1D::getBarcodeSVG($book->id, "CODABAR", 1, 65, '#2A3239') !!}
                     </div>
-                    <td class="text-end">
+                    <td class=" min-w-140px text-end">
                         <button type="button" value="{{$book->id}}" id="EditAuteurButton" class="btn btn-light-success editbookbtn btn-sm">Editer</button>
                         <button type="button" value="{{$book->id}}" class="btn btn-light-danger deletebookbtn btn-sm">Supprimer</button>
                         <button id="print" value="{{$book->id}}" class="btn btn-icon btn-success printbookbtn btn-sm"><i class="fas fa-print"></i></button>
@@ -136,7 +136,9 @@
             </tbody>
             <!--end::Table body-->
         </table>
-        <!--end::Table-->
+            @if(count($Books))
+                {{$Books->links()}}
+            @endif
     </div>
     </div>
 

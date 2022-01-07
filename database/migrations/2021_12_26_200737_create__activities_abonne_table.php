@@ -14,12 +14,14 @@ class CreateActivitiesAbonneTable extends Migration
     public function up()
     {
         Schema::create('_activities_abonne', function (Blueprint $table) {
-            $table->id();
+            $table->collation = 'utf8_general_ci';
+            $table->charset = 'utf8';
+            $table->increments('id');
             $table->bigInteger('livre_id');
             $table->bigInteger('abonne_id');
             $table->string('status');
             $table->string('bookName');
-            $table->timestamps('date');
+            $table->dateTime('date');
             $table->timestamps();
             $table->softDeletes();
         });

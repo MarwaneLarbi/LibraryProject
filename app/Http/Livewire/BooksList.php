@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\auteur;
 use App\Models\category;
+use App\Models\Comment;
 use App\Models\livre;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
@@ -79,8 +80,9 @@ class BooksList extends Component
     public function book_id($id){
     $book=livre::where('id',$id)->first();
     if($book)
-    {
-        return view('home.bookDetails', ['book' => $book]);
+    {    $comments=Comment::where('post_id',$id)->orderBy('created_at','desc')->paginate(5);
+
+        return view('home.bookDetails', ['book' => $book,'comments'=>$comments,]);
 
     }
     else {
@@ -91,9 +93,9 @@ class BooksList extends Component
     public function book_Category($id){
         $category=category::where('id',$id)->first();
         if($category)
-        {            $books = $books=livre::whereHas('categories', function (Builder $query) {
-            $query->where('category_id', '=', '$id');
-        })->paginate(10);
+        {            $books = $books=livre::whereHas('categories', function (Builder $query) use($id) {
+            $query->where('category_id', '=', $id);
+        })->paginate(9);
 
             return view('home.bookCategories', ['categories' => $category,'books'=>$books]);
 
@@ -101,6 +103,26 @@ class BooksList extends Component
         else {
             return  redirect('/');
         }
+
+    }
+    public function store_comments(Request $req){
+        $newcomment=new Comment();
+
+        if (!$req->has('stars')){
+            $newcomment->rating=3;
+        }
+        else{
+            $newcomment->rating=$req->stars;
+
+        }
+        $newcomment->name=$req->name;
+        $newcomment->email=$req->email;
+        $newcomment->post_id=$req->post_id;
+        $newcomment->comment=$req->message;
+        $newcomment->save();
+        return  back();
+
+
 
     }
 }

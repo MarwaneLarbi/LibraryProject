@@ -31,7 +31,7 @@
             <!--begin::Toolbar-->
             <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                 <!--begin::Export-->
-                <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_customers_export_modal">
+                <button type="button" class="btn btn-light-primary me-3" id="exporter_auteurs">
                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                     <span class="svg-icon svg-icon-2">
 													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -206,6 +206,19 @@ count()
 @push('custom-scripts')
     <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <script>
+
+    $(document).ready(function () {
+        $("#exporter_auteurs").click(function(){
+            TableToExcel.convert(document.getElementById("kt_customers_table"), {
+                name: "auteurs.xlsx",
+                sheet: {
+                    name: "Sheet1"
+                }
+            });
+        });
+    });
+
+
     $(document).on('click', '#afficherDesc', function (e) {
             e.preventDefault();
             var category_id = $(this).val();
@@ -298,6 +311,8 @@ function selectcountry(k){
                         $('#fullname').val(response.student.fullname);
                         selectcountry(response.student.country)
                         $("#lastpic").attr("href", "{{ URL::to('/') }}"+response.student.photo)
+                        $("#auteur_editer_img").attr("src",response.student.photo);
+
 
                     }
                 }
