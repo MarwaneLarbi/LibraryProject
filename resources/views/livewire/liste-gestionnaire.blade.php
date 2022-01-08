@@ -67,11 +67,11 @@
                             <input class="form-check-input"  type="checkbox" data-kt-check="true" data-kt-check-target="#gestionaire_table .form-check-input" value="1" />
                         </div>
                     </th>
-                    <th class="min-w-85px text-center">ID</th>
-                    <th class="min-w-125px text-center">Nom & Prenom</th>
-                    <th class="min-w-125px text-center">Email</th>
-                    <th class="min-w-125px text-center">Date Naissence</th>
-                    <th class="min-w-125px text-center">Role</th>
+                    <th class="w-85px text-center">ID</th>
+                    <th class="w-125px text-center">Nom & Prenom</th>
+                    <th class="w-300px text-center">Email</th>
+                    <th class="w-125px text-center">Date Naissence</th>
+                    <th class="w-125px text-center">Role</th>
                     <th class="min-w-125px text-center">Actions</th>
                 </tr>
                 <!--end::Table row-->
