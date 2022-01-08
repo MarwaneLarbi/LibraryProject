@@ -40,7 +40,8 @@
 <!--====== Start Preloader ======-->
 <div class="preloader">
     <div class="loader">
-        <img src="assets/images/loader.png" alt="loader">
+        <img src="assets/media/logos/red.png" alt="loader" width="450px" height="150px">
+        <h4> chargement..</h4>
     </div>
 </div>
 <!--====== End Preloader ======-->
@@ -63,8 +64,8 @@
                                     <li class="menu-item"><a href="http://localhost:8000/">Accueil</a></li>
                                     <li class="menu-item"><a href="http://localhost:8000/livres">Livres</a></li>
                                     <li class="menu-item"><a href="http://localhost:8000/categories">Categories</a></li>
-                                    <li class="menu-item"><a href="http://localhost:8000/categories">About us</a></li>
-                                    <li class="menu-item"><a href="contact.html">Contact</a></li>
+                                    <li class="menu-item"><a href="http://localhost:8000/blog1">Inscription</a></li>
+                                    <li class="menu-item"><a href="http://localhost:8000/contact">Contact</a></li>
                                 </ul>
                             </nav>
                         </div>

@@ -58,7 +58,9 @@ class AddEmprunts extends Component
 
         \Mail::to('marwane.dz2@gmail.com')->send(new \App\Mail\MyTestMail($details));
 
-
+        $abonne=abonne::find(Session::get('abonne')->id);
+        session()->forget('abonne');
+        session()->put('abonne', $abonne);
 
     }
 

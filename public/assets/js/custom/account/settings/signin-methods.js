@@ -39,11 +39,6 @@
             ),e.querySelector("#kt_signin_submit").addEventListener("click",(function(e){
                     e.preventDefault(),console.log("click"),t.validate().then((function(t){
                          if ("Valid"==t){
-                             swal.fire({
-                                     text:"Sent password reset. Please check your email",icon:"success",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
-                                         confirmButton:"btn font-weight-bold btn-light-primary"}
-                                 }
-                             ),
                                document.getElementById("kt_signin_change_email").submit()
 
                          }

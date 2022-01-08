@@ -365,7 +365,7 @@ button {
     Start Preloader css
 */
 .preloader {
-  background-color: #fff;
+  background-color: #f4f8fd;
   bottom: 0;
   height: 100vh;
   left: 0;

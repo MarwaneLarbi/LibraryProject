@@ -112,17 +112,17 @@ Route::group(['middleware' => ['AlreadyLoggedIn']], function() {
 
 Route::group(['middleware' => ['isLogged']], function() {
 
+    Route::get('/messages', function () {
 
+        return view('Contacts');
+    });
 
     Route::group(['middleware' => ['isAdmin']], function() {
         Route::get('Statistque', function () {
 
             return view('Statistique');
         });
-        Route::get('/messages', function () {
 
-            return view('Contacts');
-        });
         Route::prefix('gestionnaire')->group(function () {
             Route::get('/', function () {
 

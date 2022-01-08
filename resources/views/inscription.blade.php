@@ -16,12 +16,14 @@
 					  </span>
 
                                 </h2>
+                                <br>
                             </div><div class="panel-body"><div id="carousel-C1D986B32B0FFCFD36338E3B7E258276" class="ermes-frame-html">
                                     <div class="rsItem">
                                         <p>La Ville de Paris vous accueille dans l'une de ces 57 bibliothèques de prêt ou 15 bibliothèques patrimoniales. Elles sont gratuites et ouvertes à tous, adultes ou enfants, Parisiens ou non.</p>
                                         <p>- <strong>Les bibliothèques de prêt</strong>. Bien connues des Parisien(ne)s, les bibliothèques de prêt sont des lieux de vie et de culture dans lesquels vous pouvez emprunter des documents, et aussi participer aux nombreuses animations (atelier, conférence, lecture, projection...) ou simplement vous poser quelques instants pour lire la presse, travailler ou apprendre.</p>
                                         <p>- <strong>Les bibliothèques spécialisées et patrimoniales</strong>. Ces établissements proposent des collections exceptionnelles, souvent rares, dont la majeure partie est à consulter sur place. Sur des thématiques aussi diverses que les arts décoratifs, l’histoire des femmes, le théâtre, le cinéma, la musique, le tourisme, l'histoire de Paris ou encore la littérature policière, elles séduiront à la fois les chercheurs, les étudiants, mais aussi les curieux et les passionnés !</p>
-                                        <p><a class="btn btn-default" role="button" title="Liste des bibliothèques" href="https://www.paris.fr/equipements/bibliotheques/" target="_blank">Liste des bibliothèques</a></p>
+                                        <p>
+                                        </p>
                                         <p> </p>
                                         <h3>Comment s'inscrire ?</h3>
                                         <p>Les bibliothèques de prêt et les bibliothèques patrimoniales et spécialisées possèdent deux systèmes d'inscriptions différents en raison des spécificités de leurs missions. Pour vous inscrire, il suffit de vous rendre à l'accueil d'une bibliothèque de votre choix : il vous sera délivré votre <a class="purple_link" title="Nouvelle carte unique des bibliothèques" href="une-nouvelle-carte-pour-les-bibliotheques.aspx">carte d'abonné</a>. Celle-ci vous permet de réaliser votre inscription dans les bibliothèques de prêt puis votre inscription dans les bibliothèques patrimoniales et spécialisées si cela vous intéresse (ou l’inverse si vous vous abonnez en premier dans une bibliothèque patrimoniale et spécialisée !).</p>
@@ -73,16 +75,46 @@
                                         <p><a class="btn btn-default" role="button" title="Les avantages de votre abonnement" href="les-avantages-de-l-abonnement.aspx">Les avantages de l'abonnement</a> <a class="btn btn-default" role="button" title="Comment emprunter des documents" href="emprunter-des-documents.aspx">Emprunter des documents</a> <a class="btn btn-default" role="button" href="/agenda">Agenda des bibliothèques</a></p>
                                     </div>
                                 </div> </div><div class="panel-footer"> <div class="footer-icon-container"> </div></div></div>
-                    </div></div></div></div></div><div id="layout-5" class="col-md-12 cms-inner-layout" data="zobi"><div class="row"><div id="zone-6" class="col-md-6 cms-inner-zone" style="min-height:1px"><!----></div><div id="zone-7" class="col-md-6 cms-inner-zone" style="min-height:1px"><!----></div></div></div><div id="zone-8" class="col-md-12 cms-inner-zone" style="min-height:1px"><!----></div><div id="layout-9" class="col-md-12 cms-inner-layout" data="zobi"><div class="row"><div id="zone-10" class="col-md-6 cms-inner-zone" style="min-height:1px"><!----></div><div id="zone-11" class="col-md-6 cms-inner-zone" style="min-height:1px"><!----></div></div></div><div id="zone-12" class="col-md-12 cms-inner-zone" style="min-height:1px"><!----></div></div></div>
-        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="sidebar-widget-area">
 
+                        <div class="widget contact-info-widget mb-30">
+                            <div class="contact-info-widget-wrap">
+
+                                <div class="contact-map">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26179.016163497716!2d-1.3467277330735559!3d34.89698694323511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd78c969c3308445%3A0xb1a952ce24399c19!2sBiblioth%C3%A8que%20de%20la%20facult%C3%A9%20des%20sciences!5e0!3m2!1sfr!2sdz!4v1641035087659!5m2!1sfr!2sdz"></iframe>
+                                    <a href="#" class="support-icon"><i class="flaticon-headphone"></i></a>
+                                </div>
+                                <div class="contact-info-content">
+                                    <h4 class="widget-title">Contact Info</h4>
+                                    <div class="info-list">
+                                        <p><i class="ti-tablet"></i><a href="tel:+98265365205">+213 10 10 10 10</a></p>
+                                        <p><i class="ti-location-pin"></i>45/A Tlemcen,Algerie</p>
+                                        <p><i class="ti-email"></i><a href="mailto:Bibliotheque@tlemcen.dz">Bibliotheque@tlemcen.dz</a></p>
+                                        <p><i class="ti-world"></i><a href="www.Bibliothequetlemcen.com">www.Bibliothequetlemcen.com</a></p>
+                                        <p><i class="ti-world"></i><a class="text-center text-primary" title="Liste des bibliothèques" href="https://www.paris.fr/equipements/bibliotheques/" target="_blank">Liste des bibliothèques</a></p>
+
+                                    </div>
+
+                                    <ul class="social-link">
+                                        <li><a href="#"><i class="ti-facebook"></i></a></li>
+                                        <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
+                                        <li><a href="#"><i class="ti-pinterest"></i></a></li>
+                                        <li><a href="#"><i class="ti-dribbble"></i></a></li>
+                                    </ul>
+
+                                </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
+
             </div>
         </div>
+
     </section>
     <!--====== End Blog Section ======-->
 @endsection

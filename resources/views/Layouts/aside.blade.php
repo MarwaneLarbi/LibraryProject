@@ -208,13 +208,15 @@
                         <span class="menu-title">Liste des Gestionnaire</span>
                     </a>
                 </div>
-                        <div class="menu-item">
-                            <div class="menu-content pt-8 pb-0">
-                                <span class="menu-section text-muted text-uppercase fs-8 ls-1">Messages</span>
-                            </div>
+
+                    @endif
+                    <div class="menu-item">
+                        <div class="menu-content pt-8 pb-0">
+                            <span class="menu-section text-muted text-uppercase fs-8 ls-1">Messages</span>
                         </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="http://localhost:8000/messages">
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link" href="http://localhost:8000/messages">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -227,11 +229,9 @@
 											</span>
                                             <!--end::Svg Icon-->
 										</span>
-                                <span class="menu-title">Liste des Messages</span>
-                            </a>
-                        </div>
-                    @endif
-
+                            <span class="menu-title">Liste des Messages</span>
+                        </a>
+                    </div>
             </div>
             <!--end::Menu-->
         </div>
