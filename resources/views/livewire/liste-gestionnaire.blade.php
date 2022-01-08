@@ -136,7 +136,7 @@
                                             </div>
                                         </div>
                                         <div class="position-absolute bottom-0 end-25">
-                                            <div><h6 style="display: inline;">Role : </h6><span id="abonneCart_"> Gestionnaire</span></div>
+                                            <div><h6 style="display: inline;">Role : </h6><span id="abonneCart_"> {{$gestionnaire->role}}</span></div>
 
                                         </div>
                                     </div>
