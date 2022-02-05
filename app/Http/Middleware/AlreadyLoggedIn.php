@@ -18,7 +18,7 @@ class AlreadyLoggedIn
     {
         if (session()->has('LoggedUser') && url('login')==$request->url())
         {
-            return back();
+            return redirect('abonne');
         }
         return $next($request);
     }
