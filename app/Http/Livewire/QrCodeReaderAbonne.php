@@ -12,13 +12,26 @@ class QrCodeReaderAbonne extends Component
     public function checkqrcode(Request $req){
         $checkExisteAbonne = abonne::where('id', $req->id)->count();
         if($checkExisteAbonne!=0){
-            $abonne =abonne::find($req->id);
-            session()->put('abonne', $abonne);
-            return response()->json([
-                'success'=>true,
-                'status'=>200,
-                'abonne'=> $abonne
-            ]);
+            $abonne=abonne::find($req->id);
+            if($abonne->status=='active')
+            {
+                session()->put('abonne', $abonne);
+                return response()->json([
+                    'success'=>true,
+                    'status'=>200,
+                    'abonne'=> $abonne
+
+                ]);
+            }
+            else{
+                return response()->json([
+                    'success' => false,
+                    'status'=>505,
+
+                ]);
+            }
+
+
         }
         else{
             return response()->json([

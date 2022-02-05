@@ -47,15 +47,34 @@
                         window.location.reload();
                     }
                     else {
-                        Swal.fire({
-                            text:"this user has not been Deleted!.",
-                            icon:"error",
-                            buttonsStyling:!1,
-                            confirmButtonText:"Ok, got it!"
-                            ,customClass:{
-                                    confirmButton:"btn btn-primary"}
-                            }
-                        )}
+                        if(response.status==500)
+                        {
+                            Swal.fire({
+                                    text:"this user has not been Deleted!.",
+                                    icon:"error",
+                                    buttonsStyling:!1,
+                                    confirmButtonText:"Ok, got it!"
+                                    ,customClass:{
+                                        confirmButton:"btn btn-primary"}
+                                }
+                            )
+                        }
+                        else if(response.status==505){
+                            Swal.fire({
+                                    text:"votre abonnement est expiré si vous voulez de réactiver ?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"oui,réactiver!",cancelButtonText:"No, annuler",customClass:{
+                                        confirmButton:"btn btn-primary",cancelButton:"btn btn-active-light"}
+                                }
+                            ).then((function(t){
+                                    t.value?(window.location.replace("http://localhost:8000/abonne")
+                                    ):"cancel"===t.dismiss&&Swal.fire({
+                                            text:"Your form has not been cancelled!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{
+                                                confirmButton:"btn btn-primary"}
+                                        }
+                                    )}
+                            ))
+                        }
+
+                    }
                     }
 
                 });

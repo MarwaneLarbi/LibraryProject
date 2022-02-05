@@ -196,8 +196,10 @@ class AddAbonnes extends Component
             $query->where('id', '=', '14');
         })->get();*/
 
-        return $books=livre::whereHas('categories', function (Builder $query) {
+/*        return $books=livre::whereHas('categories', function (Builder $query) {
         $query->where('category_id', '=', '4');
-    })->get();
+    })->get();*/
+
+        $this->sendMessage('dddddddddddddddddddddddddddddd','+213540781204');
     }
 }
